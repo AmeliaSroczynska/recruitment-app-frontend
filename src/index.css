@@ -6,38 +6,38 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --background: #f4f1e8;
+  --foreground: #22201b;
+  --card: #fdfcf7;
+  --card-foreground: #22201b;
+  --popover: #fdfcf7;
+  --popover-foreground: #22201b;
+  --primary: #37432c;
+  --primary-foreground: #fdfcf7;
+  --secondary: #efeadc;
+  --secondary-foreground: #22201b;
+  --muted: #efeadc;
+  --muted-foreground: #78736a;
+  --accent: #efeadc;
+  --accent-foreground: #22201b;
+  --destructive: #a45a46;
+  --border: #e5e0d3;
+  --input: #e5e0d3;
+  --ring: #9aa487;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #fdfcf7;
+  --sidebar-foreground: #22201b;
+  --sidebar-primary: #37432c;
+  --sidebar-primary-foreground: #fdfcf7;
+  --sidebar-accent: #efeadc;
+  --sidebar-accent-foreground: #22201b;
+  --sidebar-border: #e5e0d3;
+  --sidebar-ring: #9aa487;
 }
 
 .dark {
@@ -75,8 +75,19 @@
 }
 
 @theme inline {
-  --font-sans: 'Inter Variable', sans-serif;
-  --font-heading: var(--font-sans);
+  --font-sans: 'Figtree', system-ui, sans-serif;
+  --font-heading: 'Onest', system-ui, sans-serif;
+
+  --color-olive: #37432c;
+  --color-olive-dark: #47543a;
+  --color-sage: #8c9c6a;
+  --color-sage-light: #cbd3b2;
+  --color-ochre: #c4881e;
+  --color-ochre-dark: #8a5d0f;
+  --color-on-ochre: #2b220f;
+  --color-paper: #f4f1e8;
+  --color-surface: #fdfcf7;
+  --color-stone: #b4ae9e;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

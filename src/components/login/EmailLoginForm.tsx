@@ -1,6 +1,7 @@
-import type { FormEvent } from 'react'
-import { ArrowLeft, Mail } from 'lucide-react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState, type FormEvent } from 'react'
+import { Mail } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { LoginFormHeader } from '@/components/login/LoginFormHeader'
 import { Button } from '@/components/ui/button'
 import { Field, FieldLabel } from '@/components/ui/field'
 import {
@@ -21,29 +22,21 @@ function EmailLoginForm({
   nextPath,
 }: EmailLoginFormProps) {
   const navigate = useNavigate()
+  const [email, setEmail] = useState('')
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    navigate(nextPath)
+    navigate(nextPath, { state: { email } })
   }
 
   return (
     <>
-      <Button
-        variant="link"
-        nativeButton={false}
-        render={<Link to="/login" />}
-        className="h-auto gap-[5px] p-0 text-[13px] leading-[18.9px] font-semibold text-ochre-dark"
-      >
-        <ArrowLeft className="size-3.5" />
-        Zmień panel
-      </Button>
-      <h2 className="mt-3.5 font-heading text-2xl leading-[34.8px] font-extrabold text-foreground lg:mt-4 lg:text-[28px] lg:leading-[40.6px] lg:tracking-[-0.3px]">
-        Zaloguj się
-      </h2>
-      <p className="mt-[7px] text-sm leading-[20.3px] text-muted-foreground">
-        {description}
-      </p>
+      <LoginFormHeader
+        backTo="/login"
+        backLabel="Zmień panel"
+        title="Zaloguj się"
+        description={description}
+      />
       <form onSubmit={handleSubmit} className="mt-3.5 lg:mt-5">
         <Field className="gap-[7px]">
           <FieldLabel
@@ -62,6 +55,8 @@ function EmailLoginForm({
               autoComplete="email"
               placeholder={emailPlaceholder}
               required
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
               className="text-sm"
             />
           </InputGroup>

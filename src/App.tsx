@@ -3,6 +3,7 @@ import { AuthProvider } from '@/auth/AuthProvider'
 import { RequireAuth } from '@/auth/RequireAuth'
 import CandidateCodePage from '@/page/CandidateCodePage'
 import CandidateLoginPage from '@/page/CandidateLoginPage'
+import CreateOrganizationPage from '@/page/CreateOrganizationPage'
 import OrganizationChoicePage from '@/page/OrganizationChoicePage'
 import OrganizationCodePage from '@/page/OrganizationCodePage'
 import OrganizationLoginPage from '@/page/OrganizationLoginPage'
@@ -34,6 +35,10 @@ function App() {
             <Route
               path="/login/organization/organization"
               element={<OrganizationChoicePage panel="organization" />}
+            />
+            <Route
+              path="/login/organization/new"
+              element={<CreateOrganizationPage />}
             />
             <Route
               path="/candidate/:editionId"

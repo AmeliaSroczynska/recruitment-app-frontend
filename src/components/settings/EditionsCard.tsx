@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/auth/AuthContext'
+import { DeleteEditionDialog } from '@/components/settings/DeleteEditionDialog'
 import { NewEditionDialog } from '@/components/settings/NewEditionDialog'
 import { SettingsCard } from '@/components/settings/SettingsCard'
 import { Button } from '@/components/ui/button'
@@ -56,8 +57,9 @@ function EditionsCard({ editionId, canEdit }: EditionsCardProps) {
         </div>
       )}
       {canEdit && (
-        <div className="mt-4">
+        <div className="mt-4 flex flex-wrap items-center gap-2">
           <NewEditionDialog editionId={editionId} />
+          {editions && editions.length > 1 && <DeleteEditionDialog />}
         </div>
       )}
     </SettingsCard>

@@ -12,6 +12,7 @@ import PanelChoicePage from '@/page/PanelChoicePage'
 import PanelLayout from '@/page/PanelLayout'
 import PanelPlaceholderPage from '@/page/PanelPlaceholderPage'
 import PanelSectionPage from '@/page/PanelSectionPage'
+import SettingsPage from '@/page/SettingsPage'
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
             <Route path="/organization/:editionId" element={<PanelLayout />}>
               <Route index element={<Navigate to="applications" replace />} />
               <Route path="more" element={<MorePage />} />
+              <Route path="settings" element={<SettingsPage />} />
               <Route path=":section" element={<PanelSectionPage />} />
             </Route>
           </Route>

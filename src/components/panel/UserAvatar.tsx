@@ -1,17 +1,22 @@
-import type { User } from '@/auth/AuthContext'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { cn } from '@/lib/utils'
-import { getInitials } from '@/panel/user'
+import { getInitials, type Person } from '@/panel/user'
 
 type UserAvatarProps = {
-  user: User
+  user: Person
   className?: string
+  fallbackClassName?: string
 }
 
-function UserAvatar({ user, className }: UserAvatarProps) {
+function UserAvatar({ user, className, fallbackClassName }: UserAvatarProps) {
   return (
     <Avatar className={cn('after:border-0', className)}>
-      <AvatarFallback className="bg-sage text-xs font-medium text-foreground">
+      <AvatarFallback
+        className={cn(
+          'bg-sage text-xs font-medium text-foreground',
+          fallbackClassName,
+        )}
+      >
         {getInitials(user)}
       </AvatarFallback>
     </Avatar>

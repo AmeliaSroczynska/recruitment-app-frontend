@@ -6,10 +6,11 @@ import { useEdition } from '@/panel/EditionContext'
 
 type PanelPageProps = {
   title: string
+  actions?: ReactNode
   children?: ReactNode
 }
 
-function PanelPage({ title, children }: PanelPageProps) {
+function PanelPage({ title, actions, children }: PanelPageProps) {
   const { user } = useAuth()
   const membership = useEdition()
 
@@ -19,14 +20,17 @@ function PanelPage({ title, children }: PanelPageProps) {
         <h1 className="font-heading text-[28px] leading-tight font-extrabold tracking-[-0.3px] text-foreground md:text-[34px]">
           {title}
         </h1>
-        {user && (
-          <Link
-            to={`/organization/${membership.edition_id}/more`}
-            className="md:hidden"
-          >
-            <UserAvatar user={user} className="size-10" />
-          </Link>
-        )}
+        <div className="flex items-center gap-3">
+          {actions}
+          {user && (
+            <Link
+              to={`/organization/${membership.edition_id}/more`}
+              className="md:hidden"
+            >
+              <UserAvatar user={user} className="size-10" />
+            </Link>
+          )}
+        </div>
       </header>
       <div className="mt-5 md:mt-6">{children}</div>
     </div>

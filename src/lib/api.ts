@@ -35,6 +35,9 @@ function getErrorMessage(status: number, data: unknown) {
       return data.detail
     }
     const firstError = Object.values(data)[0]
+    if (typeof firstError === 'string') {
+      return firstError
+    }
     if (Array.isArray(firstError) && typeof firstError[0] === 'string') {
       return firstError[0]
     }

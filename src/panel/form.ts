@@ -6,4 +6,24 @@ type ApplicationForm = {
   is_accepting_responses: boolean
 }
 
-export type { ApplicationForm }
+type QuestionType = {
+  name: string
+  label: string
+}
+
+type Choice = {
+  id: number
+  text: string
+  position: number
+}
+
+type Question = {
+  id: number
+  type: string
+  text: string
+  position: number
+  is_required: boolean
+  choices: Choice[]
+}
+
+export type { ApplicationForm, Choice, Question, QuestionType }

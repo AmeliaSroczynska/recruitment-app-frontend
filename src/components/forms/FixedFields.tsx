@@ -1,11 +1,19 @@
 import { Lock } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 const FIXED_FIELDS = ['Imię', 'Nazwisko', 'Adres e-mail']
 
-function RequiredBadge() {
+function RequiredBadge({ required = true }: { required?: boolean }) {
   return (
-    <span className="rounded-full bg-sand/50 px-2 py-0.5 text-xs font-medium text-ochre-dark">
-      obowiązkowe
+    <span
+      className={cn(
+        'rounded-full px-2 py-0.5 text-xs font-medium',
+        required
+          ? 'bg-sand/50 text-ochre-dark'
+          : 'bg-muted text-muted-foreground',
+      )}
+    >
+      {required ? 'obowiązkowe' : 'opcjonalne'}
     </span>
   )
 }

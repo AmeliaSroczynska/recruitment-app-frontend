@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from 'react'
 import { FormHeaderCard } from '@/components/forms/FormHeaderCard'
 import { FormLinkCard } from '@/components/forms/FormLinkCard'
 import { FormSettingsCard } from '@/components/forms/FormSettingsCard'
+import { QuestionList } from '@/components/forms/QuestionList'
 import { PanelPage } from '@/components/panel/PanelPage'
 import { PanelTabsList, PanelTabsTrigger } from '@/components/panel/PanelTabs'
 import { SettingsCard } from '@/components/settings/SettingsCard'
@@ -102,11 +103,9 @@ function FormsPage() {
               <PanelTabsTrigger value="settings">Ustawienia</PanelTabsTrigger>
             </PanelTabsList>
             <TabsContent value="questions">
-              <FormHeaderCard
-                form={form}
-                disabled={!canEdit}
-                onChange={update}
-              />
+              <FormHeaderCard form={form} disabled={!canEdit} onChange={update}>
+                <QuestionList editionId={editionId} canEdit={canEdit} />
+              </FormHeaderCard>
             </TabsContent>
             <TabsContent
               value="settings"

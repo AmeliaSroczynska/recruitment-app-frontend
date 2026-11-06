@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { FixedFields } from '@/components/forms/FixedFields'
 import { SettingsCard } from '@/components/settings/SettingsCard'
 import { Input } from '@/components/ui/input'
@@ -9,9 +10,15 @@ type FormHeaderCardProps = {
   form: ApplicationForm
   disabled: boolean
   onChange: (changes: Partial<ApplicationForm>) => void
+  children?: ReactNode
 }
 
-function FormHeaderCard({ form, disabled, onChange }: FormHeaderCardProps) {
+function FormHeaderCard({
+  form,
+  disabled,
+  onChange,
+  children,
+}: FormHeaderCardProps) {
   return (
     <SettingsCard>
       <div className="flex flex-col gap-2">
@@ -35,6 +42,7 @@ function FormHeaderCard({ form, disabled, onChange }: FormHeaderCardProps) {
       </div>
       <Separator className="my-5" />
       <FixedFields />
+      {children}
     </SettingsCard>
   )
 }

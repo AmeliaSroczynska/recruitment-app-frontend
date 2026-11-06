@@ -5,7 +5,7 @@ import { UserAvatar } from '@/components/panel/UserAvatar'
 import { useEdition } from '@/panel/EditionContext'
 
 type PanelPageProps = {
-  title: string
+  title: ReactNode
   actions?: ReactNode
   children?: ReactNode
 }

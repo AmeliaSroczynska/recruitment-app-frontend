@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { PanelPage } from '@/components/panel/PanelPage'
+import { PanelTabsList, PanelTabsTrigger } from '@/components/panel/PanelTabs'
 import { EditionsCard } from '@/components/settings/EditionsCard'
 import { MembersCard } from '@/components/settings/MembersCard'
 import {
@@ -10,12 +11,9 @@ import {
 import { PermissionsTable } from '@/components/settings/PermissionsTable'
 import { RolesCard } from '@/components/settings/RolesCard'
 import { Button } from '@/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tabs, TabsContent } from '@/components/ui/tabs'
 import { useEdition } from '@/panel/EditionContext'
 import { canEditSettings, canSeeSettings } from '@/panel/roles'
-
-const tabClassName =
-  'h-full flex-none px-0 text-sm font-normal text-muted-foreground data-active:font-medium data-active:text-foreground after:bottom-[-2px]! after:bg-ochre!'
 
 function SettingsPage() {
   const membership = useEdition()
@@ -45,19 +43,10 @@ function SettingsPage() {
       }
     >
       <Tabs value={tab} onValueChange={setTab} className="gap-5 md:gap-6">
-        <div className="-mx-[18px] border-b border-border px-[18px] md:-mx-8 md:px-8">
-          <TabsList
-            variant="line"
-            className="gap-5 p-0 group-data-horizontal/tabs:h-10"
-          >
-            <TabsTrigger value="organization" className={tabClassName}>
-              Organizacja
-            </TabsTrigger>
-            <TabsTrigger value="permissions" className={tabClassName}>
-              Uprawnienia
-            </TabsTrigger>
-          </TabsList>
-        </div>
+        <PanelTabsList>
+          <PanelTabsTrigger value="organization">Organizacja</PanelTabsTrigger>
+          <PanelTabsTrigger value="permissions">Uprawnienia</PanelTabsTrigger>
+        </PanelTabsList>
         <TabsContent value="organization" className="flex flex-col gap-4">
           <OrganizationForm
             key={membership.edition_id}

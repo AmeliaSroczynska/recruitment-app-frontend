@@ -4,6 +4,7 @@ import { RequireAuth } from '@/auth/RequireAuth'
 import CandidateCodePage from '@/page/CandidateCodePage'
 import CandidateLoginPage from '@/page/CandidateLoginPage'
 import CreateOrganizationPage from '@/page/CreateOrganizationPage'
+import FormsPage from '@/page/FormsPage'
 import MorePage from '@/page/MorePage'
 import OrganizationChoicePage from '@/page/OrganizationChoicePage'
 import OrganizationCodePage from '@/page/OrganizationCodePage'
@@ -51,6 +52,7 @@ function App() {
             <Route path="/organization/:editionId" element={<PanelLayout />}>
               <Route index element={<Navigate to="applications" replace />} />
               <Route path="more" element={<MorePage />} />
+              <Route path="forms" element={<FormsPage />} />
               <Route path="settings" element={<SettingsPage />} />
               <Route path=":section" element={<PanelSectionPage />} />
             </Route>

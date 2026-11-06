@@ -3,11 +3,16 @@ import { AuthProvider } from '@/auth/AuthProvider'
 import { RequireAuth } from '@/auth/RequireAuth'
 import CandidateCodePage from '@/page/CandidateCodePage'
 import CandidateLoginPage from '@/page/CandidateLoginPage'
+import CreateOrganizationPage from '@/page/CreateOrganizationPage'
+import MorePage from '@/page/MorePage'
 import OrganizationChoicePage from '@/page/OrganizationChoicePage'
 import OrganizationCodePage from '@/page/OrganizationCodePage'
 import OrganizationLoginPage from '@/page/OrganizationLoginPage'
 import PanelChoicePage from '@/page/PanelChoicePage'
+import PanelLayout from '@/page/PanelLayout'
 import PanelPlaceholderPage from '@/page/PanelPlaceholderPage'
+import PanelSectionPage from '@/page/PanelSectionPage'
+import SettingsPage from '@/page/SettingsPage'
 
 function App() {
   return (
@@ -36,13 +41,19 @@ function App() {
               element={<OrganizationChoicePage panel="organization" />}
             />
             <Route
+              path="/login/organization/new"
+              element={<CreateOrganizationPage />}
+            />
+            <Route
               path="/candidate/:editionId"
               element={<PanelPlaceholderPage panel="candidate" />}
             />
-            <Route
-              path="/organization/:editionId"
-              element={<PanelPlaceholderPage panel="organization" />}
-            />
+            <Route path="/organization/:editionId" element={<PanelLayout />}>
+              <Route index element={<Navigate to="applications" replace />} />
+              <Route path="more" element={<MorePage />} />
+              <Route path="settings" element={<SettingsPage />} />
+              <Route path=":section" element={<PanelSectionPage />} />
+            </Route>
           </Route>
         </Routes>
       </AuthProvider>

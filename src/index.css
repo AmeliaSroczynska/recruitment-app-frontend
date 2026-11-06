@@ -30,13 +30,13 @@
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --radius: 0.625rem;
-  --sidebar: #fdfcf7;
-  --sidebar-foreground: #22201b;
-  --sidebar-primary: #37432c;
-  --sidebar-primary-foreground: #fdfcf7;
-  --sidebar-accent: #efeadc;
-  --sidebar-accent-foreground: #22201b;
-  --sidebar-border: #e5e0d3;
+  --sidebar: #37432c;
+  --sidebar-foreground: #efeadc;
+  --sidebar-primary: #c4881e;
+  --sidebar-primary-foreground: #22201b;
+  --sidebar-accent: #47543a;
+  --sidebar-accent-foreground: #fdfcf7;
+  --sidebar-border: #47543a;
   --sidebar-ring: #9aa487;
 }
 
@@ -88,6 +88,9 @@
   --color-paper: #f4f1e8;
   --color-surface: #fdfcf7;
   --color-stone: #b4ae9e;
+  --color-sand: #dcc79a;
+  --color-moss: #9aa487;
+  --color-moss-light: #eaeee0;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

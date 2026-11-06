@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/auth/AuthContext'
+import { NewOrganizationTile } from '@/components/login/NewOrganizationTile'
 import { OrganizationTile } from '@/components/login/OrganizationTile'
 import { Button } from '@/components/ui/button'
 
@@ -39,7 +40,7 @@ function OrganizationChoicePage({ panel }: OrganizationChoicePageProps) {
   } else {
     description =
       editions.length === 0 ? (
-        <>Konto {email} nie ma jeszcze dostępu do panelu rekrutera.</>
+        <>Konto {email} nie należy jeszcze do żadnej organizacji.</>
       ) : (
         <>
           Konto {email} ma dostęp do panelu rekrutera w{' '}
@@ -62,7 +63,7 @@ function OrganizationChoicePage({ panel }: OrganizationChoicePageProps) {
         <p className="mt-2 text-sm leading-[20.3px] text-muted-foreground lg:text-[15px] lg:leading-[21.8px]">
           {description}
         </p>
-        {editions.length > 0 && (
+        {(editions.length > 0 || panel === 'organization') && (
           <div className="mt-5 grid gap-3 lg:mt-[31px] lg:grid-cols-3 lg:gap-4">
             {editions.map((edition, index) => (
               <OrganizationTile
@@ -72,6 +73,7 @@ function OrganizationChoicePage({ panel }: OrganizationChoicePageProps) {
                 index={index}
               />
             ))}
+            {panel === 'organization' && <NewOrganizationTile />}
           </div>
         )}
         <Button

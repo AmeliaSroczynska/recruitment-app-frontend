@@ -1,5 +1,8 @@
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 import { GripVertical } from 'lucide-react'
 import { useState } from 'react'
+import { ChoiceList } from '@/components/forms/ChoiceList'
 import { DeleteQuestionDialog } from '@/components/forms/DeleteQuestionDialog'
 import { RequiredBadge } from '@/components/forms/FixedFields'
 import { FieldError } from '@/components/ui/field'
@@ -12,7 +15,10 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { api, ApiError } from '@/lib/api'
+import { cn } from '@/lib/utils'
 import type { Question, QuestionType } from '@/panel/form'
+
+const CHOICE_TYPES = ['single_choice', 'multiple_choice']
 
 type QuestionCardProps = {
   editionId: number
@@ -36,6 +42,15 @@ function QuestionCard({
   const [text, setText] = useState(question.text)
   const [error, setError] = useState('')
   const path = `editions/${editionId}/form/questions/${question.id}/`
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    setActivatorNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: question.id, disabled: !canEdit })
 
   async function save(changes: Partial<Question>) {
     setError('')
@@ -65,9 +80,30 @@ function QuestionCard({
   }
 
   return (
-    <li className="rounded-xl border border-border bg-surface p-4 md:p-6">
+    <li
+      ref={setNodeRef}
+      style={{
+        transform: CSS.Translate.toString(transform),
+        transition,
+      }}
+      className={cn(
+        'rounded-xl border border-border bg-surface p-4 md:p-6',
+        isDragging && 'relative z-10 shadow-lg',
+      )}
+    >
       <div className="flex items-center gap-2 md:gap-3">
-        <GripVertical className="hidden size-4 text-muted-foreground md:block" />
+        {canEdit && (
+          <button
+            type="button"
+            ref={setActivatorNodeRef}
+            aria-label="Przeciągnij, aby zmienić kolejność"
+            className="-ml-1 flex size-6 cursor-grab touch-none items-center justify-center rounded text-muted-foreground active:cursor-grabbing"
+            {...attributes}
+            {...listeners}
+          >
+            <GripVertical className="size-4" />
+          </button>
+        )}
         <Select
           items={Object.fromEntries(
             types.map((type) => [type.name, type.label]),
@@ -120,6 +156,15 @@ function QuestionCard({
           onBlur={() => text !== question.text && save({ text })}
           className="min-h-14 rounded-[10px] border-border bg-card px-3 py-2.5 text-sm shadow-none"
         />
+        {CHOICE_TYPES.includes(question.type) && (
+          <ChoiceList
+            path={`${path}choices/`}
+            choices={question.choices}
+            multiple={question.type === 'multiple_choice'}
+            canEdit={canEdit}
+            onChange={(choices) => onChange({ ...question, choices })}
+          />
+        )}
         {error && <FieldError className="mt-2">{error}</FieldError>}
       </div>
     </li>

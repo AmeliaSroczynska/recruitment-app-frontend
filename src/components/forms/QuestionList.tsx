@@ -1,3 +1,18 @@
+import {
+  closestCenter,
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from '@dnd-kit/core'
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable'
 import { Plus } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { QuestionCard } from '@/components/forms/QuestionCard'
@@ -17,6 +32,12 @@ function QuestionList({ editionId, canEdit }: QuestionListProps) {
   const [newQuestionId, setNewQuestionId] = useState<number | null>(null)
   const [error, setError] = useState('')
   const [isAdding, setIsAdding] = useState(false)
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  )
 
   useEffect(() => {
     Promise.all([
@@ -53,6 +74,33 @@ function QuestionList({ editionId, canEdit }: QuestionListProps) {
     setIsAdding(false)
   }
 
+  async function handleDragEnd({ active, over }: DragEndEvent) {
+    if (!questions || !over || active.id === over.id) {
+      return
+    }
+    const previous = questions
+    const reordered = arrayMove(
+      questions,
+      questions.findIndex((question) => question.id === active.id),
+      questions.findIndex((question) => question.id === over.id),
+    )
+    setQuestions(reordered)
+    setError('')
+    try {
+      await api(`editions/${editionId}/form/questions/order/`, {
+        method: 'POST',
+        body: { ids: reordered.map((question) => question.id) },
+      })
+    } catch (caught) {
+      setQuestions(previous)
+      setError(
+        caught instanceof ApiError
+          ? caught.message
+          : 'Brak połączenia z serwerem. Spróbuj ponownie.',
+      )
+    }
+  }
+
   function replaceQuestion(question: Question) {
     setQuestions(
       (current) =>
@@ -78,20 +126,31 @@ function QuestionList({ editionId, canEdit }: QuestionListProps) {
   return (
     <div className="mt-5 flex flex-col gap-5">
       {questions.length > 0 && (
-        <ul className="flex flex-col gap-5">
-          {questions.map((question) => (
-            <QuestionCard
-              key={question.id}
-              editionId={editionId}
-              question={question}
-              types={types}
-              canEdit={canEdit}
-              isNew={question.id === newQuestionId}
-              onChange={replaceQuestion}
-              onDelete={() => removeQuestion(question.id)}
-            />
-          ))}
-        </ul>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext
+            items={questions.map((question) => question.id)}
+            strategy={verticalListSortingStrategy}
+          >
+            <ul className="flex flex-col gap-5">
+              {questions.map((question) => (
+                <QuestionCard
+                  key={question.id}
+                  editionId={editionId}
+                  question={question}
+                  types={types}
+                  canEdit={canEdit}
+                  isNew={question.id === newQuestionId}
+                  onChange={replaceQuestion}
+                  onDelete={() => removeQuestion(question.id)}
+                />
+              ))}
+            </ul>
+          </SortableContext>
+        </DndContext>
       )}
       {questions.length === 0 && !canEdit && (
         <p className="text-sm text-muted-foreground">

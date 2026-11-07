@@ -32,7 +32,7 @@ function DeleteQuestionDialog({ onConfirm }: DeleteQuestionDialogProps) {
       >
         <X />
       </AlertDialogTrigger>
-      <AlertDialogContent className="bg-surface">
+      <AlertDialogContent className="bg-card">
         <AlertDialogHeader>
           <AlertDialogTitle className="font-heading font-semibold">
             Usunąć pytanie?

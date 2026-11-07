@@ -12,7 +12,7 @@ function SettingsCard({ title, className, children }: SettingsCardProps) {
   return (
     <Card
       className={cn(
-        'gap-0 rounded-2xl bg-surface py-5 shadow-[0_1px_2px_rgba(34,32,27,0.05)] ring-border md:py-6',
+        'gap-0 rounded-2xl bg-card py-5 shadow-[0_1px_2px_rgba(34,32,27,0.05)] ring-border md:py-6',
         className,
       )}
     >

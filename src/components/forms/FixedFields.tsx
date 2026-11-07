@@ -34,7 +34,7 @@ function FixedFields() {
         {FIXED_FIELDS.map((field) => (
           <li
             key={field}
-            className="flex h-10 items-center justify-between rounded-[10px] border border-border bg-surface px-3 text-sm"
+            className="flex h-10 items-center justify-between rounded-[10px] border border-border bg-card px-3 text-sm"
           >
             {field}
             <RequiredBadge />

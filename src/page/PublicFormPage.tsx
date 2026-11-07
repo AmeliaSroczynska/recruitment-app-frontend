@@ -116,7 +116,7 @@ function PublicFormPage() {
 
   return (
     <main className="min-h-svh bg-paper md:px-[50px] md:py-6">
-      <div className="mx-auto max-w-[1340px] border-border bg-surface px-5 py-8 md:rounded-2xl md:border md:px-[50px] md:py-14">
+      <div className="mx-auto max-w-[1340px] border-border bg-card px-5 py-8 md:rounded-2xl md:border md:px-[50px] md:py-14">
         {error && <p className="text-[15px] text-destructive">{error}</p>}
         {!error && !form && <Skeleton className="h-64 w-full" />}
         {form && sentTo && (

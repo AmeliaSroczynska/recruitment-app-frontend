@@ -47,7 +47,11 @@ function MembersCard({ editionId, canEdit }: MembersCardProps) {
       )
       await refreshSelf(member)
     } catch (caught) {
-      setError(caught instanceof ApiError ? caught.message : 'Brak połączenia.')
+      setError(
+        caught instanceof ApiError
+          ? caught.message
+          : 'Brak połączenia z serwerem. Spróbuj ponownie.',
+      )
     }
   }
 
@@ -62,7 +66,11 @@ function MembersCard({ editionId, canEdit }: MembersCardProps) {
       )
       await refreshSelf(member)
     } catch (caught) {
-      setError(caught instanceof ApiError ? caught.message : 'Brak połączenia.')
+      setError(
+        caught instanceof ApiError
+          ? caught.message
+          : 'Brak połączenia z serwerem. Spróbuj ponownie.',
+      )
     }
   }
 

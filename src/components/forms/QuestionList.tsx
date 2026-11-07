@@ -16,6 +16,7 @@ import {
 import { Plus } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { QuestionCard } from '@/components/forms/QuestionCard'
+import { Button } from '@/components/ui/button'
 import { FieldError } from '@/components/ui/field'
 import { Skeleton } from '@/components/ui/skeleton'
 import { api, ApiError } from '@/lib/api'
@@ -159,15 +160,16 @@ function QuestionList({ editionId, canEdit }: QuestionListProps) {
       )}
       {error && <FieldError>{error}</FieldError>}
       {canEdit && (
-        <button
+        <Button
           type="button"
+          variant="outline"
           disabled={isAdding}
           onClick={addQuestion}
-          className="flex h-14 items-center justify-center gap-2 rounded-xl border-[1.5px] border-dashed border-sand text-[15px] font-semibold text-ochre-dark transition-colors hover:bg-sand/15 disabled:opacity-50"
+          className="h-14 w-full gap-1.5 rounded-xl border-dashed border-sand bg-transparent text-[15px] font-semibold text-ochre-dark shadow-none hover:bg-paper hover:text-ochre-dark"
         >
-          <Plus className="size-4" />
+          <Plus />
           Dodaj pytanie
-        </button>
+        </Button>
       )}
     </div>
   )

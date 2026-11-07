@@ -21,7 +21,7 @@ const FIXED_FIELDS = [
 ]
 
 const inputClassName =
-  'h-12 rounded-[10px] border-border bg-surface px-4 text-[15px] shadow-none'
+  'h-12 rounded-[10px] border-border bg-card px-4 text-[15px] shadow-none'
 
 type Answers = Record<string, string | string[]>
 
@@ -162,7 +162,7 @@ function ApplicationFormView({
                   <ToggleGroupItem
                     key={choice.id}
                     value={String(choice.id)}
-                    className="h-auto min-h-10 rounded-[10px] border border-border bg-surface px-4 py-2 text-left text-[15px] font-normal whitespace-normal hover:bg-paper data-pressed:border-ochre data-pressed:bg-sand/30 data-pressed:text-ochre-dark"
+                    className="h-auto min-h-10 rounded-[10px] border border-border bg-card px-4 py-2 text-left text-[15px] font-normal whitespace-normal hover:bg-paper data-pressed:border-ochre data-pressed:bg-sand/30 data-pressed:text-ochre-dark"
                   >
                     {choice.text}
                   </ToggleGroupItem>
@@ -187,7 +187,7 @@ function ApplicationFormView({
                 aria-invalid={Boolean(errors[key])}
                 value={(answers[key] as string) ?? ''}
                 onChange={(event) => setAnswer(key, event.target.value)}
-                className="min-h-32 rounded-[10px] border-border bg-surface px-4 py-3 text-[15px] shadow-none"
+                className="min-h-32 rounded-[10px] border-border bg-card px-4 py-3 text-[15px] shadow-none"
               />
             ) : (
               <Input

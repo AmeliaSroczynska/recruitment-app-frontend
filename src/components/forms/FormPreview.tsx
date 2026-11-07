@@ -40,7 +40,7 @@ function FormPreview({ form }: FormPreviewProps) {
           <ToggleGroupItem
             key={value}
             value={value}
-            className="h-9 gap-2 rounded-[10px] border border-border bg-surface px-3 font-normal hover:bg-paper data-pressed:border-ochre data-pressed:bg-sand/30 data-pressed:text-ochre-dark"
+            className="h-9 gap-2 rounded-[10px] border border-border bg-card px-3 font-normal hover:bg-paper data-pressed:border-ochre data-pressed:bg-sand/30 data-pressed:text-ochre-dark"
           >
             <Icon className="size-4" />
             {label}
@@ -49,7 +49,7 @@ function FormPreview({ form }: FormPreviewProps) {
       </ToggleGroup>
       <div
         className={cn(
-          'w-full rounded-2xl border border-border bg-surface px-5 py-8',
+          'w-full rounded-2xl border border-border bg-card px-5 py-8',
           device === 'phone'
             ? 'max-w-[393px] md:mx-auto'
             : 'md:px-[50px] md:py-14',

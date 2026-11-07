@@ -87,7 +87,7 @@ function QuestionCard({
         transition,
       }}
       className={cn(
-        'rounded-xl border border-border bg-surface p-4 md:p-6',
+        'rounded-xl border border-border bg-card p-4 md:p-6',
         isDragging && 'relative z-10 shadow-lg',
       )}
     >

@@ -73,7 +73,7 @@ function AddMemberDialog({ editionId, onAdded }: AddMemberDialogProps) {
         <Plus />
         Dodaj osobę
       </DialogTrigger>
-      <DialogContent className="bg-surface">
+      <DialogContent className="bg-card">
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <DialogHeader>
             <DialogTitle className="font-heading text-lg font-semibold">

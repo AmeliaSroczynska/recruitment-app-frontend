@@ -1,3 +1,5 @@
+import type { Person } from '@/panel/user'
+
 type ApplicationStatus =
   'new' | 'interview' | 'to_decide' | 'accepted' | 'rejected'
 
@@ -27,10 +29,26 @@ type ApplicationDetail = ApplicationListItem & {
 
 type TeamEntry = {
   id: number
-  membership: number
-  first_name: string
-  last_name: string
-  email: string
+  membership: number | null
+  first_name: string | null
+  last_name: string | null
+  email: string | null
+}
+
+const REMOVED_AUTHOR: Person = {
+  first_name: 'Usunięta',
+  last_name: 'osoba',
+  email: '',
+}
+
+function getAuthor(entry: TeamEntry): Person {
+  return entry.membership === null
+    ? REMOVED_AUTHOR
+    : {
+        first_name: entry.first_name ?? '',
+        last_name: entry.last_name ?? '',
+        email: entry.email ?? '',
+      }
 }
 
 type Rating = TeamEntry & {
@@ -88,6 +106,7 @@ export {
   STATUS_LABELS,
   formatDateTime,
   formatRating,
+  getAuthor,
 }
 export type {
   ApplicationAnswer,

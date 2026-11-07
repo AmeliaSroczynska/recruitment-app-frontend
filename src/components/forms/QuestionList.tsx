@@ -162,10 +162,10 @@ function QuestionList({ editionId, canEdit }: QuestionListProps) {
       {canEdit && (
         <Button
           type="button"
-          variant="outline"
+          variant="dashed"
           disabled={isAdding}
           onClick={addQuestion}
-          className="h-14 w-full gap-1.5 rounded-xl border-dashed border-sand bg-transparent text-[15px] font-semibold text-ochre-dark shadow-none hover:bg-paper hover:text-ochre-dark"
+          className="h-14 w-full rounded-xl text-[15px]"
         >
           <Plus />
           Dodaj pytanie

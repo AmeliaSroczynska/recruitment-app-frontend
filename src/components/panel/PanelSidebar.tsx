@@ -2,6 +2,7 @@ import { ArrowLeftRight, ChevronsUpDown, LogOut } from 'lucide-react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/auth/AuthContext'
 import { MENU } from '@/components/panel/menu'
+import { OrganizationAvatar } from '@/components/panel/OrganizationAvatar'
 import { UserAvatar } from '@/components/panel/UserAvatar'
 import {
   DropdownMenu,
@@ -46,10 +47,11 @@ function PanelSidebar() {
   return (
     <Sidebar collapsible="icon" className="border-r-0">
       <SidebarHeader className="flex-row items-center gap-2.5 px-5 pt-[23px] pb-2 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-3">
-        <div className="flex size-[30px] shrink-0 items-center justify-center rounded-lg bg-ochre font-heading text-sm font-extrabold text-on-ochre group-data-[collapsible=icon]:hidden">
-          {membership.organization_name.charAt(0).toUpperCase()}
-        </div>
-        <span className="min-w-0 flex-1 truncate font-heading text-lg font-extrabold tracking-[-0.3px] text-surface group-data-[collapsible=icon]:hidden">
+        <OrganizationAvatar
+          name={membership.organization_name}
+          className="group-data-[collapsible=icon]:hidden"
+        />
+        <span className="min-w-0 flex-1 truncate font-heading text-lg font-extrabold tracking-[-0.3px] text-sidebar-accent-foreground group-data-[collapsible=icon]:hidden">
           {membership.organization_name}
         </span>
         <SidebarTrigger className="text-moss hover:bg-sidebar-accent hover:text-sidebar-accent-foreground" />

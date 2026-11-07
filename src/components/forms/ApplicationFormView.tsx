@@ -7,11 +7,12 @@ import {
 } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import type { Question } from '@/panel/form'
 
 const FIXED_FIELDS = [
@@ -22,6 +23,12 @@ const FIXED_FIELDS = [
 
 const inputClassName =
   'h-12 rounded-[10px] border-border bg-card px-4 text-[15px] shadow-none'
+
+const choiceClassName =
+  'rounded-[10px] border-border bg-card text-[15px] font-normal has-data-checked:border-ochre has-data-checked:bg-sand/30 *:data-[slot=field]:px-4 *:data-[slot=field]:py-2.5'
+
+const choiceControlClassName =
+  'data-checked:border-ochre data-checked:bg-ochre data-checked:text-surface'
 
 type Answers = Record<string, string | string[]>
 
@@ -140,8 +147,44 @@ function ApplicationFormView({
           question.type === 'single_choice' ||
           question.type === 'multiple_choice'
         ) {
-          const multiple = question.type === 'multiple_choice'
           const value = answers[key]
+          const selected = Array.isArray(value) ? value : []
+          const options = question.choices.map((choice) => {
+            const optionValue = String(choice.id)
+            const optionId = `${id}-${choice.id}`
+            return (
+              <FieldLabel
+                key={choice.id}
+                htmlFor={optionId}
+                className={choiceClassName}
+              >
+                <Field orientation="horizontal" className="gap-3">
+                  {question.type === 'multiple_choice' ? (
+                    <Checkbox
+                      id={optionId}
+                      checked={selected.includes(optionValue)}
+                      onCheckedChange={(checked) =>
+                        setAnswer(
+                          key,
+                          checked
+                            ? [...selected, optionValue]
+                            : selected.filter((item) => item !== optionValue),
+                        )
+                      }
+                      className={choiceControlClassName}
+                    />
+                  ) : (
+                    <RadioGroupItem
+                      id={optionId}
+                      value={optionValue}
+                      className={choiceControlClassName}
+                    />
+                  )}
+                  <span>{choice.text}</span>
+                </Field>
+              </FieldLabel>
+            )
+          })
           return (
             <Field
               key={key}
@@ -151,23 +194,24 @@ function ApplicationFormView({
               <QuestionLabel required={question.is_required}>
                 {question.text}
               </QuestionLabel>
-              <ToggleGroup
-                aria-label={question.text}
-                multiple={multiple}
-                value={Array.isArray(value) ? value : []}
-                onValueChange={(selected) => setAnswer(key, selected)}
-                className="flex w-full flex-wrap gap-2"
-              >
-                {question.choices.map((choice) => (
-                  <ToggleGroupItem
-                    key={choice.id}
-                    value={String(choice.id)}
-                    className="h-auto min-h-10 rounded-[10px] border border-border bg-card px-4 py-2 text-left text-[15px] font-normal whitespace-normal hover:bg-paper data-pressed:border-ochre data-pressed:bg-sand/30 data-pressed:text-ochre-dark"
-                  >
-                    {choice.text}
-                  </ToggleGroupItem>
-                ))}
-              </ToggleGroup>
+              {question.type === 'multiple_choice' ? (
+                <div
+                  role="group"
+                  aria-label={question.text}
+                  className="flex flex-col gap-2"
+                >
+                  {options}
+                </div>
+              ) : (
+                <RadioGroup
+                  aria-label={question.text}
+                  value={selected[0] ?? ''}
+                  onValueChange={(choice) => setAnswer(key, [String(choice)])}
+                  className="gap-2"
+                >
+                  {options}
+                </RadioGroup>
+              )}
               <FieldError>{errors[key]}</FieldError>
             </Field>
           )
@@ -207,7 +251,8 @@ function ApplicationFormView({
         <Button
           type={onSubmit ? 'submit' : 'button'}
           disabled={submitting}
-          className="h-11 rounded-[10px] bg-ochre px-5 text-[15px] font-semibold text-surface hover:bg-ochre-dark"
+          variant="accent"
+          className="h-11 px-5 text-[15px]"
         >
           {submitting ? 'Wysyłanie...' : 'Wyślij zgłoszenie'}
         </Button>

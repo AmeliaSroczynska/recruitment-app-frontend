@@ -1,8 +1,10 @@
 import { X } from 'lucide-react'
 import { useState, type KeyboardEvent } from 'react'
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import { FieldError } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { api, ApiError } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import type { Choice } from '@/panel/form'
@@ -38,14 +40,17 @@ function ChoiceMarker({
   multiple: boolean
   dashed?: boolean
 }) {
+  const className = cn(
+    'border-[1.5px] border-muted-foreground/60 shadow-none disabled:cursor-default disabled:opacity-100',
+    dashed && 'border-dashed border-muted-foreground/40',
+  )
+  if (multiple) {
+    return <Checkbox disabled aria-hidden className={className} />
+  }
   return (
-    <span
-      className={cn(
-        'size-4 shrink-0 border-[1.5px] border-muted-foreground/60',
-        multiple ? 'rounded-[4px]' : 'rounded-full',
-        dashed && 'border-dashed border-muted-foreground/40',
-      )}
-    />
+    <RadioGroup disabled aria-hidden className="w-auto">
+      <RadioGroupItem value="" className={className} />
+    </RadioGroup>
   )
 }
 

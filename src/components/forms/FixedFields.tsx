@@ -1,26 +1,27 @@
 import { Lock } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
+import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
 const FIXED_FIELDS = ['Imię', 'Nazwisko', 'Adres e-mail']
 
 function RequiredBadge({ required = true }: { required?: boolean }) {
   return (
-    <span
+    <Badge
       className={cn(
-        'rounded-full px-2 py-0.5 text-xs font-medium',
         required
           ? 'bg-sand/50 text-ochre-dark'
           : 'bg-muted text-muted-foreground',
       )}
     >
       {required ? 'obowiązkowe' : 'opcjonalne'}
-    </span>
+    </Badge>
   )
 }
 
 function FixedFields() {
   return (
-    <section className="rounded-xl border border-border bg-paper p-4 md:p-6">
+    <Card className="gap-0 bg-paper p-4 shadow-none ring-border md:p-6">
       <div className="flex items-center justify-between gap-3">
         <h2 className="flex items-center gap-2 text-base font-semibold text-foreground">
           <Lock className="size-4 text-muted-foreground" />
@@ -41,7 +42,7 @@ function FixedFields() {
           </li>
         ))}
       </ul>
-    </section>
+    </Card>
   )
 }
 

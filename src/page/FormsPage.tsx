@@ -4,6 +4,7 @@ import { FormLinkCard } from '@/components/forms/FormLinkCard'
 import { FormPreview } from '@/components/forms/FormPreview'
 import { FormSettingsCard } from '@/components/forms/FormSettingsCard'
 import { QuestionList } from '@/components/forms/QuestionList'
+import { ErrorAlert } from '@/components/panel/ErrorAlert'
 import { PanelPage } from '@/components/panel/PanelPage'
 import { PanelTabsList, PanelTabsTrigger } from '@/components/panel/PanelTabs'
 import { SettingsCard } from '@/components/settings/SettingsCard'
@@ -89,7 +90,8 @@ function FormsPage() {
             type="submit"
             form={FORM_ID}
             disabled={isSaving}
-            className="h-9 rounded-[10px] bg-ochre px-4 font-semibold text-surface hover:bg-ochre-dark"
+            variant="accent"
+            className="h-9 px-4"
           >
             {isSaving ? 'Zapisywanie...' : 'Zapisz zmiany'}
           </Button>
@@ -138,13 +140,11 @@ function FormsPage() {
             )}
           </Tabs>
         </form>
+      ) : loadError ? (
+        <ErrorAlert>{loadError}</ErrorAlert>
       ) : (
         <SettingsCard>
-          {loadError ? (
-            <p className="text-sm text-destructive">{loadError}</p>
-          ) : (
-            <Skeleton className="h-40 w-full" />
-          )}
+          <Skeleton className="h-40 w-full" />
         </SettingsCard>
       )}
     </PanelPage>

@@ -63,7 +63,8 @@ function FormLinkCard({
         <Button
           type="button"
           onClick={copyLink}
-          className="h-10 rounded-[10px] bg-ochre font-semibold text-surface hover:bg-ochre-dark"
+          variant="accent"
+          className="h-10"
         >
           {copied ? 'Skopiowano!' : 'Kopiuj link do formularza'}
         </Button>

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { OrganizationAvatar } from '@/components/panel/OrganizationAvatar'
 
 type ContactCardProps = {
   name: string
@@ -21,9 +22,11 @@ function ContactCard({ name, email }: ContactCardProps) {
         Masz pytania?
       </h2>
       <div className="mt-4 flex items-center gap-3">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-[10px] bg-ochre font-heading text-[15px] font-extrabold text-on-ochre">
-          {name.charAt(0).toUpperCase()}
-        </div>
+        <OrganizationAvatar
+          name={name}
+          className="size-9 rounded-[10px]"
+          fallbackClassName="text-[15px]"
+        />
         <div className="min-w-0">
           <p className="truncate text-sm font-semibold text-foreground">
             {name}

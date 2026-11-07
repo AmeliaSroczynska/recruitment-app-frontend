@@ -1,3 +1,4 @@
+import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { STATUS_LABELS, type ApplicationStatus } from '@/panel/applications'
 
@@ -16,15 +17,9 @@ type StatusBadgeProps = {
 
 function StatusBadge({ status, className }: StatusBadgeProps) {
   return (
-    <span
-      className={cn(
-        'inline-flex h-5 items-center rounded-lg px-2 text-xs font-medium whitespace-nowrap',
-        STATUS_STYLES[status],
-        className,
-      )}
-    >
+    <Badge className={cn('rounded-lg', STATUS_STYLES[status], className)}>
       {STATUS_LABELS[status]}
-    </span>
+    </Badge>
   )
 }
 

@@ -29,7 +29,7 @@ function PanelChoiceCard({
     <Item
       variant="outline"
       render={<Link to={to} />}
-      className="flex-nowrap rounded-[14px] bg-card py-[15px] shadow-[0_1px_1px_rgba(34,32,27,0.05)] [a]:hover:border-stone [a]:hover:bg-card"
+      className="flex-nowrap rounded-[14px] bg-card py-[15px] shadow-tile [a]:hover:border-stone [a]:hover:bg-card"
     >
       <ItemMedia
         className={cn(

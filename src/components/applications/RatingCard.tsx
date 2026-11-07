@@ -6,7 +6,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { api, ApiError } from '@/lib/api'
 import { cn } from '@/lib/utils'
-import type { Rating } from '@/panel/applications'
+import { getAuthor, type Rating } from '@/panel/applications'
 import { getDisplayName } from '@/panel/user'
 
 const VALUES = [1, 2, 3, 4, 5]
@@ -124,12 +124,12 @@ function RatingCard({ path, membershipId, canEdit }: RatingCardProps) {
                     className="flex items-center gap-3 py-2.5 text-sm"
                   >
                     <UserAvatar
-                      user={rating}
+                      user={getAuthor(rating)}
                       className="size-7"
                       fallbackClassName="bg-moss-light text-[11px]"
                     />
                     <span className="min-w-0 flex-1 truncate text-foreground">
-                      {getDisplayName(rating)}
+                      {getDisplayName(getAuthor(rating))}
                     </span>
                     <RatingDots value={rating.value} />
                     <span className="w-4 text-right text-foreground">

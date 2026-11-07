@@ -2,6 +2,7 @@ import { ArrowDown, ArrowUp } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { StatusBadge } from '@/components/applications/StatusBadge'
 import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 import {
   Table,
   TableBody,
@@ -80,7 +81,7 @@ function ApplicationTable({
   const sortProps = { ordering, onOrderingChange }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-[0_1px_2px_rgba(34,32,27,0.05)]">
+    <Card className="gap-0 rounded-2xl py-0 shadow-card ring-border">
       <Table className="text-sm">
         <TableHeader className="bg-paper">
           <TableRow className="hover:bg-transparent">
@@ -144,7 +145,7 @@ function ApplicationTable({
           })}
         </TableBody>
       </Table>
-    </div>
+    </Card>
   )
 }
 

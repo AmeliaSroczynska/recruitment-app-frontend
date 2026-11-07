@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { ChoiceList } from '@/components/forms/ChoiceList'
 import { DeleteQuestionDialog } from '@/components/forms/DeleteQuestionDialog'
 import { RequiredBadge } from '@/components/forms/FixedFields'
+import { Button } from '@/components/ui/button'
 import { FieldError } from '@/components/ui/field'
 import {
   Select,
@@ -14,6 +15,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
+import { Toggle } from '@/components/ui/toggle'
 import { api, ApiError } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import type { Question, QuestionType } from '@/panel/form'
@@ -93,16 +95,18 @@ function QuestionCard({
     >
       <div className="flex items-center gap-2 md:gap-3">
         {canEdit && (
-          <button
+          <Button
             type="button"
+            variant="ghost"
+            size="icon-xs"
             ref={setActivatorNodeRef}
             aria-label="Przeciągnij, aby zmienić kolejność"
-            className="-ml-1 flex size-6 cursor-grab touch-none items-center justify-center rounded text-muted-foreground active:cursor-grabbing"
+            className="-ml-1 cursor-grab touch-none text-muted-foreground active:cursor-grabbing"
             {...attributes}
             {...listeners}
           >
             <GripVertical className="size-4" />
-          </button>
+          </Button>
         )}
         <Select
           items={Object.fromEntries(
@@ -126,19 +130,19 @@ function QuestionCard({
             ))}
           </SelectContent>
         </Select>
-        <button
-          type="button"
+        <Toggle
+          pressed={question.is_required}
+          onPressedChange={(isRequired) => save({ is_required: isRequired })}
           disabled={!canEdit}
           aria-label={
             question.is_required
               ? 'Zmień na opcjonalne'
               : 'Zmień na obowiązkowe'
           }
-          onClick={() => save({ is_required: !question.is_required })}
-          className="rounded-full disabled:cursor-default"
+          className="h-auto min-w-0 rounded-full p-0 hover:bg-transparent disabled:opacity-100 aria-pressed:bg-transparent"
         >
           <RequiredBadge required={question.is_required} />
-        </button>
+        </Toggle>
         {canEdit && (
           <div className="ml-auto">
             <DeleteQuestionDialog onConfirm={remove} />

@@ -1,4 +1,5 @@
 import { ArrowDown, ArrowUp } from 'lucide-react'
+import { Link, useLocation } from 'react-router-dom'
 import { StatusBadge } from '@/components/applications/StatusBadge'
 import { Button } from '@/components/ui/button'
 import {
@@ -75,6 +76,7 @@ function ApplicationTable({
   ordering,
   onOrderingChange,
 }: ApplicationTableProps) {
+  const { search } = useLocation()
   const sortProps = { ordering, onOrderingChange }
 
   return (
@@ -112,11 +114,18 @@ function ApplicationTable({
           {applications.map((application) => {
             const rating = formatRating(application)
             return (
-              <TableRow key={application.id} className="h-14 hover:bg-paper/60">
+              <TableRow
+                key={application.id}
+                className="relative h-14 cursor-pointer hover:bg-paper/60"
+              >
                 <TableCell className="border-r border-border px-4">
-                  <p className="font-medium text-foreground">
+                  <Link
+                    to={`${application.id}`}
+                    state={{ search }}
+                    className="font-medium text-foreground after:absolute after:inset-0 hover:underline"
+                  >
                     {getDisplayName(application)}
-                  </p>
+                  </Link>
                   <p className="text-xs text-muted-foreground">
                     {application.email}
                   </p>

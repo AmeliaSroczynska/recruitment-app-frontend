@@ -12,6 +12,19 @@ type ApplicationListItem = {
   rating_count: number
 }
 
+type ApplicationAnswer = {
+  question: number
+  question_text: string
+  question_type: string
+  text: string | null
+  choices: string[]
+}
+
+type ApplicationDetail = ApplicationListItem & {
+  accepted_at: string | null
+  answers: ApplicationAnswer[]
+}
+
 type ApplicationPage = {
   count: number
   next: string | null
@@ -60,4 +73,10 @@ export {
   formatDateTime,
   formatRating,
 }
-export type { ApplicationListItem, ApplicationPage, ApplicationStatus }
+export type {
+  ApplicationAnswer,
+  ApplicationDetail,
+  ApplicationListItem,
+  ApplicationPage,
+  ApplicationStatus,
+}

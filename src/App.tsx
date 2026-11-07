@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from '@/auth/AuthProvider'
 import { RequireAuth } from '@/auth/RequireAuth'
+import ApplicationDetailPage from '@/page/ApplicationDetailPage'
 import ApplicationsPage from '@/page/ApplicationsPage'
 import CandidateCodePage from '@/page/CandidateCodePage'
 import CandidateLoginPage from '@/page/CandidateLoginPage'
@@ -55,6 +56,10 @@ function App() {
             <Route path="/organization/:editionId" element={<PanelLayout />}>
               <Route index element={<Navigate to="applications" replace />} />
               <Route path="applications" element={<ApplicationsPage />} />
+              <Route
+                path="applications/:applicationId"
+                element={<ApplicationDetailPage />}
+              />
               <Route path="more" element={<MorePage />} />
               <Route path="forms" element={<FormsPage />} />
               <Route path="settings" element={<SettingsPage />} />

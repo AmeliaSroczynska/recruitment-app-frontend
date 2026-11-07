@@ -19,4 +19,15 @@ function canEditForm(role: string) {
   return role === 'coordinator' || role === 'recruiter'
 }
 
-export { ROLES, ROLE_LABELS, canEditForm, canEditSettings, canSeeSettings }
+function canEditApplications(role: string) {
+  return role === 'coordinator' || role === 'recruiter'
+}
+
+export {
+  ROLES,
+  ROLE_LABELS,
+  canEditApplications,
+  canEditForm,
+  canEditSettings,
+  canSeeSettings,
+}

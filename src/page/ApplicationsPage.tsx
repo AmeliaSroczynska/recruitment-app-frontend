@@ -10,7 +10,7 @@ import { api } from '@/lib/api'
 import type { ApplicationPage } from '@/panel/applications'
 import { useEdition } from '@/panel/EditionContext'
 
-const DEFAULT_ORDERING = '-submitted_at'
+const DEFAULT_ORDERING = 'submitted_at'
 
 type LoadedPage = {
   key: string

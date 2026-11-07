@@ -102,7 +102,7 @@ function ApplicationTable({
             <SortableHead
               label="Zgłoszono"
               field="submitted_at"
-              firstOrdering="-submitted_at"
+              firstOrdering="submitted_at"
               className="h-10 px-4 text-muted-foreground"
               {...sortProps}
             />

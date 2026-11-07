@@ -1,4 +1,4 @@
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, EyeOff } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { AnswerList } from '@/components/applications/AnswerList'
@@ -200,6 +200,11 @@ function ApplicationDetailPage() {
           <TabsContent value="interviews" />
           <TabsContent value="onboarding" />
           <TabsContent value="notes" className="flex flex-col gap-4 md:gap-5">
+            <p className="flex items-center gap-2 text-sm text-muted-foreground">
+              <EyeOff className="size-4 shrink-0" />
+              Oceny i notatki widzi tylko zespół rekrutacyjny. Kandydat ich nie
+              zobaczy.
+            </p>
             <RatingCard
               path={`${path}ratings/`}
               membershipId={membership.id}

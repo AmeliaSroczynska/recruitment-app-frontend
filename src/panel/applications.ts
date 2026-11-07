@@ -8,6 +8,7 @@ type ApplicationListItem = {
   first_name: string
   last_name: string
   email: string
+  photo_url: string | null
   status: ApplicationStatus
   submitted_at: string
   rating_average: number | null
@@ -100,8 +101,11 @@ function formatDateTime(value: string) {
   return `${date.toLocaleDateString('pl-PL')} ${time}`
 }
 
+const AVATAR_COLORS = ['bg-muted', 'bg-sage-light', 'bg-sand/60']
+
 export {
   APPLICATION_PAGE_SIZE,
+  AVATAR_COLORS,
   STATUSES,
   STATUS_LABELS,
   formatDateTime,

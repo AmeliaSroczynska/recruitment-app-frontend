@@ -3,10 +3,12 @@ import { Link, useLocation } from 'react-router-dom'
 import { StatusBadge } from '@/components/applications/StatusBadge'
 import { UserAvatar } from '@/components/panel/UserAvatar'
 import { Card } from '@/components/ui/card'
-import { formatRating, type ApplicationListItem } from '@/panel/applications'
+import {
+  AVATAR_COLORS,
+  formatRating,
+  type ApplicationListItem,
+} from '@/panel/applications'
 import { getDisplayName } from '@/panel/user'
-
-const AVATAR_COLORS = ['bg-muted', 'bg-sage-light', 'bg-sand/60']
 
 type ApplicationCardsProps = {
   applications: ApplicationListItem[]

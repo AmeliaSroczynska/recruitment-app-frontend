@@ -23,7 +23,7 @@ function CandidateMobileNav() {
           }
         >
           {item === home ? (
-            <span className="-mt-12 flex size-14 items-center justify-center rounded-full bg-olive text-surface shadow-[0_2px_6px_rgba(34,32,27,0.15)] ring-4 ring-background">
+            <span className="-mt-12 flex size-14 items-center justify-center rounded-full bg-olive text-surface shadow-float ring-4 ring-background">
               <item.icon className="size-6" strokeWidth={1.75} />
             </span>
           ) : (

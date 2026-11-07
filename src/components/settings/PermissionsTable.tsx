@@ -60,7 +60,7 @@ function AccessIcon({ access }: { access: Access }) {
 
 function PermissionsTable() {
   return (
-    <Card className="gap-0 overflow-hidden rounded-2xl bg-card py-0 shadow-[0_1px_2px_rgba(34,32,27,0.05)] ring-border">
+    <Card className="gap-0 overflow-hidden rounded-2xl bg-card py-0 shadow-card ring-border">
       <Table className="min-w-[560px]">
         <TableHeader className="bg-paper">
           <TableRow className="border-border hover:bg-transparent">

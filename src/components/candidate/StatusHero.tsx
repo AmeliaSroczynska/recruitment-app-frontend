@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import type { ApplicationStatus } from '@/panel/applications'
 import { STAGES, STATUS_VIEWS } from '@/panel/candidate'
@@ -22,12 +23,10 @@ function StatusHero({ status, onboardingPath }: StatusHeroProps) {
   const isRejected = status === 'rejected'
 
   return (
-    <section
+    <Card
       className={cn(
-        'self-start rounded-[18px] p-5 md:p-6',
-        isRejected
-          ? 'border border-border bg-card shadow-[0_1px_2px_rgba(34,32,27,0.05)]'
-          : 'bg-olive',
+        'gap-0 self-start rounded-[18px] p-5 md:p-6',
+        isRejected ? 'shadow-card ring-border' : 'bg-olive shadow-none ring-0',
       )}
     >
       <h2
@@ -79,13 +78,14 @@ function StatusHero({ status, onboardingPath }: StatusHeroProps) {
         <Button
           nativeButton={false}
           render={<Link to={onboardingPath} />}
-          className="mt-5 h-9 rounded-[10px] bg-ochre px-3 font-semibold text-on-ochre hover:bg-ochre/90"
+          variant="accent"
+          className="mt-5 h-9 px-3"
         >
           Przejdź do wdrożenia
           <ArrowRight />
         </Button>
       )}
-    </section>
+    </Card>
   )
 }
 

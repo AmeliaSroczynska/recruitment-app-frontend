@@ -4,6 +4,7 @@ import { ApplicationCards } from '@/components/applications/ApplicationCards'
 import { ApplicationFilters } from '@/components/applications/ApplicationFilters'
 import { ApplicationPagination } from '@/components/applications/ApplicationPagination'
 import { ApplicationTable } from '@/components/applications/ApplicationTable'
+import { ErrorAlert } from '@/components/panel/ErrorAlert'
 import { PanelPage } from '@/components/panel/PanelPage'
 import { Skeleton } from '@/components/ui/skeleton'
 import { api } from '@/lib/api'
@@ -90,9 +91,7 @@ function ApplicationsPage() {
     >
       <div className="mb-4 md:hidden">{filters}</div>
       <div>
-        {loaded?.error && (
-          <p className="text-sm text-destructive">{loaded.error}</p>
-        )}
+        {loaded?.error && <ErrorAlert>{loaded.error}</ErrorAlert>}
         {!data && !loaded?.error && <Skeleton className="h-64 w-full" />}
         {data && data.results.length === 0 && (
           <p className="rounded-2xl border border-border bg-card px-4 py-10 text-center text-sm text-muted-foreground">

@@ -1,4 +1,10 @@
 import { SettingsCard } from '@/components/settings/SettingsCard'
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldLabel,
+} from '@/components/ui/field'
 import { Switch } from '@/components/ui/switch'
 
 type FormSettingsCardProps = {
@@ -14,22 +20,26 @@ function FormSettingsCard({
 }: FormSettingsCardProps) {
   return (
     <SettingsCard title="Ustawienia formularza">
-      <label className="mt-4 flex gap-3 border-b border-border pb-4">
+      <Field
+        orientation="horizontal"
+        className="mt-4 border-b border-border pb-4"
+      >
         <Switch
+          id="is-accepting-responses"
           checked={isAcceptingResponses}
           disabled={disabled}
           onCheckedChange={onChange}
           className="mt-0.5 data-checked:bg-ochre"
         />
-        <span className="flex flex-col gap-0.5">
-          <span className="text-sm font-medium text-foreground">
+        <FieldContent className="gap-0.5">
+          <FieldLabel htmlFor="is-accepting-responses">
             Włączone zbieranie odpowiedzi
-          </span>
-          <span className="text-sm text-muted-foreground">
+          </FieldLabel>
+          <FieldDescription>
             Wyłącz, aby formularz przestał przyjmować nowe zgłoszenia.
-          </span>
-        </span>
-      </label>
+          </FieldDescription>
+        </FieldContent>
+      </Field>
     </SettingsCard>
   )
 }

@@ -8,14 +8,11 @@ import { FieldError } from '@/components/ui/field'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Textarea } from '@/components/ui/textarea'
 import { api, ApiError } from '@/lib/api'
-import type { Note } from '@/panel/applications'
+import { getAuthor, type Note } from '@/panel/applications'
 import { getDisplayName } from '@/panel/user'
 
 const textareaClassName =
   'min-h-28 rounded-[10px] border-border bg-card px-3 py-2.5 text-sm shadow-none'
-
-const saveButtonClassName =
-  'h-10 rounded-[10px] bg-ochre px-4 font-semibold text-surface hover:bg-ochre-dark'
 
 function getMessage(caught: unknown) {
   return caught instanceof ApiError
@@ -62,14 +59,14 @@ function NoteItem({ path, note, canEdit, onChange, onDelete }: NoteItemProps) {
   return (
     <li className="flex gap-3 py-3.5">
       <UserAvatar
-        user={note}
+        user={getAuthor(note)}
         className="size-8"
         fallbackClassName="bg-moss-light text-[11px]"
       />
       <div className="min-w-0 flex-1">
         <div className="flex items-center justify-between gap-2">
           <p className="truncate text-sm font-medium text-foreground">
-            {getDisplayName(note)}
+            {getDisplayName(getAuthor(note))}
           </p>
           {canEdit && text === null && (
             <div className="flex shrink-0 items-center">
@@ -106,7 +103,8 @@ function NoteItem({ path, note, canEdit, onChange, onDelete }: NoteItemProps) {
                 type="button"
                 disabled={isSaving || !text.trim()}
                 onClick={save}
-                className={saveButtonClassName}
+                variant="accent"
+                className="h-10 px-4"
               >
                 {isSaving ? 'Zapisywanie...' : 'Zapisz'}
               </Button>
@@ -206,7 +204,8 @@ function NotesCard({ path, membershipId, canEdit }: NotesCardProps) {
             type="button"
             disabled={isSaving || !text.trim()}
             onClick={add}
-            className={saveButtonClassName}
+            variant="accent"
+            className="h-10 px-4"
           >
             {isSaving ? 'Zapisywanie...' : 'Zapisz notatkę'}
           </Button>

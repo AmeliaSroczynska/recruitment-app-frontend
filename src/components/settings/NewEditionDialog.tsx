@@ -52,14 +52,7 @@ function NewEditionDialog({ editionId }: NewEditionDialogProps) {
 
   return (
     <Dialog>
-      <DialogTrigger
-        render={
-          <Button
-            variant="outline"
-            className="h-10 gap-1.5 rounded-[10px] border-dashed border-sand bg-transparent px-5 text-sm font-semibold text-ochre-dark shadow-none hover:bg-paper hover:text-ochre-dark"
-          />
-        }
-      >
+      <DialogTrigger render={<Button variant="dashed" className="h-10 px-5" />}>
         <Plus />
         Nowa edycja
       </DialogTrigger>

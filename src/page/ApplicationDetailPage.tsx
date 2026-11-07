@@ -6,6 +6,7 @@ import { NotesCard } from '@/components/applications/NotesCard'
 import { RatingCard } from '@/components/applications/RatingCard'
 import { StatusBadge } from '@/components/applications/StatusBadge'
 import { StatusPicker } from '@/components/applications/StatusPicker'
+import { ErrorAlert } from '@/components/panel/ErrorAlert'
 import { PanelPage } from '@/components/panel/PanelPage'
 import { PanelTabsList, PanelTabsTrigger } from '@/components/panel/PanelTabs'
 import { UserAvatar } from '@/components/panel/UserAvatar'
@@ -96,7 +97,8 @@ function ApplicationDetailPage() {
       type="button"
       disabled={isSaving || selectedStatus === application.status}
       onClick={save}
-      className="h-9 rounded-[10px] bg-ochre px-4 font-semibold text-surface hover:bg-ochre-dark md:h-10"
+      variant="accent"
+      className="h-9 px-4 md:h-10"
     >
       {isSaving ? 'Zapisywanie...' : 'Zapisz zmiany'}
     </Button>
@@ -217,13 +219,11 @@ function ApplicationDetailPage() {
             />
           </TabsContent>
         </Tabs>
+      ) : loadError ? (
+        <ErrorAlert>{loadError}</ErrorAlert>
       ) : (
         <SettingsCard>
-          {loadError ? (
-            <p className="text-sm text-destructive">{loadError}</p>
-          ) : (
-            <Skeleton className="h-40 w-full" />
-          )}
+          <Skeleton className="h-40 w-full" />
         </SettingsCard>
       )}
     </PanelPage>

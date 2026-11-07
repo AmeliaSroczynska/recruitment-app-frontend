@@ -35,7 +35,8 @@ function SettingsPage() {
             type="submit"
             form={FORM_ID}
             disabled={isSaving}
-            className="h-9 rounded-[10px] bg-ochre px-4 font-semibold text-surface hover:bg-ochre-dark"
+            variant="accent"
+            className="h-9 px-4"
           >
             {isSaving ? 'Zapisywanie...' : 'Zapisz zmiany'}
           </Button>

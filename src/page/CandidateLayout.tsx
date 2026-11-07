@@ -3,6 +3,7 @@ import { Navigate, Outlet, useParams } from 'react-router-dom'
 import { useAuth } from '@/auth/AuthContext'
 import { CandidateHeader } from '@/components/candidate/CandidateHeader'
 import { CandidateMobileNav } from '@/components/candidate/CandidateMobileNav'
+import { ErrorAlert } from '@/components/panel/ErrorAlert'
 import { Skeleton } from '@/components/ui/skeleton'
 import { api } from '@/lib/api'
 import { type CandidateApplication, CandidateContext } from '@/panel/candidate'
@@ -41,9 +42,9 @@ function CandidateLayout() {
     return (
       <main className="mx-auto flex min-h-svh max-w-[1136px] flex-col gap-5 bg-background px-[18px] pt-7 md:px-8">
         {isCurrent ? (
-          <p className="text-sm text-destructive">
+          <ErrorAlert>
             Nie udało się wczytać zgłoszenia. Odśwież stronę.
-          </p>
+          </ErrorAlert>
         ) : (
           <>
             <Skeleton className="h-9 w-48" />

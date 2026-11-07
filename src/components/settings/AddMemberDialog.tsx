@@ -63,12 +63,7 @@ function AddMemberDialog({ editionId, onAdded }: AddMemberDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger
-        render={
-          <Button
-            variant="outline"
-            className="h-12 w-full gap-1.5 rounded-xl border-dashed border-sand bg-transparent text-sm font-semibold text-ochre-dark shadow-none hover:bg-paper hover:text-ochre-dark"
-          />
-        }
+        render={<Button variant="dashed" className="h-12 w-full rounded-xl" />}
       >
         <Plus />
         Dodaj osobę

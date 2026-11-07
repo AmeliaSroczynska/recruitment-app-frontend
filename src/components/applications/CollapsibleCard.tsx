@@ -15,7 +15,7 @@ type CollapsibleCardProps = {
 
 function CollapsibleCard({ title, children }: CollapsibleCardProps) {
   return (
-    <Card className="gap-0 rounded-2xl bg-card py-5 shadow-[0_1px_2px_rgba(34,32,27,0.05)] ring-border md:py-6">
+    <Card className="gap-0 rounded-2xl bg-card py-5 shadow-card ring-border md:py-6">
       <CardContent className="px-5 md:px-6">
         <Collapsible defaultOpen>
           <div className="flex items-center justify-between gap-3">

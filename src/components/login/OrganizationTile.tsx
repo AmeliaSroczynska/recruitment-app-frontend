@@ -7,6 +7,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item'
+import { OrganizationAvatar } from '@/components/panel/OrganizationAvatar'
 import { cn } from '@/lib/utils'
 
 const LOGO_COLORS = [
@@ -26,15 +27,17 @@ function OrganizationTile({ to, name, index }: OrganizationTileProps) {
     <Item
       variant="outline"
       render={<Link to={to} />}
-      className="h-[82px] flex-nowrap rounded-[14px] bg-card px-4 shadow-[0_1px_1px_rgba(34,32,27,0.05)] lg:h-[90px] lg:px-5 [a]:hover:border-stone [a]:hover:bg-card"
+      className="h-[82px] flex-nowrap rounded-[14px] bg-card px-4 shadow-tile lg:h-[90px] lg:px-5 [a]:hover:border-stone [a]:hover:bg-card"
     >
-      <ItemMedia
-        className={cn(
-          'size-12 rounded-xl font-heading text-xl font-extrabold',
-          LOGO_COLORS[index % LOGO_COLORS.length],
-        )}
-      >
-        {name.charAt(0).toUpperCase()}
+      <ItemMedia>
+        <OrganizationAvatar
+          name={name}
+          className="size-12 rounded-xl"
+          fallbackClassName={cn(
+            'text-xl',
+            LOGO_COLORS[index % LOGO_COLORS.length],
+          )}
+        />
       </ItemMedia>
       <ItemContent className="min-w-0">
         <ItemTitle className="text-base leading-5 font-semibold text-foreground">

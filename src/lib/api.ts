@@ -5,10 +5,12 @@ type ApiOptions = {
 
 class ApiError extends Error {
   status: number
+  data: unknown
 
-  constructor(status: number, message: string) {
+  constructor(status: number, message: string, data: unknown = null) {
     super(message)
     this.status = status
+    this.data = data
   }
 }
 
@@ -67,7 +69,11 @@ async function api<T>(path: string, { method = 'GET', body }: ApiOptions = {}) {
     response.status === 204 ? null : await response.json().catch(() => null)
 
   if (!response.ok) {
-    throw new ApiError(response.status, getErrorMessage(response.status, data))
+    throw new ApiError(
+      response.status,
+      getErrorMessage(response.status, data),
+      data,
+    )
   }
   return data as T
 }

@@ -1,7 +1,13 @@
-import { useState, type FormEvent, type ReactNode } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+  type ReactNode,
+} from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
-import { Field, FieldLabel } from '@/components/ui/field'
+import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
@@ -18,6 +24,10 @@ const inputClassName =
   'h-12 rounded-[10px] border-border bg-surface px-4 text-[15px] shadow-none'
 
 type Answers = Record<string, string | string[]>
+
+type FieldErrors = Record<string, string>
+
+const NO_ERRORS: FieldErrors = {}
 
 type FormHeaderProps = {
   title: string
@@ -68,6 +78,9 @@ function QuestionLabel({
 type ApplicationFormViewProps = FormHeaderProps & {
   questions: Question[]
   onSubmit?: (answers: Answers) => void
+  errors?: FieldErrors
+  formError?: string
+  submitting?: boolean
 }
 
 function ApplicationFormView({
@@ -76,8 +89,18 @@ function ApplicationFormView({
   organizationName,
   questions,
   onSubmit,
+  errors = NO_ERRORS,
+  formError = '',
+  submitting = false,
 }: ApplicationFormViewProps) {
   const [answers, setAnswers] = useState<Answers>({})
+  const formRef = useRef<HTMLFormElement>(null)
+
+  useEffect(() => {
+    formRef.current
+      ?.querySelector('[data-invalid="true"]')
+      ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }, [errors])
 
   function setAnswer(key: string, value: string | string[]) {
     setAnswers((current) => ({ ...current, [key]: value }))
@@ -91,18 +114,23 @@ function ApplicationFormView({
   const fields = (
     <>
       {FIXED_FIELDS.map((field) => (
-        <Field key={field.name} className="gap-3">
+        <Field
+          key={field.name}
+          data-invalid={Boolean(errors[field.name])}
+          className="gap-3"
+        >
           <QuestionLabel htmlFor={`answer-${field.name}`} required>
             {field.label}
           </QuestionLabel>
           <Input
             id={`answer-${field.name}`}
             type={field.type}
-            required={Boolean(onSubmit)}
+            aria-invalid={Boolean(errors[field.name])}
             value={(answers[field.name] as string) ?? ''}
             onChange={(event) => setAnswer(field.name, event.target.value)}
             className={inputClassName}
           />
+          <FieldError>{errors[field.name]}</FieldError>
         </Field>
       ))}
       {questions.map((question) => {
@@ -115,7 +143,11 @@ function ApplicationFormView({
           const multiple = question.type === 'multiple_choice'
           const value = answers[key]
           return (
-            <Field key={key} className="gap-3">
+            <Field
+              key={key}
+              data-invalid={Boolean(errors[key])}
+              className="gap-3"
+            >
               <QuestionLabel required={question.is_required}>
                 {question.text}
               </QuestionLabel>
@@ -136,18 +168,23 @@ function ApplicationFormView({
                   </ToggleGroupItem>
                 ))}
               </ToggleGroup>
+              <FieldError>{errors[key]}</FieldError>
             </Field>
           )
         }
         return (
-          <Field key={key} className="gap-3">
+          <Field
+            key={key}
+            data-invalid={Boolean(errors[key])}
+            className="gap-3"
+          >
             <QuestionLabel htmlFor={id} required={question.is_required}>
               {question.text}
             </QuestionLabel>
             {question.type === 'long_text' ? (
               <Textarea
                 id={id}
-                required={Boolean(onSubmit) && question.is_required}
+                aria-invalid={Boolean(errors[key])}
                 value={(answers[key] as string) ?? ''}
                 onChange={(event) => setAnswer(key, event.target.value)}
                 className="min-h-32 rounded-[10px] border-border bg-surface px-4 py-3 text-[15px] shadow-none"
@@ -155,21 +192,24 @@ function ApplicationFormView({
             ) : (
               <Input
                 id={id}
-                required={Boolean(onSubmit) && question.is_required}
+                aria-invalid={Boolean(errors[key])}
                 value={(answers[key] as string) ?? ''}
                 onChange={(event) => setAnswer(key, event.target.value)}
                 className={inputClassName}
               />
             )}
+            <FieldError>{errors[key]}</FieldError>
           </Field>
         )
       })}
       <div className="flex flex-col items-start gap-4">
+        {formError && <FieldError>{formError}</FieldError>}
         <Button
           type={onSubmit ? 'submit' : 'button'}
+          disabled={submitting}
           className="h-11 rounded-[10px] bg-ochre px-5 text-[15px] font-semibold text-surface hover:bg-ochre-dark"
         >
-          Wyślij zgłoszenie
+          {submitting ? 'Wysyłanie...' : 'Wyślij zgłoszenie'}
         </Button>
         <p className="text-[13px] text-muted-foreground">
           Uzupełniałeś/aś już ten formularz?{' '}
@@ -193,7 +233,12 @@ function ApplicationFormView({
       />
       <Separator className="my-7" />
       {onSubmit ? (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-7">
+        <form
+          ref={formRef}
+          noValidate
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-7"
+        >
           {fields}
         </form>
       ) : (
@@ -204,4 +249,4 @@ function ApplicationFormView({
 }
 
 export { ApplicationFormHeader, ApplicationFormView }
-export type { Answers }
+export type { Answers, FieldErrors }

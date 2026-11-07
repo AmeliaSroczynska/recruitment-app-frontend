@@ -34,4 +34,25 @@ type PublicForm = {
   questions: Question[]
 }
 
-export type { ApplicationForm, Choice, PublicForm, Question, QuestionType }
+type AnswerInput = {
+  question: number
+  text?: string
+  choices?: number[]
+}
+
+type ApplicationInput = {
+  first_name: string
+  last_name: string
+  email: string
+  answers: AnswerInput[]
+}
+
+export type {
+  AnswerInput,
+  ApplicationForm,
+  ApplicationInput,
+  Choice,
+  PublicForm,
+  Question,
+  QuestionType,
+}

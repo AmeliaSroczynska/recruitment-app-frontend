@@ -4,6 +4,7 @@ type ApplicationForm = {
   description: string | null
   slug: string
   is_accepting_responses: boolean
+  header_image_url: string | null
 }
 
 type QuestionType = {
@@ -30,6 +31,7 @@ type PublicForm = {
   title: string
   description: string | null
   organization_name: string
+  header_image_url: string | null
   is_accepting_responses: boolean
   questions: Question[]
 }

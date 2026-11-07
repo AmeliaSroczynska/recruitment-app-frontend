@@ -26,4 +26,12 @@ type Question = {
   choices: Choice[]
 }
 
-export type { ApplicationForm, Choice, Question, QuestionType }
+type PublicForm = {
+  title: string
+  description: string | null
+  organization_name: string
+  is_accepting_responses: boolean
+  questions: Question[]
+}
+
+export type { ApplicationForm, Choice, PublicForm, Question, QuestionType }

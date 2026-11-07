@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { FormHeaderCard } from '@/components/forms/FormHeaderCard'
 import { FormLinkCard } from '@/components/forms/FormLinkCard'
+import { FormPreview } from '@/components/forms/FormPreview'
 import { FormSettingsCard } from '@/components/forms/FormSettingsCard'
 import { QuestionList } from '@/components/forms/QuestionList'
 import { PanelPage } from '@/components/panel/PanelPage'
@@ -101,6 +102,7 @@ function FormsPage() {
             <PanelTabsList>
               <PanelTabsTrigger value="questions">Pytania</PanelTabsTrigger>
               <PanelTabsTrigger value="settings">Ustawienia</PanelTabsTrigger>
+              <PanelTabsTrigger value="preview">Podgląd</PanelTabsTrigger>
             </PanelTabsList>
             <TabsContent value="questions">
               <FormHeaderCard form={form} disabled={!canEdit} onChange={update}>
@@ -124,6 +126,9 @@ function FormsPage() {
                   update({ is_accepting_responses: isAcceptingResponses })
                 }
               />
+            </TabsContent>
+            <TabsContent value="preview">
+              <FormPreview form={form} />
             </TabsContent>
             {(error || message) && (
               <div>

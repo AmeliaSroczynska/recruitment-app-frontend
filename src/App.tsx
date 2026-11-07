@@ -13,6 +13,7 @@ import PanelChoicePage from '@/page/PanelChoicePage'
 import PanelLayout from '@/page/PanelLayout'
 import PanelPlaceholderPage from '@/page/PanelPlaceholderPage'
 import PanelSectionPage from '@/page/PanelSectionPage'
+import PublicFormPage from '@/page/PublicFormPage'
 import SettingsPage from '@/page/SettingsPage'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<PanelChoicePage />} />
+          <Route path="/form/:slug" element={<PublicFormPage />} />
           <Route path="/login/candidate" element={<CandidateLoginPage />} />
           <Route path="/login/candidate/code" element={<CandidateCodePage />} />
           <Route

@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useAuth, type User } from '@/auth/AuthContext'
-import { FilePicker } from '@/components/files/FilePicker'
-import { Field, FieldError, FieldLabel } from '@/components/ui/field'
+import { ImagePicker } from '@/components/files/ImagePicker'
 import { api, ApiError } from '@/lib/api'
 import type { Organization } from '@/panel/settings'
 
@@ -49,17 +48,15 @@ function OrganizationLogoField({
   }
 
   return (
-    <Field className="gap-[7px]">
-      <FieldLabel className="font-medium">Logo</FieldLabel>
-      <FilePicker
-        kind="image"
-        url={logoUrl}
-        disabled={!canEdit || isSaving}
-        onSelect={handleSelect}
-        onRemove={canEdit ? () => void save() : undefined}
-      />
-      {error && <FieldError>{error}</FieldError>}
-    </Field>
+    <ImagePicker
+      label="Logo organizacji"
+      placeholder="logo organizacji"
+      url={logoUrl}
+      disabled={!canEdit || isSaving}
+      error={error}
+      onSelect={handleSelect}
+      onRemove={canEdit ? () => void save() : undefined}
+    />
   )
 }
 

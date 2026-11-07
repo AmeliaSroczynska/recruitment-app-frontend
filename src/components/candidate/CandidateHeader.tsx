@@ -11,7 +11,10 @@ function CandidateHeader() {
   return (
     <header className="sticky top-0 z-20 hidden h-16 grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-border bg-card px-7 md:grid">
       <div className="flex min-w-0 items-center gap-2.5">
-        <OrganizationAvatar name={application.organization_name} />
+        <OrganizationAvatar
+          name={application.organization_name}
+          logoUrl={application.organization_logo_url}
+        />
         <span className="truncate font-heading text-lg font-extrabold tracking-[-0.3px] text-foreground">
           {application.organization_name}
         </span>

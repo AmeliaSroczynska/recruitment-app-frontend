@@ -24,6 +24,7 @@ function CandidateHomePage() {
           <ContactCard
             name={application.organization_name}
             email={application.organization_email}
+            logoUrl={application.organization_logo_url}
           />
         </div>
       </div>

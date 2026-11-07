@@ -11,6 +11,7 @@ type CandidateApplication = {
   edition_id: number
   organization_name: string
   organization_email: string
+  organization_logo_url: string | null
   answers: ApplicationAnswer[]
 }
 

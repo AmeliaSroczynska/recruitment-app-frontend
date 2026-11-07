@@ -38,28 +38,40 @@ function EditionsCard({ editionId, canEdit }: EditionsCardProps) {
       {error && <p className="mt-3 text-sm text-destructive">{error}</p>}
       {!editions && !error && <Skeleton className="mt-3 h-8 w-64" />}
       {editions && (
-        <div className="mt-3 flex flex-wrap gap-2">
+        <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
           {editions.map((edition) => (
-            <Button
-              key={edition.id}
-              variant="outline"
-              disabled={!isMember(edition)}
-              onClick={() => navigate(`/organization/${edition.id}/settings`)}
-              className={cn(
-                'h-8 rounded-lg border-border bg-card px-3 text-sm font-normal shadow-none',
-                edition.id === editionId &&
-                  'border-ochre bg-paper text-ochre-dark hover:bg-paper hover:text-ochre-dark',
+            <div key={edition.id} className="flex items-center gap-0.5">
+              <Button
+                variant="outline"
+                disabled={!isMember(edition)}
+                onClick={() => navigate(`/organization/${edition.id}/settings`)}
+                className={cn(
+                  'h-8 rounded-lg border-border bg-card px-3 text-sm font-normal shadow-none',
+                  edition.id === editionId &&
+                    'border-ochre bg-paper text-ochre-dark hover:bg-paper hover:text-ochre-dark',
+                )}
+              >
+                {edition.name}
+              </Button>
+              {canEdit && editions.length > 1 && (
+                <DeleteEditionDialog
+                  edition={edition}
+                  onDeleted={(deletedId) =>
+                    setEditions(
+                      (current) =>
+                        current &&
+                        current.filter((item) => item.id !== deletedId),
+                    )
+                  }
+                />
               )}
-            >
-              {edition.name}
-            </Button>
+            </div>
           ))}
         </div>
       )}
       {canEdit && (
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <NewEditionDialog editionId={editionId} />
-          {editions && editions.length > 1 && <DeleteEditionDialog />}
         </div>
       )}
     </SettingsCard>

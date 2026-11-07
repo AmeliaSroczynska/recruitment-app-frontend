@@ -138,7 +138,7 @@ function OrganizationForm({
                 id="organization-slug"
                 required
                 maxLength={50}
-                pattern="[a-z0-9-]+"
+                pattern="[a-z0-9\-]+"
                 title="Tylko małe litery bez polskich znaków, cyfry i myślniki."
                 value={organization.slug}
                 onChange={(event) => update('slug', event.target.value)}

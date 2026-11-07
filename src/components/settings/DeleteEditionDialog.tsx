@@ -60,14 +60,14 @@ function DeleteEditionDialog() {
         render={
           <Button
             variant="ghost"
-            className="h-10 gap-1.5 rounded-[10px] px-3 text-sm text-muted-foreground hover:bg-paper hover:text-destructive"
+            className="h-10 gap-1.5 rounded-[10px] px-3 text-sm text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
           />
         }
       >
         <Trash2 />
         Usuń tę edycję
       </AlertDialogTrigger>
-      <AlertDialogContent className="bg-surface">
+      <AlertDialogContent className="bg-card">
         <AlertDialogHeader>
           <AlertDialogTitle className="font-heading font-semibold">
             Usunąć edycję „{membership.edition_name}”?

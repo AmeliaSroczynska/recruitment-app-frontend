@@ -7,7 +7,7 @@ function NewOrganizationTile() {
     <Item
       variant="outline"
       render={<Link to="/login/organization/new" />}
-      className="h-[82px] flex-nowrap justify-center gap-2 rounded-[14px] border-2 border-dashed border-sand bg-transparent px-4 text-ochre-dark lg:h-[90px] [a]:hover:border-ochre [a]:hover:bg-surface"
+      className="h-[82px] flex-nowrap justify-center gap-2 rounded-[14px] border-2 border-dashed border-sand bg-transparent px-4 text-ochre-dark lg:h-[90px] [a]:hover:border-ochre [a]:hover:bg-card"
     >
       <Plus className="size-[18px]" strokeWidth={2} />
       <ItemContent className="flex-none">

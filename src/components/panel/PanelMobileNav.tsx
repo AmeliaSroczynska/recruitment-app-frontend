@@ -8,7 +8,7 @@ function PanelMobileNav() {
   const section = useSection()
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-20 grid grid-cols-4 border-t border-border bg-surface pt-3.5 pb-[max(14px,env(safe-area-inset-bottom))] md:hidden">
+    <nav className="fixed inset-x-0 bottom-0 z-20 grid grid-cols-4 border-t border-border bg-card pt-3.5 pb-[max(14px,env(safe-area-inset-bottom))] md:hidden">
       {MOBILE_NAV.map((item) => {
         const isActive = item.matches.includes(section)
         return (

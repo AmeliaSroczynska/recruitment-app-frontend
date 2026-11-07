@@ -65,7 +65,7 @@ function CreateOrganizationPage() {
         <h1 className="mt-4 font-heading text-[26px] leading-[37.7px] font-extrabold tracking-[-0.3px] text-foreground lg:mt-5 lg:text-[34px] lg:leading-[49.3px]">
           Utwórz organizację
         </h1>
-        <Card className="mt-5 gap-0 rounded-2xl bg-surface py-6 shadow-[0_1px_2px_rgba(34,32,27,0.05)] ring-border lg:mt-6 lg:py-7">
+        <Card className="mt-5 gap-0 rounded-2xl bg-card py-6 shadow-[0_1px_2px_rgba(34,32,27,0.05)] ring-border lg:mt-6 lg:py-7">
           <CardContent className="px-5 lg:px-7">
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               <Field className="gap-[7px]">

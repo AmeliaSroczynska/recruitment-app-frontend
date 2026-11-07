@@ -26,13 +26,13 @@ function RemoveMemberDialog({ name, onConfirm }: RemoveMemberDialogProps) {
             variant="ghost"
             size="icon-sm"
             aria-label={`Usuń ${name}`}
-            className="text-muted-foreground hover:bg-paper hover:text-destructive"
+            className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
           />
         }
       >
         <Trash2 />
       </AlertDialogTrigger>
-      <AlertDialogContent className="bg-surface">
+      <AlertDialogContent className="bg-card">
         <AlertDialogHeader>
           <AlertDialogTitle className="font-heading font-semibold">
             Usunąć osobę z edycji?

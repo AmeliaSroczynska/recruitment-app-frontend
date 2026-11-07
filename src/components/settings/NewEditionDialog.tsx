@@ -63,7 +63,7 @@ function NewEditionDialog({ editionId }: NewEditionDialogProps) {
         <Plus />
         Nowa edycja
       </DialogTrigger>
-      <DialogContent className="bg-surface">
+      <DialogContent className="bg-card">
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <DialogHeader>
             <DialogTitle className="font-heading text-lg font-semibold">

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '@/auth/AuthContext'
+import { useAuth, type Application, type Membership } from '@/auth/AuthContext'
 import { NewOrganizationTile } from '@/components/login/NewOrganizationTile'
 import { OrganizationTile } from '@/components/login/OrganizationTile'
 import { Button } from '@/components/ui/button'
@@ -12,6 +12,29 @@ function describeCount(count: number) {
   return count === 1 ? '1 organizacji' : `${count} organizacjach`
 }
 
+function isBetterEdition(
+  edition: Membership | Application,
+  current: Membership | Application,
+) {
+  if (edition.edition_is_active !== current.edition_is_active) {
+    return edition.edition_is_active
+  }
+  return edition.edition_id > current.edition_id
+}
+
+function pickOnePerOrganization<T extends Membership | Application>(
+  editions: T[],
+) {
+  const chosen = new Map<string, T>()
+  for (const edition of editions) {
+    const current = chosen.get(edition.organization_slug)
+    if (!current || isBetterEdition(edition, current)) {
+      chosen.set(edition.organization_slug, edition)
+    }
+  }
+  return [...chosen.values()]
+}
+
 function OrganizationChoicePage({ panel }: OrganizationChoicePageProps) {
   const navigate = useNavigate()
   const { user, logout } = useAuth()
@@ -20,7 +43,9 @@ function OrganizationChoicePage({ panel }: OrganizationChoicePageProps) {
     return null
   }
 
-  const editions = panel === 'candidate' ? user.applications : user.memberships
+  const editions = pickOnePerOrganization<Membership | Application>(
+    panel === 'candidate' ? user.applications : user.memberships,
+  )
   const email = (
     <span className="font-semibold text-foreground">{user.email}</span>
   )
@@ -70,6 +95,7 @@ function OrganizationChoicePage({ panel }: OrganizationChoicePageProps) {
                 key={edition.id}
                 to={`/${panel}/${edition.edition_id}`}
                 name={edition.organization_name}
+                logoUrl={edition.organization_logo_url}
                 index={index}
               />
             ))}

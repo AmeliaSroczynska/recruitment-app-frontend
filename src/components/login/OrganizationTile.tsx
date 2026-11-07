@@ -19,10 +19,11 @@ const LOGO_COLORS = [
 type OrganizationTileProps = {
   to: string
   name: string
+  logoUrl: string | null
   index: number
 }
 
-function OrganizationTile({ to, name, index }: OrganizationTileProps) {
+function OrganizationTile({ to, name, logoUrl, index }: OrganizationTileProps) {
   return (
     <Item
       variant="outline"
@@ -32,6 +33,7 @@ function OrganizationTile({ to, name, index }: OrganizationTileProps) {
       <ItemMedia>
         <OrganizationAvatar
           name={name}
+          logoUrl={logoUrl}
           className="size-12 rounded-xl"
           fallbackClassName={cn(
             'text-xl',

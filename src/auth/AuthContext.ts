@@ -4,8 +4,10 @@ type Membership = {
   id: number
   edition_id: number
   edition_name: string
+  edition_is_active: boolean
   organization_name: string
   organization_slug: string
+  organization_logo_url: string | null
   role: string
 }
 
@@ -13,8 +15,10 @@ type Application = {
   id: number
   edition_id: number
   edition_name: string
+  edition_is_active: boolean
   organization_name: string
   organization_slug: string
+  organization_logo_url: string | null
   status: string
 }
 

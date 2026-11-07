@@ -25,6 +25,22 @@ type ApplicationDetail = ApplicationListItem & {
   answers: ApplicationAnswer[]
 }
 
+type TeamEntry = {
+  id: number
+  membership: number
+  first_name: string
+  last_name: string
+  email: string
+}
+
+type Rating = TeamEntry & {
+  value: number
+}
+
+type Note = TeamEntry & {
+  text: string
+}
+
 type ApplicationPage = {
   count: number
   next: string | null
@@ -79,4 +95,6 @@ export type {
   ApplicationListItem,
   ApplicationPage,
   ApplicationStatus,
+  Note,
+  Rating,
 }

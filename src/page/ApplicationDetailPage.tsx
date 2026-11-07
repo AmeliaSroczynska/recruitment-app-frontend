@@ -2,6 +2,8 @@ import { ArrowLeft } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { AnswerList } from '@/components/applications/AnswerList'
+import { NotesCard } from '@/components/applications/NotesCard'
+import { RatingCard } from '@/components/applications/RatingCard'
 import { StatusBadge } from '@/components/applications/StatusBadge'
 import { StatusPicker } from '@/components/applications/StatusPicker'
 import { PanelPage } from '@/components/panel/PanelPage'
@@ -23,7 +25,7 @@ import { Tabs, TabsContent } from '@/components/ui/tabs'
 import { api, ApiError } from '@/lib/api'
 import type { ApplicationDetail, ApplicationStatus } from '@/panel/applications'
 import { useEdition } from '@/panel/EditionContext'
-import { canEditApplications } from '@/panel/roles'
+import { canEditApplications, canEditNotes } from '@/panel/roles'
 import { getDisplayName } from '@/panel/user'
 
 type LoadedApplication = {
@@ -197,7 +199,18 @@ function ApplicationDetailPage() {
           </TabsContent>
           <TabsContent value="interviews" />
           <TabsContent value="onboarding" />
-          <TabsContent value="notes" />
+          <TabsContent value="notes" className="flex flex-col gap-4 md:gap-5">
+            <RatingCard
+              path={`${path}ratings/`}
+              membershipId={membership.id}
+              canEdit={canEditNotes(membership.role)}
+            />
+            <NotesCard
+              path={`${path}notes/`}
+              membershipId={membership.id}
+              canEdit={canEditNotes(membership.role)}
+            />
+          </TabsContent>
         </Tabs>
       ) : (
         <SettingsCard>

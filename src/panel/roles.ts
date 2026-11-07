@@ -23,11 +23,16 @@ function canEditApplications(role: string) {
   return role === 'coordinator' || role === 'recruiter'
 }
 
+function canEditNotes(role: string) {
+  return role !== 'observer'
+}
+
 export {
   ROLES,
   ROLE_LABELS,
   canEditApplications,
   canEditForm,
+  canEditNotes,
   canEditSettings,
   canSeeSettings,
 }

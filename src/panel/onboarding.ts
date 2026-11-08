@@ -25,6 +25,7 @@ type EntryKind = {
   deleteLabel: string
   deleteTitle: string
   deleteDescription: string
+  hasFile?: boolean
 }
 
 const TASK_ENTRY: EntryKind = {
@@ -63,6 +64,25 @@ const FAQ_ENTRY: EntryKind = {
     'Pytanie i odpowiedź znikną na stałe, także u przyjętych kandydatów.',
 }
 
+const DOCUMENT_ENTRY: EntryKind = {
+  path: 'documents',
+  titleField: 'name',
+  bodyField: 'description',
+  itemLabel: 'Dokument',
+  titleLabel: 'Nazwa dokumentu',
+  bodyLabel: 'Opis dokumentu',
+  bodyPlaceholder: 'Opis dokumentu (opcjonalnie)',
+  newTitle: '',
+  addLabel: 'Dodaj dokument',
+  emptyText: 'Baza wiedzy jest jeszcze pusta.',
+  loadError: 'Nie udało się wczytać dokumentów.',
+  deleteLabel: 'Usuń dokument',
+  deleteTitle: 'Usunąć dokument?',
+  deleteDescription:
+    'Dokument i jego plik znikną na stałe, także u przyjętych kandydatów.',
+  hasFile: true,
+}
+
 type CandidateTask = {
   id: number
   name: string
@@ -77,5 +97,14 @@ type FaqQuestion = {
   position: number
 }
 
-export { FAQ_ENTRY, ONBOARDING_SECTIONS, TASK_ENTRY }
-export type { CandidateTask, Entry, EntryKind, FaqQuestion }
+type KnowledgeDocument = {
+  id: number
+  name: string
+  description: string | null
+  position: number
+  file_url: string
+  file_type: string
+}
+
+export { DOCUMENT_ENTRY, FAQ_ENTRY, ONBOARDING_SECTIONS, TASK_ENTRY }
+export type { CandidateTask, Entry, EntryKind, FaqQuestion, KnowledgeDocument }

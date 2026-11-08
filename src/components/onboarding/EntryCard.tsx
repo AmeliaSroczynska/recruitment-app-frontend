@@ -2,6 +2,7 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { GripVertical } from 'lucide-react'
 import { useState } from 'react'
+import { FilePicker } from '@/components/files/FilePicker'
 import { DeleteEntryDialog } from '@/components/onboarding/DeleteEntryDialog'
 import { Button } from '@/components/ui/button'
 import { FieldError } from '@/components/ui/field'
@@ -37,6 +38,7 @@ function EntryCard({
   const [title, setTitle] = useState(savedTitle)
   const [body, setBody] = useState(savedBody)
   const [error, setError] = useState('')
+  const [isUploading, setIsUploading] = useState(false)
   const path = `editions/${editionId}/${kind.path}/${entry.id}/`
   const {
     attributes,
@@ -61,6 +63,23 @@ function EntryCard({
           : 'Brak połączenia z serwerem. Spróbuj ponownie.',
       )
     }
+  }
+
+  async function replaceFile(file: File) {
+    setError('')
+    setIsUploading(true)
+    const body = new FormData()
+    body.append('file', file)
+    try {
+      onChange(await api<Entry>(`${path}file/`, { method: 'POST', body }))
+    } catch (caught) {
+      setError(
+        caught instanceof ApiError
+          ? caught.message
+          : 'Brak połączenia z serwerem. Spróbuj ponownie.',
+      )
+    }
+    setIsUploading(false)
   }
 
   async function remove() {
@@ -138,6 +157,15 @@ function EntryCard({
           onBlur={() => body !== savedBody && save(kind.bodyField, body)}
           className="min-h-14 rounded-[10px] border-border bg-card px-3 py-2.5 text-sm shadow-none"
         />
+        {kind.hasFile && (
+          <FilePicker
+            kind="file"
+            url={entry.file_url ? String(entry.file_url) : null}
+            fileName={`Plik ${entry.file_type}`}
+            disabled={!canEdit || isUploading}
+            onSelect={replaceFile}
+          />
+        )}
         {error && <FieldError>{error}</FieldError>}
       </div>
     </li>

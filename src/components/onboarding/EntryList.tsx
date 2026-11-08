@@ -14,12 +14,13 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { Plus } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, type ChangeEvent } from 'react'
 import { EntryCard } from '@/components/onboarding/EntryCard'
 import { Button } from '@/components/ui/button'
 import { FieldError } from '@/components/ui/field'
 import { Skeleton } from '@/components/ui/skeleton'
 import { api, ApiError } from '@/lib/api'
+import { getAccept, getFileError } from '@/lib/files'
 import type { Entry, EntryKind } from '@/panel/onboarding'
 
 type EntryListProps = {
@@ -34,6 +35,7 @@ function EntryList({ editionId, kind, canEdit }: EntryListProps) {
   const [newEntryId, setNewEntryId] = useState<number | null>(null)
   const [error, setError] = useState('')
   const [isAdding, setIsAdding] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -47,14 +49,27 @@ function EntryList({ editionId, kind, canEdit }: EntryListProps) {
       .catch(() => setError(kind.loadError))
   }, [path, kind.loadError])
 
-  async function addEntry() {
+  function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0]
+    event.target.value = ''
+    if (!file) {
+      return
+    }
+    const fileError = getFileError(file, 'file')
+    if (fileError) {
+      setError(fileError)
+      return
+    }
+    const body = new FormData()
+    body.append('file', file)
+    addEntry(body)
+  }
+
+  async function addEntry(body: FormData | Record<string, string>) {
     setError('')
     setIsAdding(true)
     try {
-      const entry = await api<Entry>(path, {
-        method: 'POST',
-        body: { [kind.titleField]: kind.newTitle },
-      })
+      const entry = await api<Entry>(path, { method: 'POST', body })
       setEntries((current) => current && [...current, entry])
       setNewEntryId(entry.id)
     } catch (caught) {
@@ -154,12 +169,25 @@ function EntryList({ editionId, kind, canEdit }: EntryListProps) {
           type="button"
           variant="dashed"
           disabled={isAdding}
-          onClick={addEntry}
+          onClick={() =>
+            kind.hasFile
+              ? fileInputRef.current?.click()
+              : addEntry({ [kind.titleField]: kind.newTitle })
+          }
           className="h-14 w-full rounded-xl text-[15px]"
         >
           <Plus />
           {kind.addLabel}
         </Button>
+      )}
+      {canEdit && kind.hasFile && (
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept={getAccept('file')}
+          className="hidden"
+          onChange={handleFileChange}
+        />
       )}
     </div>
   )

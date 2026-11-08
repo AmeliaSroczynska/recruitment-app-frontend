@@ -12,5 +12,12 @@ type Task = {
   position: number
 }
 
+type CandidateTask = {
+  id: number
+  name: string
+  description: string | null
+  completed: boolean
+}
+
 export { ONBOARDING_SECTIONS }
-export type { Task }
+export type { CandidateTask, Task }

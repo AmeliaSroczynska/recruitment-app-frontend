@@ -1,6 +1,7 @@
 import { ArrowLeft, EyeOff } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
+import { AcceptApplicationDialog } from '@/components/applications/AcceptApplicationDialog'
 import { AnswerList } from '@/components/applications/AnswerList'
 import { NotesCard } from '@/components/applications/NotesCard'
 import { RatingCard } from '@/components/applications/RatingCard'
@@ -47,6 +48,7 @@ function ApplicationDetailPage() {
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
   const [isSaving, setIsSaving] = useState(false)
+  const [isConfirming, setIsConfirming] = useState(false)
 
   useEffect(() => {
     api<ApplicationDetail>(path)
@@ -92,11 +94,14 @@ function ApplicationDetailPage() {
     setIsSaving(false)
   }
 
+  const needsConfirmation =
+    selectedStatus === 'accepted' && !application?.accepted_at
+
   const saveButton = canEdit && application && (
     <Button
       type="button"
       disabled={isSaving || selectedStatus === application.status}
-      onClick={save}
+      onClick={() => (needsConfirmation ? setIsConfirming(true) : save())}
       variant="accent"
       className="h-9 px-4 md:h-10"
     >
@@ -140,6 +145,17 @@ function ApplicationDetailPage() {
       }
       actions={saveButton}
     >
+      {application && (
+        <AcceptApplicationDialog
+          open={isConfirming}
+          name={getDisplayName(application)}
+          onOpenChange={setIsConfirming}
+          onConfirm={() => {
+            setIsConfirming(false)
+            save()
+          }}
+        />
+      )}
       {application && selectedStatus ? (
         <Tabs defaultValue="application" className="gap-5 md:gap-6">
           <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:pt-1">

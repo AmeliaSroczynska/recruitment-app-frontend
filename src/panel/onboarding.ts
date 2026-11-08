@@ -106,5 +106,56 @@ type KnowledgeDocument = {
   file_type: string
 }
 
-export { DOCUMENT_ENTRY, FAQ_ENTRY, ONBOARDING_SECTIONS, TASK_ENTRY }
-export type { CandidateTask, Entry, EntryKind, FaqQuestion, KnowledgeDocument }
+type MentorSummary = {
+  id: number
+  first_name: string
+  last_name: string
+  photo_url: string | null
+}
+
+type Mentor = MentorSummary & {
+  capacity: number
+  taken: number
+  section: string
+  free_time: string
+  how_can_help: string
+}
+
+type Mentee = {
+  id: number
+  first_name: string
+  last_name: string
+  email: string
+}
+
+type MentorDetails = Mentor & {
+  mentees: Mentee[]
+}
+
+type CandidateMentor = Mentor & {
+  is_selected: boolean
+}
+
+const MIN_MENTOR_CAPACITY = 1
+const MAX_MENTOR_CAPACITY = 12
+
+export {
+  DOCUMENT_ENTRY,
+  FAQ_ENTRY,
+  MAX_MENTOR_CAPACITY,
+  MIN_MENTOR_CAPACITY,
+  ONBOARDING_SECTIONS,
+  TASK_ENTRY,
+}
+export type {
+  CandidateMentor,
+  CandidateTask,
+  Entry,
+  EntryKind,
+  FaqQuestion,
+  KnowledgeDocument,
+  Mentee,
+  Mentor,
+  MentorDetails,
+  MentorSummary,
+}

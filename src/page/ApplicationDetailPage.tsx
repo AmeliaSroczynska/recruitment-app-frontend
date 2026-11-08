@@ -2,6 +2,7 @@ import { ArrowLeft, EyeOff, Info } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { AcceptApplicationDialog } from '@/components/applications/AcceptApplicationDialog'
+import { ApplicationMentorCard } from '@/components/applications/ApplicationMentorCard'
 import { ApplicationTasksCard } from '@/components/applications/ApplicationTasksCard'
 import { AnswerList } from '@/components/applications/AnswerList'
 import { NotesCard } from '@/components/applications/NotesCard'
@@ -229,6 +230,10 @@ function ApplicationDetailPage() {
                   tylko podgląd.
                 </p>
                 <ApplicationTasksCard path={`${path}tasks/`} />
+                <ApplicationMentorCard
+                  editionId={membership.edition_id}
+                  mentor={application.mentor}
+                />
               </>
             ) : (
               <p className="text-sm text-muted-foreground">

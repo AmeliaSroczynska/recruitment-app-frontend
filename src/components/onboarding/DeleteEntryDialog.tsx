@@ -16,6 +16,7 @@ type DeleteEntryDialogProps = {
   label: string
   title: string
   description: string
+  showLabel?: boolean
   onConfirm: () => void
 }
 
@@ -23,23 +24,38 @@ function DeleteEntryDialog({
   label,
   title,
   description,
+  showLabel,
   onConfirm,
 }: DeleteEntryDialogProps) {
   return (
     <AlertDialog>
-      <AlertDialogTrigger
-        render={
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon-sm"
-            aria-label={label}
-            className="text-destructive hover:bg-destructive/10 hover:text-destructive"
-          />
-        }
-      >
-        <X />
-      </AlertDialogTrigger>
+      {showLabel ? (
+        <AlertDialogTrigger
+          render={
+            <Button
+              type="button"
+              variant="outline"
+              className="h-9 rounded-[10px] bg-card px-4 md:h-10"
+            />
+          }
+        >
+          {label}
+        </AlertDialogTrigger>
+      ) : (
+        <AlertDialogTrigger
+          render={
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              aria-label={label}
+              className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+            />
+          }
+        >
+          <X />
+        </AlertDialogTrigger>
+      )}
       <AlertDialogContent className="bg-card">
         <AlertDialogHeader>
           <AlertDialogTitle className="font-heading font-semibold">

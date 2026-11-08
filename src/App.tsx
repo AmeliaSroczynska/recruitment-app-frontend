@@ -13,6 +13,8 @@ import CreateOrganizationPage from '@/page/CreateOrganizationPage'
 import FaqPage from '@/page/FaqPage'
 import FormsPage from '@/page/FormsPage'
 import KnowledgePage from '@/page/KnowledgePage'
+import MentorProfilePage from '@/page/MentorProfilePage'
+import MentorsPage from '@/page/MentorsPage'
 import MorePage from '@/page/MorePage'
 import OrganizationChoicePage from '@/page/OrganizationChoicePage'
 import OrganizationCodePage from '@/page/OrganizationCodePage'
@@ -74,6 +76,8 @@ function App() {
               <Route path="forms" element={<FormsPage />} />
               <Route path="settings" element={<SettingsPage />} />
               <Route path="tasks" element={<TasksPage />} />
+              <Route path="mentors" element={<MentorsPage />} />
+              <Route path="mentors/:mentorId" element={<MentorProfilePage />} />
               <Route path="knowledge" element={<KnowledgePage />} />
               <Route path="faq" element={<FaqPage />} />
               <Route path=":section" element={<PanelSectionPage />} />

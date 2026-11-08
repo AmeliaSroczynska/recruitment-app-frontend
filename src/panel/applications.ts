@@ -1,3 +1,4 @@
+import type { MentorSummary } from '@/panel/onboarding'
 import type { Person } from '@/panel/user'
 
 type ApplicationStatus =
@@ -26,6 +27,7 @@ type ApplicationAnswer = {
 type ApplicationDetail = ApplicationListItem & {
   accepted_at: string | null
   answers: ApplicationAnswer[]
+  mentor: MentorSummary | null
 }
 
 type TeamEntry = {

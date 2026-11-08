@@ -1,5 +1,6 @@
 import { CandidateDocuments } from '@/components/candidate/CandidateDocuments'
 import { CandidateFaq } from '@/components/candidate/CandidateFaq'
+import { CandidateMentors } from '@/components/candidate/CandidateMentors'
 import { CandidatePage } from '@/components/candidate/CandidatePage'
 import { CandidateTaskList } from '@/components/candidate/CandidateTaskList'
 import { OnboardingLocked } from '@/components/candidate/OnboardingLocked'
@@ -37,21 +38,15 @@ function CandidateOnboardingPage() {
         <TabsContent value="tasks">
           <CandidateTaskList applicationId={application.id} />
         </TabsContent>
+        <TabsContent value="mentors">
+          <CandidateMentors applicationId={application.id} />
+        </TabsContent>
         <TabsContent value="knowledge">
           <CandidateDocuments applicationId={application.id} />
         </TabsContent>
         <TabsContent value="faq">
           <CandidateFaq applicationId={application.id} />
         </TabsContent>
-        {ONBOARDING_SECTIONS.filter(
-          (section) => !['tasks', 'knowledge', 'faq'].includes(section.path),
-        ).map((section) => (
-          <TabsContent key={section.path} value={section.path}>
-            <p className="text-sm text-muted-foreground">
-              Ten widok jest jeszcze w budowie
-            </p>
-          </TabsContent>
-        ))}
       </Tabs>
     </CandidatePage>
   )

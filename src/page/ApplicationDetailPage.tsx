@@ -1,7 +1,8 @@
-import { ArrowLeft, EyeOff } from 'lucide-react'
+import { ArrowLeft, EyeOff, Info } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { AcceptApplicationDialog } from '@/components/applications/AcceptApplicationDialog'
+import { ApplicationTasksCard } from '@/components/applications/ApplicationTasksCard'
 import { AnswerList } from '@/components/applications/AnswerList'
 import { NotesCard } from '@/components/applications/NotesCard'
 import { RatingCard } from '@/components/applications/RatingCard'
@@ -216,7 +217,25 @@ function ApplicationDetailPage() {
             <AnswerList answers={application.answers} />
           </TabsContent>
           <TabsContent value="interviews" />
-          <TabsContent value="onboarding" />
+          <TabsContent
+            value="onboarding"
+            className="flex flex-col gap-4 md:gap-5"
+          >
+            {application.status === 'accepted' ? (
+              <>
+                <p className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Info className="size-4 shrink-0" />
+                  Zadania odhacza sam kandydat w swoim panelu. Tutaj widzisz
+                  tylko podgląd.
+                </p>
+                <ApplicationTasksCard path={`${path}tasks/`} />
+              </>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Wdrożenie zacznie się, gdy kandydat dostanie status Przyjęty.
+              </p>
+            )}
+          </TabsContent>
           <TabsContent value="notes" className="flex flex-col gap-4 md:gap-5">
             <p className="flex items-center gap-2 text-sm text-muted-foreground">
               <EyeOff className="size-4 shrink-0" />

@@ -1,6 +1,7 @@
+import { EntryList } from '@/components/onboarding/EntryList'
 import { OnboardingPage } from '@/components/onboarding/OnboardingPage'
-import { TaskList } from '@/components/onboarding/TaskList'
 import { useEdition } from '@/panel/EditionContext'
+import { TASK_ENTRY } from '@/panel/onboarding'
 import { canEditOnboarding } from '@/panel/roles'
 
 function TasksPage() {
@@ -8,8 +9,9 @@ function TasksPage() {
 
   return (
     <OnboardingPage title="Zadania wdrażające">
-      <TaskList
+      <EntryList
         editionId={membership.edition_id}
+        kind={TASK_ENTRY}
         canEdit={canEditOnboarding(membership.role)}
       />
     </OnboardingPage>

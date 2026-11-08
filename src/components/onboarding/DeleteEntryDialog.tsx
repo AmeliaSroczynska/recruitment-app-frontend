@@ -12,11 +12,19 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 
-type DeleteTaskDialogProps = {
+type DeleteEntryDialogProps = {
+  label: string
+  title: string
+  description: string
   onConfirm: () => void
 }
 
-function DeleteTaskDialog({ onConfirm }: DeleteTaskDialogProps) {
+function DeleteEntryDialog({
+  label,
+  title,
+  description,
+  onConfirm,
+}: DeleteEntryDialogProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger
@@ -25,7 +33,7 @@ function DeleteTaskDialog({ onConfirm }: DeleteTaskDialogProps) {
             type="button"
             variant="ghost"
             size="icon-sm"
-            aria-label="Usuń zadanie"
+            aria-label={label}
             className="text-destructive hover:bg-destructive/10 hover:text-destructive"
           />
         }
@@ -35,12 +43,9 @@ function DeleteTaskDialog({ onConfirm }: DeleteTaskDialogProps) {
       <AlertDialogContent className="bg-card">
         <AlertDialogHeader>
           <AlertDialogTitle className="font-heading font-semibold">
-            Usunąć zadanie?
+            {title}
           </AlertDialogTitle>
-          <AlertDialogDescription>
-            Zadanie zniknie na stałe, także u przyjętych kandydatów, razem z ich
-            odhaczeniami.
-          </AlertDialogDescription>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel className="h-10 rounded-[10px]">
@@ -59,4 +64,4 @@ function DeleteTaskDialog({ onConfirm }: DeleteTaskDialogProps) {
   )
 }
 
-export { DeleteTaskDialog }
+export { DeleteEntryDialog }

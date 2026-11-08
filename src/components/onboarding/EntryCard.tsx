@@ -2,38 +2,42 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { GripVertical } from 'lucide-react'
 import { useState } from 'react'
-import { DeleteTaskDialog } from '@/components/onboarding/DeleteTaskDialog'
+import { DeleteEntryDialog } from '@/components/onboarding/DeleteEntryDialog'
 import { Button } from '@/components/ui/button'
 import { FieldError } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { api, ApiError } from '@/lib/api'
 import { cn } from '@/lib/utils'
-import type { Task } from '@/panel/onboarding'
+import type { Entry, EntryKind } from '@/panel/onboarding'
 
-type TaskCardProps = {
+type EntryCardProps = {
   editionId: number
-  task: Task
+  kind: EntryKind
+  entry: Entry
   number: number
   canEdit: boolean
   isNew: boolean
-  onChange: (task: Task) => void
+  onChange: (entry: Entry) => void
   onDelete: () => void
 }
 
-function TaskCard({
+function EntryCard({
   editionId,
-  task,
+  kind,
+  entry,
   number,
   canEdit,
   isNew,
   onChange,
   onDelete,
-}: TaskCardProps) {
-  const [name, setName] = useState(task.name)
-  const [description, setDescription] = useState(task.description ?? '')
+}: EntryCardProps) {
+  const savedTitle = String(entry[kind.titleField] ?? '')
+  const savedBody = String(entry[kind.bodyField] ?? '')
+  const [title, setTitle] = useState(savedTitle)
+  const [body, setBody] = useState(savedBody)
   const [error, setError] = useState('')
-  const path = `editions/${editionId}/tasks/${task.id}/`
+  const path = `editions/${editionId}/${kind.path}/${entry.id}/`
   const {
     attributes,
     listeners,
@@ -42,12 +46,14 @@ function TaskCard({
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: task.id, disabled: !canEdit })
+  } = useSortable({ id: entry.id, disabled: !canEdit })
 
-  async function save(changes: Partial<Task>) {
+  async function save(field: string, value: string) {
     setError('')
     try {
-      onChange(await api<Task>(path, { method: 'PATCH', body: changes }))
+      onChange(
+        await api<Entry>(path, { method: 'PATCH', body: { [field]: value } }),
+      )
     } catch (caught) {
       setError(
         caught instanceof ApiError
@@ -98,33 +104,38 @@ function TaskCard({
             <GripVertical className="size-4" />
           </Button>
         )}
-        <span className="text-sm text-muted-foreground">Zadanie {number}</span>
+        <span className="text-sm text-muted-foreground">
+          {kind.itemLabel} {number}
+        </span>
         {canEdit && (
           <div className="ml-auto">
-            <DeleteTaskDialog onConfirm={remove} />
+            <DeleteEntryDialog
+              label={kind.deleteLabel}
+              title={kind.deleteTitle}
+              description={kind.deleteDescription}
+              onConfirm={remove}
+            />
           </div>
         )}
       </div>
       <div className="mt-3 flex flex-col gap-2.5 md:pl-7">
         <Input
-          aria-label="Nazwa zadania"
+          aria-label={kind.titleLabel}
           autoFocus={isNew}
           disabled={!canEdit}
-          value={name}
+          value={title}
           onFocus={(event) => isNew && event.target.select()}
-          onChange={(event) => setName(event.target.value)}
-          onBlur={() => name !== task.name && save({ name })}
+          onChange={(event) => setTitle(event.target.value)}
+          onBlur={() => title !== savedTitle && save(kind.titleField, title)}
           className="h-11 rounded-[10px] border-border bg-card px-3 text-sm font-medium shadow-none"
         />
         <Textarea
-          aria-label="Opis zadania"
-          placeholder="Opis zadania (opcjonalnie)"
+          aria-label={kind.bodyLabel}
+          placeholder={kind.bodyPlaceholder}
           disabled={!canEdit}
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
-          onBlur={() =>
-            description !== (task.description ?? '') && save({ description })
-          }
+          value={body}
+          onChange={(event) => setBody(event.target.value)}
+          onBlur={() => body !== savedBody && save(kind.bodyField, body)}
           className="min-h-14 rounded-[10px] border-border bg-card px-3 py-2.5 text-sm shadow-none"
         />
         {error && <FieldError>{error}</FieldError>}
@@ -133,4 +144,4 @@ function TaskCard({
   )
 }
 
-export { TaskCard }
+export { EntryCard }

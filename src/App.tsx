@@ -10,6 +10,7 @@ import CandidateLayout from '@/page/CandidateLayout'
 import CandidateLoginPage from '@/page/CandidateLoginPage'
 import CandidateOnboardingPage from '@/page/CandidateOnboardingPage'
 import CreateOrganizationPage from '@/page/CreateOrganizationPage'
+import FaqPage from '@/page/FaqPage'
 import FormsPage from '@/page/FormsPage'
 import MorePage from '@/page/MorePage'
 import OrganizationChoicePage from '@/page/OrganizationChoicePage'
@@ -72,6 +73,7 @@ function App() {
               <Route path="forms" element={<FormsPage />} />
               <Route path="settings" element={<SettingsPage />} />
               <Route path="tasks" element={<TasksPage />} />
+              <Route path="faq" element={<FaqPage />} />
               <Route path=":section" element={<PanelSectionPage />} />
             </Route>
           </Route>

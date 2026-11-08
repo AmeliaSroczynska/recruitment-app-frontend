@@ -15,21 +15,23 @@ import {
 } from '@dnd-kit/sortable'
 import { Plus } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { TaskCard } from '@/components/onboarding/TaskCard'
+import { EntryCard } from '@/components/onboarding/EntryCard'
 import { Button } from '@/components/ui/button'
 import { FieldError } from '@/components/ui/field'
 import { Skeleton } from '@/components/ui/skeleton'
 import { api, ApiError } from '@/lib/api'
-import type { Task } from '@/panel/onboarding'
+import type { Entry, EntryKind } from '@/panel/onboarding'
 
-type TaskListProps = {
+type EntryListProps = {
   editionId: number
+  kind: EntryKind
   canEdit: boolean
 }
 
-function TaskList({ editionId, canEdit }: TaskListProps) {
-  const [tasks, setTasks] = useState<Task[] | null>(null)
-  const [newTaskId, setNewTaskId] = useState<number | null>(null)
+function EntryList({ editionId, kind, canEdit }: EntryListProps) {
+  const path = `editions/${editionId}/${kind.path}/`
+  const [entries, setEntries] = useState<Entry[] | null>(null)
+  const [newEntryId, setNewEntryId] = useState<number | null>(null)
   const [error, setError] = useState('')
   const [isAdding, setIsAdding] = useState(false)
   const sensors = useSensors(
@@ -40,21 +42,21 @@ function TaskList({ editionId, canEdit }: TaskListProps) {
   )
 
   useEffect(() => {
-    api<Task[]>(`editions/${editionId}/tasks/`)
-      .then(setTasks)
-      .catch(() => setError('Nie udało się wczytać zadań.'))
-  }, [editionId])
+    api<Entry[]>(path)
+      .then(setEntries)
+      .catch(() => setError(kind.loadError))
+  }, [path, kind.loadError])
 
-  async function addTask() {
+  async function addEntry() {
     setError('')
     setIsAdding(true)
     try {
-      const task = await api<Task>(`editions/${editionId}/tasks/`, {
+      const entry = await api<Entry>(path, {
         method: 'POST',
-        body: { name: 'Nowe zadanie' },
+        body: { [kind.titleField]: kind.newTitle },
       })
-      setTasks((current) => current && [...current, task])
-      setNewTaskId(task.id)
+      setEntries((current) => current && [...current, entry])
+      setNewEntryId(entry.id)
     } catch (caught) {
       setError(
         caught instanceof ApiError
@@ -66,24 +68,24 @@ function TaskList({ editionId, canEdit }: TaskListProps) {
   }
 
   async function handleDragEnd({ active, over }: DragEndEvent) {
-    if (!tasks || !over || active.id === over.id) {
+    if (!entries || !over || active.id === over.id) {
       return
     }
-    const previous = tasks
+    const previous = entries
     const reordered = arrayMove(
-      tasks,
-      tasks.findIndex((task) => task.id === active.id),
-      tasks.findIndex((task) => task.id === over.id),
+      entries,
+      entries.findIndex((entry) => entry.id === active.id),
+      entries.findIndex((entry) => entry.id === over.id),
     )
-    setTasks(reordered)
+    setEntries(reordered)
     setError('')
     try {
-      await api(`editions/${editionId}/tasks/order/`, {
+      await api(`${path}order/`, {
         method: 'POST',
-        body: { ids: reordered.map((task) => task.id) },
+        body: { ids: reordered.map((entry) => entry.id) },
       })
     } catch (caught) {
-      setTasks(previous)
+      setEntries(previous)
       setError(
         caught instanceof ApiError
           ? caught.message
@@ -92,20 +94,20 @@ function TaskList({ editionId, canEdit }: TaskListProps) {
     }
   }
 
-  function replaceTask(task: Task) {
-    setTasks(
+  function replaceEntry(entry: Entry) {
+    setEntries(
       (current) =>
-        current && current.map((item) => (item.id === task.id ? task : item)),
+        current && current.map((item) => (item.id === entry.id ? entry : item)),
     )
   }
 
-  function removeTask(taskId: number) {
-    setTasks(
-      (current) => current && current.filter((item) => item.id !== taskId),
+  function removeEntry(entryId: number) {
+    setEntries(
+      (current) => current && current.filter((item) => item.id !== entryId),
     )
   }
 
-  if (!tasks) {
+  if (!entries) {
     return error ? (
       <FieldError>{error}</FieldError>
     ) : (
@@ -115,37 +117,36 @@ function TaskList({ editionId, canEdit }: TaskListProps) {
 
   return (
     <div className="flex flex-col gap-5">
-      {tasks.length > 0 && (
+      {entries.length > 0 && (
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
         >
           <SortableContext
-            items={tasks.map((task) => task.id)}
+            items={entries.map((entry) => entry.id)}
             strategy={verticalListSortingStrategy}
           >
             <ul className="flex flex-col gap-5">
-              {tasks.map((task, index) => (
-                <TaskCard
-                  key={task.id}
+              {entries.map((entry, index) => (
+                <EntryCard
+                  key={entry.id}
                   editionId={editionId}
-                  task={task}
+                  kind={kind}
+                  entry={entry}
                   number={index + 1}
                   canEdit={canEdit}
-                  isNew={task.id === newTaskId}
-                  onChange={replaceTask}
-                  onDelete={() => removeTask(task.id)}
+                  isNew={entry.id === newEntryId}
+                  onChange={replaceEntry}
+                  onDelete={() => removeEntry(entry.id)}
                 />
               ))}
             </ul>
           </SortableContext>
         </DndContext>
       )}
-      {tasks.length === 0 && !canEdit && (
-        <p className="text-sm text-muted-foreground">
-          Lista zadań wdrażających jest jeszcze pusta.
-        </p>
+      {entries.length === 0 && !canEdit && (
+        <p className="text-sm text-muted-foreground">{kind.emptyText}</p>
       )}
       {error && <FieldError>{error}</FieldError>}
       {canEdit && (
@@ -153,15 +154,15 @@ function TaskList({ editionId, canEdit }: TaskListProps) {
           type="button"
           variant="dashed"
           disabled={isAdding}
-          onClick={addTask}
+          onClick={addEntry}
           className="h-14 w-full rounded-xl text-[15px]"
         >
           <Plus />
-          Dodaj zadanie
+          {kind.addLabel}
         </Button>
       )}
     </div>
   )
 }
 
-export { TaskList }
+export { EntryList }

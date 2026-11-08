@@ -20,6 +20,7 @@ import PanelLayout from '@/page/PanelLayout'
 import PanelSectionPage from '@/page/PanelSectionPage'
 import PublicFormPage from '@/page/PublicFormPage'
 import SettingsPage from '@/page/SettingsPage'
+import TasksPage from '@/page/TasksPage'
 
 function App() {
   return (
@@ -70,6 +71,7 @@ function App() {
               <Route path="more" element={<MorePage />} />
               <Route path="forms" element={<FormsPage />} />
               <Route path="settings" element={<SettingsPage />} />
+              <Route path="tasks" element={<TasksPage />} />
               <Route path=":section" element={<PanelSectionPage />} />
             </Route>
           </Route>

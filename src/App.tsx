@@ -24,6 +24,7 @@ import PanelLayout from '@/page/PanelLayout'
 import PanelSectionPage from '@/page/PanelSectionPage'
 import PublicFormPage from '@/page/PublicFormPage'
 import SettingsPage from '@/page/SettingsPage'
+import StatisticsPage from '@/page/StatisticsPage'
 import TasksPage from '@/page/TasksPage'
 
 function App() {
@@ -80,6 +81,7 @@ function App() {
               <Route path="mentors/:mentorId" element={<MentorProfilePage />} />
               <Route path="knowledge" element={<KnowledgePage />} />
               <Route path="faq" element={<FaqPage />} />
+              <Route path="statistics" element={<StatisticsPage />} />
               <Route path=":section" element={<PanelSectionPage />} />
             </Route>
           </Route>

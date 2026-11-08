@@ -23,11 +23,11 @@
   --border: #e5e0d3;
   --input: #e5e0d3;
   --ring: #9aa487;
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --chart-1: #b4ae9e;
+  --chart-2: #c4881e;
+  --chart-3: #dcc79a;
+  --chart-4: #8c9c6a;
+  --chart-5: #a45a46;
   --radius: 0.625rem;
   --sidebar: #37432c;
   --sidebar-foreground: #efeadc;

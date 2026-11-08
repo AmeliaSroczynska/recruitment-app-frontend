@@ -23,6 +23,10 @@ function canEditApplications(role: string) {
   return role === 'coordinator' || role === 'recruiter'
 }
 
+function canEditOnboarding(role: string) {
+  return role === 'coordinator' || role === 'mentor'
+}
+
 function canEditNotes(role: string) {
   return role !== 'observer'
 }
@@ -33,6 +37,7 @@ export {
   canEditApplications,
   canEditForm,
   canEditNotes,
+  canEditOnboarding,
   canEditSettings,
   canSeeSettings,
 }

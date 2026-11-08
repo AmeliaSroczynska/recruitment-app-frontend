@@ -1,7 +1,55 @@
+import { CandidateDocuments } from '@/components/candidate/CandidateDocuments'
+import { CandidateFaq } from '@/components/candidate/CandidateFaq'
+import { CandidateMentors } from '@/components/candidate/CandidateMentors'
 import { CandidatePage } from '@/components/candidate/CandidatePage'
+import { CandidateTaskList } from '@/components/candidate/CandidateTaskList'
+import { OnboardingLocked } from '@/components/candidate/OnboardingLocked'
+import { PanelTabsTrigger } from '@/components/panel/PanelTabs'
+import { Tabs, TabsContent, TabsList } from '@/components/ui/tabs'
+import { useCandidateApplication } from '@/panel/candidate'
+import { ONBOARDING_SECTIONS } from '@/panel/onboarding'
 
 function CandidateOnboardingPage() {
-  return <CandidatePage title="Wdrożenie" />
+  const application = useCandidateApplication()
+
+  if (application.status !== 'accepted') {
+    return (
+      <CandidatePage title="Wdrożenie">
+        <OnboardingLocked />
+      </CandidatePage>
+    )
+  }
+
+  return (
+    <CandidatePage title="Wdrożenie">
+      <Tabs defaultValue="tasks" className="max-w-[860px] gap-5">
+        <div className="border-b border-border">
+          <TabsList
+            variant="line"
+            className="gap-5 p-0 group-data-horizontal/tabs:h-10"
+          >
+            {ONBOARDING_SECTIONS.map((section) => (
+              <PanelTabsTrigger key={section.path} value={section.path}>
+                {section.label}
+              </PanelTabsTrigger>
+            ))}
+          </TabsList>
+        </div>
+        <TabsContent value="tasks">
+          <CandidateTaskList applicationId={application.id} />
+        </TabsContent>
+        <TabsContent value="mentors">
+          <CandidateMentors applicationId={application.id} />
+        </TabsContent>
+        <TabsContent value="knowledge">
+          <CandidateDocuments applicationId={application.id} />
+        </TabsContent>
+        <TabsContent value="faq">
+          <CandidateFaq applicationId={application.id} />
+        </TabsContent>
+      </Tabs>
+    </CandidatePage>
+  )
 }
 
 export default CandidateOnboardingPage

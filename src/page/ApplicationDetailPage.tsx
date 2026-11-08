@@ -1,6 +1,9 @@
-import { ArrowLeft, EyeOff } from 'lucide-react'
+import { ArrowLeft, EyeOff, Info } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
+import { AcceptApplicationDialog } from '@/components/applications/AcceptApplicationDialog'
+import { ApplicationMentorCard } from '@/components/applications/ApplicationMentorCard'
+import { ApplicationTasksCard } from '@/components/applications/ApplicationTasksCard'
 import { AnswerList } from '@/components/applications/AnswerList'
 import { NotesCard } from '@/components/applications/NotesCard'
 import { RatingCard } from '@/components/applications/RatingCard'
@@ -47,6 +50,7 @@ function ApplicationDetailPage() {
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
   const [isSaving, setIsSaving] = useState(false)
+  const [isConfirming, setIsConfirming] = useState(false)
 
   useEffect(() => {
     api<ApplicationDetail>(path)
@@ -92,11 +96,14 @@ function ApplicationDetailPage() {
     setIsSaving(false)
   }
 
+  const needsConfirmation =
+    selectedStatus === 'accepted' && !application?.accepted_at
+
   const saveButton = canEdit && application && (
     <Button
       type="button"
       disabled={isSaving || selectedStatus === application.status}
-      onClick={save}
+      onClick={() => (needsConfirmation ? setIsConfirming(true) : save())}
       variant="accent"
       className="h-9 px-4 md:h-10"
     >
@@ -140,6 +147,17 @@ function ApplicationDetailPage() {
       }
       actions={saveButton}
     >
+      {application && (
+        <AcceptApplicationDialog
+          open={isConfirming}
+          name={getDisplayName(application)}
+          onOpenChange={setIsConfirming}
+          onConfirm={() => {
+            setIsConfirming(false)
+            save()
+          }}
+        />
+      )}
       {application && selectedStatus ? (
         <Tabs defaultValue="application" className="gap-5 md:gap-6">
           <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:pt-1">
@@ -200,7 +218,29 @@ function ApplicationDetailPage() {
             <AnswerList answers={application.answers} />
           </TabsContent>
           <TabsContent value="interviews" />
-          <TabsContent value="onboarding" />
+          <TabsContent
+            value="onboarding"
+            className="flex flex-col gap-4 md:gap-5"
+          >
+            {application.status === 'accepted' ? (
+              <>
+                <p className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Info className="size-4 shrink-0" />
+                  Zadania odhacza sam kandydat w swoim panelu. Tutaj widzisz
+                  tylko podgląd.
+                </p>
+                <ApplicationTasksCard path={`${path}tasks/`} />
+                <ApplicationMentorCard
+                  editionId={membership.edition_id}
+                  mentor={application.mentor}
+                />
+              </>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Wdrożenie zacznie się, gdy kandydat dostanie status Przyjęty.
+              </p>
+            )}
+          </TabsContent>
           <TabsContent value="notes" className="flex flex-col gap-4 md:gap-5">
             <p className="flex items-center gap-2 text-sm text-muted-foreground">
               <EyeOff className="size-4 shrink-0" />

@@ -10,10 +10,11 @@ import {
 
 type CollapsibleCardProps = {
   title: string
+  aside?: ReactNode
   children: ReactNode
 }
 
-function CollapsibleCard({ title, children }: CollapsibleCardProps) {
+function CollapsibleCard({ title, aside, children }: CollapsibleCardProps) {
   return (
     <Card className="gap-0 rounded-2xl bg-card py-5 shadow-card ring-border md:py-6">
       <CardContent className="px-5 md:px-6">
@@ -22,18 +23,21 @@ function CollapsibleCard({ title, children }: CollapsibleCardProps) {
             <h2 className="font-heading text-base font-semibold text-foreground">
               {title}
             </h2>
-            <CollapsibleTrigger
-              render={
-                <Button
-                  variant="ghost"
-                  size="icon-sm"
-                  aria-label={`Zwiń lub rozwiń: ${title}`}
-                  className="group text-muted-foreground hover:bg-muted aria-expanded:bg-transparent"
-                />
-              }
-            >
-              <ChevronDown className="transition-transform group-data-panel-open:rotate-180" />
-            </CollapsibleTrigger>
+            <div className="flex items-center gap-2">
+              {aside}
+              <CollapsibleTrigger
+                render={
+                  <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    aria-label={`Zwiń lub rozwiń: ${title}`}
+                    className="group text-muted-foreground hover:bg-muted aria-expanded:bg-transparent"
+                  />
+                }
+              >
+                <ChevronDown className="transition-transform group-data-panel-open:rotate-180" />
+              </CollapsibleTrigger>
+            </div>
           </div>
           <CollapsibleContent>{children}</CollapsibleContent>
         </Collapsible>

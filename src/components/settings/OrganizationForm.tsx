@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { useAuth, type User } from '@/auth/AuthContext'
+import { OrganizationLogoField } from '@/components/settings/OrganizationLogoField'
 import { SettingsCard } from '@/components/settings/SettingsCard'
 import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
@@ -95,6 +96,16 @@ function OrganizationForm({
         onSubmit={handleSubmit}
         className="flex flex-col gap-4"
       >
+        <OrganizationLogoField
+          editionId={editionId}
+          logoUrl={organization.logo_url}
+          canEdit={canEdit}
+          onChange={(logoUrl) =>
+            setOrganization(
+              (current) => current && { ...current, logo_url: logoUrl },
+            )
+          }
+        />
         <fieldset
           disabled={!canEdit}
           className="grid gap-4 md:grid-cols-2 md:gap-x-3"

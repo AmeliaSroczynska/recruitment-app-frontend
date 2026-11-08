@@ -49,6 +49,7 @@ function PanelSidebar() {
       <SidebarHeader className="flex-row items-center gap-2.5 px-5 pt-[23px] pb-2 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-3">
         <OrganizationAvatar
           name={membership.organization_name}
+          logoUrl={membership.organization_logo_url}
           className="group-data-[collapsible=icon]:hidden"
         />
         <span className="min-w-0 flex-1 truncate font-heading text-lg font-extrabold tracking-[-0.3px] text-sidebar-accent-foreground group-data-[collapsible=icon]:hidden">

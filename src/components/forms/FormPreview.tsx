@@ -62,6 +62,7 @@ function FormPreview({ form }: FormPreviewProps) {
             title={form.title}
             description={form.description}
             organizationName={membership.organization_name}
+            headerImageUrl={form.header_image_url}
             questions={questions}
           />
         )}

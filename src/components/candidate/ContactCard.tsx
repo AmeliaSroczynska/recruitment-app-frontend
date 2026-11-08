@@ -5,9 +5,10 @@ import { OrganizationAvatar } from '@/components/panel/OrganizationAvatar'
 type ContactCardProps = {
   name: string
   email: string
+  logoUrl: string | null
 }
 
-function ContactCard({ name, email }: ContactCardProps) {
+function ContactCard({ name, email, logoUrl }: ContactCardProps) {
   const [isCopied, setIsCopied] = useState(false)
 
   async function copy() {
@@ -24,6 +25,7 @@ function ContactCard({ name, email }: ContactCardProps) {
       <div className="mt-4 flex items-center gap-3">
         <OrganizationAvatar
           name={name}
+          logoUrl={logoUrl}
           className="size-9 rounded-[10px]"
           fallbackClassName="text-[15px]"
         />

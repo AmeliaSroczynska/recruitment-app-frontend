@@ -40,15 +40,24 @@ type FormHeaderProps = {
   title: string
   description: string | null
   organizationName: string
+  headerImageUrl?: string | null
 }
 
 function ApplicationFormHeader({
   title,
   description,
   organizationName,
+  headerImageUrl,
 }: FormHeaderProps) {
   return (
     <header>
+      {headerImageUrl && (
+        <img
+          src={headerImageUrl}
+          alt=""
+          className="mb-8 aspect-[3/1] w-full rounded-xl object-cover md:mb-10"
+        />
+      )}
       <p className="flex items-center gap-3.5 text-[13px] font-semibold tracking-wide text-ochre-dark">
         <span className="h-0.5 w-8 bg-ochre" />
         {organizationName}
@@ -94,6 +103,7 @@ function ApplicationFormView({
   title,
   description,
   organizationName,
+  headerImageUrl,
   questions,
   onSubmit,
   errors = NO_ERRORS,
@@ -275,6 +285,7 @@ function ApplicationFormView({
         title={title}
         description={description}
         organizationName={organizationName}
+        headerImageUrl={headerImageUrl}
       />
       <Separator className="my-7" />
       {onSubmit ? (

@@ -107,7 +107,12 @@ function FormsPage() {
               <PanelTabsTrigger value="preview">Podgląd</PanelTabsTrigger>
             </PanelTabsList>
             <TabsContent value="questions">
-              <FormHeaderCard form={form} disabled={!canEdit} onChange={update}>
+              <FormHeaderCard
+                editionId={editionId}
+                form={form}
+                disabled={!canEdit}
+                onChange={update}
+              >
                 <QuestionList editionId={editionId} canEdit={canEdit} />
               </FormHeaderCard>
             </TabsContent>

@@ -1,6 +1,7 @@
 import { ArrowDown, ArrowUp } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { StatusBadge } from '@/components/applications/StatusBadge'
+import { UserAvatar } from '@/components/panel/UserAvatar'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import {
@@ -12,6 +13,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import {
+  AVATAR_COLORS,
   formatDateTime,
   formatRating,
   type ApplicationListItem,
@@ -112,7 +114,7 @@ function ApplicationTable({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {applications.map((application) => {
+          {applications.map((application, index) => {
             const rating = formatRating(application)
             return (
               <TableRow
@@ -120,16 +122,27 @@ function ApplicationTable({
                 className="relative h-14 cursor-pointer hover:bg-paper/60"
               >
                 <TableCell className="border-r border-border px-4">
-                  <Link
-                    to={`${application.id}`}
-                    state={{ search }}
-                    className="font-medium text-foreground after:absolute after:inset-0 hover:underline"
-                  >
-                    {getDisplayName(application)}
-                  </Link>
-                  <p className="text-xs text-muted-foreground">
-                    {application.email}
-                  </p>
+                  <div className="flex items-center gap-3">
+                    <UserAvatar
+                      user={application}
+                      className="size-9"
+                      fallbackClassName={
+                        AVATAR_COLORS[index % AVATAR_COLORS.length]
+                      }
+                    />
+                    <div className="min-w-0">
+                      <Link
+                        to={`${application.id}`}
+                        state={{ search }}
+                        className="font-medium text-foreground after:absolute after:inset-0 hover:underline"
+                      >
+                        {getDisplayName(application)}
+                      </Link>
+                      <p className="text-xs text-muted-foreground">
+                        {application.email}
+                      </p>
+                    </div>
+                  </div>
                 </TableCell>
                 <TableCell className="px-4">
                   <StatusBadge status={application.status} />

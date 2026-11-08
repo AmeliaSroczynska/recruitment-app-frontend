@@ -1,6 +1,8 @@
 import type { User } from '@/auth/AuthContext'
 
-type Person = Pick<User, 'email' | 'first_name' | 'last_name'>
+type Person = Pick<User, 'email' | 'first_name' | 'last_name'> & {
+  photo_url?: string | null
+}
 
 function getDisplayName(person: Person) {
   return `${person.first_name} ${person.last_name}`.trim() || person.email

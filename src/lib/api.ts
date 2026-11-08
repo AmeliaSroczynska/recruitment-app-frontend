@@ -48,8 +48,9 @@ function getErrorMessage(status: number, data: unknown) {
 }
 
 async function api<T>(path: string, { method = 'GET', body }: ApiOptions = {}) {
+  const isFormData = body instanceof FormData
   const headers: Record<string, string> = { Accept: 'application/json' }
-  if (body !== undefined) {
+  if (body !== undefined && !isFormData) {
     headers['Content-Type'] = 'application/json'
   }
   if (method !== 'GET') {
@@ -63,7 +64,7 @@ async function api<T>(path: string, { method = 'GET', body }: ApiOptions = {}) {
     method,
     headers,
     credentials: 'same-origin',
-    body: body === undefined ? undefined : JSON.stringify(body),
+    body: body === undefined || isFormData ? body : JSON.stringify(body),
   })
   const data: unknown =
     response.status === 204 ? null : await response.json().catch(() => null)

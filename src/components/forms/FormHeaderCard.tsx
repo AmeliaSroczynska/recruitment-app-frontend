@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { ImageUploadField } from '@/components/files/ImageUploadField'
 import { FixedFields } from '@/components/forms/FixedFields'
 import { SettingsCard } from '@/components/settings/SettingsCard'
 import { Input } from '@/components/ui/input'
@@ -7,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea'
 import type { ApplicationForm } from '@/panel/form'
 
 type FormHeaderCardProps = {
+  editionId: number
   form: ApplicationForm
   disabled: boolean
   onChange: (changes: Partial<ApplicationForm>) => void
@@ -14,6 +16,7 @@ type FormHeaderCardProps = {
 }
 
 function FormHeaderCard({
+  editionId,
   form,
   disabled,
   onChange,
@@ -41,6 +44,18 @@ function FormHeaderCard({
         />
       </div>
       <Separator className="my-5" />
+      <ImageUploadField<ApplicationForm>
+        path={`editions/${editionId}/form/header-image/`}
+        fieldName="header_image"
+        label="Zdjęcie nagłówka"
+        placeholder="zdjęcie nagłówka"
+        url={form.header_image_url}
+        canEdit={!disabled}
+        className="mb-4"
+        onSaved={(data) =>
+          onChange({ header_image_url: data.header_image_url })
+        }
+      />
       <FixedFields />
       {children}
     </SettingsCard>

@@ -3,6 +3,7 @@ type Organization = {
   name: string
   slug: string
   contact_email: string
+  logo_url: string | null
 }
 
 type Edition = {

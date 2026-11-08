@@ -150,6 +150,7 @@ function PublicFormPage() {
               title={form.title}
               description={null}
               organizationName={form.organization_name}
+              headerImageUrl={form.header_image_url}
             />
             <p className="mt-6 text-[15px] text-muted-foreground">
               Ten formularz nie przyjmuje już zgłoszeń.
@@ -161,6 +162,7 @@ function PublicFormPage() {
             title={form.title}
             description={form.description}
             organizationName={form.organization_name}
+            headerImageUrl={form.header_image_url}
             questions={form.questions}
             onSubmit={handleSubmit}
             errors={fieldErrors}

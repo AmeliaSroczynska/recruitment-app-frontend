@@ -16,8 +16,14 @@ import {
 import { Button } from '@/components/ui/button'
 import { api, ApiError } from '@/lib/api'
 import { useEdition } from '@/panel/EditionContext'
+import type { Edition } from '@/panel/settings'
 
-function DeleteEditionDialog() {
+type DeleteEditionDialogProps = {
+  edition: Edition
+  onDeleted?: (editionId: number) => void
+}
+
+function DeleteEditionDialog({ edition, onDeleted }: DeleteEditionDialogProps) {
   const navigate = useNavigate()
   const { setUser } = useAuth()
   const membership = useEdition()
@@ -28,6 +34,15 @@ function DeleteEditionDialog() {
     setError('')
     setIsDeleting(true)
     try {
+      if (edition.id !== membership.edition_id) {
+        await api(
+          `editions/${membership.edition_id}/organization/editions/${edition.id}/`,
+          { method: 'DELETE' },
+        )
+        setUser(await api<User>('auth/me/'))
+        onDeleted?.(edition.id)
+        return
+      }
       await api(`editions/${membership.edition_id}/`, { method: 'DELETE' })
       const user = await api<User>('auth/me/')
       const next = user.memberships
@@ -60,17 +75,18 @@ function DeleteEditionDialog() {
         render={
           <Button
             variant="ghost"
-            className="h-10 gap-1.5 rounded-[10px] px-3 text-sm text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+            size="icon-sm"
+            aria-label={`Usuń edycję ${edition.name}`}
+            className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
           />
         }
       >
         <Trash2 />
-        Usuń tę edycję
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-card">
         <AlertDialogHeader>
           <AlertDialogTitle className="font-heading font-semibold">
-            Usunąć edycję „{membership.edition_name}”?
+            Usunąć edycję „{edition.name}”?
           </AlertDialogTitle>
           <AlertDialogDescription>
             Znikną wszystkie dane tej edycji: osoby, zgłoszenia, rozmowy,

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { ErrorAlert } from '@/components/panel/ErrorAlert'
 import { PanelPage } from '@/components/panel/PanelPage'
+import { PodiumCard } from '@/components/statistics/PodiumCard'
 import { RangeTabs, RangeToggle } from '@/components/statistics/RangePicker'
 import { StatCard } from '@/components/statistics/StatCard'
 import { StatisticsSection } from '@/components/statistics/StatisticsSection'
@@ -107,6 +108,10 @@ function StatisticsPage() {
               />
             </div>
             <TaskProgressCard tasks={data.onboarding.tasks} />
+            <PodiumCard
+              editionId={membership.edition_id}
+              ranking={data.onboarding.ranking}
+            />
           </StatisticsSection>
         </div>
       )}

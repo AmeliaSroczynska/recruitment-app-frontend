@@ -22,11 +22,24 @@ type TaskStatistics = {
   percent: number | null
 }
 
+type RankingEntry = {
+  application_id: number
+  first_name: string
+  last_name: string
+  email: string
+  photo_url: string | null
+  days: number
+  completed: number
+  total: number
+  percent: number | null
+}
+
 type OnboardingStatistics = {
   people: number
   tasks_completed_percent: number | null
   average_days: number | null
   tasks: TaskStatistics[]
+  ranking: RankingEntry[]
 }
 
 type Statistics = {
@@ -58,5 +71,23 @@ function formatDays(value: number | null) {
   return value === 1 ? '1 dzień' : `${value} dni`
 }
 
-export { DEFAULT_RANGE, RANGES, formatDays, formatPercent, isStatisticsRange }
-export type { Statistics, StatisticsRange, StatusStatistics, TaskStatistics }
+function formatProgress(entry: RankingEntry) {
+  const days = formatDays(entry.days)
+  return entry.total ? `${days} · ${entry.completed}/${entry.total}` : days
+}
+
+export {
+  DEFAULT_RANGE,
+  RANGES,
+  formatDays,
+  formatPercent,
+  formatProgress,
+  isStatisticsRange,
+}
+export type {
+  RankingEntry,
+  Statistics,
+  StatisticsRange,
+  StatusStatistics,
+  TaskStatistics,
+}

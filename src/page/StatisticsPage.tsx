@@ -6,11 +6,14 @@ import { RangeTabs, RangeToggle } from '@/components/statistics/RangePicker'
 import { StatCard } from '@/components/statistics/StatCard'
 import { StatisticsSection } from '@/components/statistics/StatisticsSection'
 import { StatusChartCard } from '@/components/statistics/StatusChartCard'
+import { TaskProgressCard } from '@/components/statistics/TaskProgressCard'
 import { Skeleton } from '@/components/ui/skeleton'
 import { api } from '@/lib/api'
 import { useEdition } from '@/panel/EditionContext'
 import {
   DEFAULT_RANGE,
+  formatDays,
+  formatPercent,
   isStatisticsRange,
   type Statistics,
   type StatisticsRange,
@@ -87,6 +90,23 @@ function StatisticsPage() {
               <StatCard label="Przyjęci" value={data.recruitment.accepted} />
             </div>
             <StatusChartCard statuses={data.recruitment.statuses} />
+          </StatisticsSection>
+          <StatisticsSection title="Wdrożenie">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
+              <StatCard
+                label="Osoby we wdrożeniu"
+                value={data.onboarding.people}
+              />
+              <StatCard
+                label="Zadania odhaczone"
+                value={formatPercent(data.onboarding.tasks_completed_percent)}
+              />
+              <StatCard
+                label="Czas wdrożenia"
+                value={formatDays(data.onboarding.average_days)}
+              />
+            </div>
+            <TaskProgressCard tasks={data.onboarding.tasks} />
           </StatisticsSection>
         </div>
       )}

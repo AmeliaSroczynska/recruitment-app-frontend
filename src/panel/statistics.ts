@@ -16,9 +16,23 @@ type RecruitmentStatistics = {
   statuses: StatusStatistics[]
 }
 
+type TaskStatistics = {
+  id: number
+  name: string
+  percent: number | null
+}
+
+type OnboardingStatistics = {
+  people: number
+  tasks_completed_percent: number | null
+  average_days: number | null
+  tasks: TaskStatistics[]
+}
+
 type Statistics = {
   range: StatisticsRange
   recruitment: RecruitmentStatistics
+  onboarding: OnboardingStatistics
 }
 
 const DEFAULT_RANGE: StatisticsRange = 'all'
@@ -33,5 +47,16 @@ function isStatisticsRange(value: string | null): value is StatisticsRange {
   return RANGES.some((range) => range.value === value)
 }
 
-export { DEFAULT_RANGE, RANGES, isStatisticsRange }
-export type { Statistics, StatisticsRange, StatusStatistics }
+function formatPercent(value: number | null) {
+  return value === null ? null : `${value}%`
+}
+
+function formatDays(value: number | null) {
+  if (value === null) {
+    return null
+  }
+  return value === 1 ? '1 dzień' : `${value} dni`
+}
+
+export { DEFAULT_RANGE, RANGES, formatDays, formatPercent, isStatisticsRange }
+export type { Statistics, StatisticsRange, StatusStatistics, TaskStatistics }

@@ -9,6 +9,7 @@ import { NotesCard } from '@/components/applications/NotesCard'
 import { RatingCard } from '@/components/applications/RatingCard'
 import { StatusBadge } from '@/components/applications/StatusBadge'
 import { StatusPicker } from '@/components/applications/StatusPicker'
+import { ApplicationInterviews } from '@/components/interviews/ApplicationInterviews'
 import { ErrorAlert } from '@/components/panel/ErrorAlert'
 import { PanelPage } from '@/components/panel/PanelPage'
 import { PanelTabsList, PanelTabsTrigger } from '@/components/panel/PanelTabs'
@@ -217,7 +218,13 @@ function ApplicationDetailPage() {
           <TabsContent value="application">
             <AnswerList answers={application.answers} />
           </TabsContent>
-          <TabsContent value="interviews" />
+          <TabsContent value="interviews">
+            <ApplicationInterviews
+              editionId={membership.edition_id}
+              path={path}
+              canEdit={canEdit}
+            />
+          </TabsContent>
           <TabsContent
             value="onboarding"
             className="flex flex-col gap-4 md:gap-5"

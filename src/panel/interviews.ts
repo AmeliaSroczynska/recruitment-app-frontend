@@ -18,7 +18,27 @@ type InterviewTemplateDetails = {
   questions: InterviewQuestion[]
 }
 
+type Interviewer = {
+  id: number
+  first_name: string
+  last_name: string
+  email: string
+  photo_url: string | null
+}
+
+type Interview = {
+  id: number
+  template_id: number
+  template_name: string
+  date: string | null
+  start_time: string | null
+  end_time: string | null
+  interviewers: Interviewer[]
+}
+
 const NEW_TEMPLATE_NAME = 'Nowy szablon'
+
+const INTERVIEWER_ROLES = ['coordinator', 'recruiter']
 
 function getQuestionEntry(templateId: number): EntryKind {
   return {
@@ -53,5 +73,16 @@ function formatQuestionCount(count: number) {
   return `${count} pytań`
 }
 
-export { NEW_TEMPLATE_NAME, formatQuestionCount, getQuestionEntry }
-export type { InterviewQuestion, InterviewTemplate, InterviewTemplateDetails }
+export {
+  INTERVIEWER_ROLES,
+  NEW_TEMPLATE_NAME,
+  formatQuestionCount,
+  getQuestionEntry,
+}
+export type {
+  Interview,
+  Interviewer,
+  InterviewQuestion,
+  InterviewTemplate,
+  InterviewTemplateDetails,
+}

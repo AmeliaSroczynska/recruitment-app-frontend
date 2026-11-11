@@ -13,11 +13,11 @@ type Entry = {
 type EntryKind = {
   path: string
   titleField: string
-  bodyField: string
+  bodyField?: string
   itemLabel: string
   titleLabel: string
-  bodyLabel: string
-  bodyPlaceholder: string
+  bodyLabel?: string
+  bodyPlaceholder?: string
   newTitle: string
   addLabel: string
   emptyText: string

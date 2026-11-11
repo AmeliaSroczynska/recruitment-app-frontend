@@ -33,8 +33,9 @@ function EntryCard({
   onChange,
   onDelete,
 }: EntryCardProps) {
+  const { bodyField } = kind
   const savedTitle = String(entry[kind.titleField] ?? '')
-  const savedBody = String(entry[kind.bodyField] ?? '')
+  const savedBody = bodyField ? String(entry[bodyField] ?? '') : ''
   const [title, setTitle] = useState(savedTitle)
   const [body, setBody] = useState(savedBody)
   const [error, setError] = useState('')
@@ -138,25 +139,42 @@ function EntryCard({
         )}
       </div>
       <div className="mt-3 flex flex-col gap-2.5 md:pl-7">
-        <Input
-          aria-label={kind.titleLabel}
-          autoFocus={isNew}
-          disabled={!canEdit}
-          value={title}
-          onFocus={(event) => isNew && event.target.select()}
-          onChange={(event) => setTitle(event.target.value)}
-          onBlur={() => title !== savedTitle && save(kind.titleField, title)}
-          className="h-11 rounded-[10px] border-border bg-card px-3 text-sm font-medium shadow-none"
-        />
-        <Textarea
-          aria-label={kind.bodyLabel}
-          placeholder={kind.bodyPlaceholder}
-          disabled={!canEdit}
-          value={body}
-          onChange={(event) => setBody(event.target.value)}
-          onBlur={() => body !== savedBody && save(kind.bodyField, body)}
-          className="min-h-14 rounded-[10px] border-border bg-card px-3 py-2.5 text-sm shadow-none"
-        />
+        {bodyField ? (
+          <>
+            <Input
+              aria-label={kind.titleLabel}
+              autoFocus={isNew}
+              disabled={!canEdit}
+              value={title}
+              onFocus={(event) => isNew && event.target.select()}
+              onChange={(event) => setTitle(event.target.value)}
+              onBlur={() =>
+                title !== savedTitle && save(kind.titleField, title)
+              }
+              className="h-11 rounded-[10px] border-border bg-card px-3 text-sm font-medium shadow-none"
+            />
+            <Textarea
+              aria-label={kind.bodyLabel}
+              placeholder={kind.bodyPlaceholder}
+              disabled={!canEdit}
+              value={body}
+              onChange={(event) => setBody(event.target.value)}
+              onBlur={() => body !== savedBody && save(bodyField, body)}
+              className="min-h-14 rounded-[10px] border-border bg-card px-3 py-2.5 text-sm shadow-none"
+            />
+          </>
+        ) : (
+          <Textarea
+            aria-label={kind.titleLabel}
+            autoFocus={isNew}
+            disabled={!canEdit}
+            value={title}
+            onFocus={(event) => isNew && event.target.select()}
+            onChange={(event) => setTitle(event.target.value)}
+            onBlur={() => title !== savedTitle && save(kind.titleField, title)}
+            className="min-h-14 rounded-[10px] border-border bg-card px-3 py-2.5 text-sm shadow-none"
+          />
+        )}
         {kind.hasFile && (
           <FilePicker
             kind="file"

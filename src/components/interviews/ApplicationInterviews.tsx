@@ -1,6 +1,7 @@
 import { Plus } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { CollapsibleCard } from '@/components/applications/CollapsibleCard'
+import { InterviewAnswers } from '@/components/interviews/InterviewAnswers'
 import { InterviewersBox } from '@/components/interviews/InterviewersBox'
 import { DeleteEntryDialog } from '@/components/onboarding/DeleteEntryDialog'
 import { SettingsCard } from '@/components/settings/SettingsCard'
@@ -204,6 +205,11 @@ function ApplicationInterviews({
               interview={selected}
               canEdit={canEdit}
               onChange={replaceInterview}
+            />
+            <InterviewAnswers
+              key={`answers-${selected.id}`}
+              path={`${listPath}${selected.id}/`}
+              canEdit={canEdit}
             />
           </div>
         </CollapsibleCard>

@@ -36,6 +36,13 @@ type Interview = {
   interviewers: Interviewer[]
 }
 
+type InterviewAnswer = {
+  question_id: number
+  text: string
+  note: string | null
+  score: number | null
+}
+
 const NEW_TEMPLATE_NAME = 'Nowy szablon'
 
 const INTERVIEWER_ROLES = ['coordinator', 'recruiter']
@@ -81,6 +88,7 @@ export {
 }
 export type {
   Interview,
+  InterviewAnswer,
   Interviewer,
   InterviewQuestion,
   InterviewTemplate,

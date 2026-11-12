@@ -24,12 +24,14 @@ type ApplicationInterviewsProps = {
   editionId: number
   path: string
   canEdit: boolean
+  initialInterviewId?: number
 }
 
 function ApplicationInterviews({
   editionId,
   path,
   canEdit,
+  initialInterviewId,
 }: ApplicationInterviewsProps) {
   const listPath = `${path}interviews/`
   const [interviews, setInterviews] = useState<Interview[] | null>(null)
@@ -43,10 +45,13 @@ function ApplicationInterviews({
     api<Interview[]>(listPath)
       .then((data) => {
         setInterviews(data)
-        setSelectedId(data[0]?.id ?? null)
+        const initial = data.find(
+          (interview) => interview.id === initialInterviewId,
+        )
+        setSelectedId(initial?.id ?? data[0]?.id ?? null)
       })
       .catch(() => setLoadError('Nie udało się wczytać rozmów.'))
-  }, [listPath])
+  }, [listPath, initialInterviewId])
 
   useEffect(() => {
     if (canEdit) {

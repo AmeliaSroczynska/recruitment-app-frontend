@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { AllInterviewsTab } from '@/components/interviews/AllInterviewsTab'
 import { TemplatesTab } from '@/components/interviews/TemplatesTab'
 import { PanelPage } from '@/components/panel/PanelPage'
 import { PanelTabsList, PanelTabsTrigger } from '@/components/panel/PanelTabs'
@@ -37,9 +38,7 @@ function InterviewsPage() {
           />
         </TabsContent>
         <TabsContent value="all">
-          <p className="text-sm text-muted-foreground">
-            Ten widok jest jeszcze w budowie
-          </p>
+          <AllInterviewsTab editionId={editionId} />
         </TabsContent>
       </Tabs>
     </PanelPage>

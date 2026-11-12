@@ -160,7 +160,10 @@ function ApplicationDetailPage() {
         />
       )}
       {application && selectedStatus ? (
-        <Tabs defaultValue="application" className="gap-5 md:gap-6">
+        <Tabs
+          defaultValue={location.state?.tab ?? 'application'}
+          className="gap-5 md:gap-6"
+        >
           <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:pt-1">
             <div className="flex min-w-0 items-center gap-4">
               <UserAvatar
@@ -223,6 +226,7 @@ function ApplicationDetailPage() {
               editionId={membership.edition_id}
               path={path}
               canEdit={canEdit}
+              initialInterviewId={location.state?.interviewId}
             />
           </TabsContent>
           <TabsContent

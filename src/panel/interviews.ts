@@ -36,6 +36,14 @@ type Interview = {
   interviewers: Interviewer[]
 }
 
+type EditionInterview = Interview & {
+  application_id: number
+  first_name: string
+  last_name: string
+  email: string
+  photo_url: string | null
+}
+
 type InterviewAnswer = {
   question_id: number
   text: string
@@ -80,13 +88,43 @@ function formatQuestionCount(count: number) {
   return `${count} pytań`
 }
 
+function formatInterviewTerm(interview: Interview) {
+  if (!interview.date) {
+    return 'bez terminu'
+  }
+  const [year, month, day] = interview.date.split('-').map(Number)
+  const date = new Date(year, month - 1, day).toLocaleDateString('pl-PL', {
+    day: 'numeric',
+    month: 'short',
+  })
+  return interview.start_time
+    ? `${date}, ${interview.start_time.slice(0, 5)}`
+    : date
+}
+
+function formatInterviewers(interview: Interview) {
+  if (interview.interviewers.length === 0) {
+    return 'nikt nie przypisany'
+  }
+  return interview.interviewers
+    .map((person) =>
+      person.last_name
+        ? `${person.first_name.charAt(0)}. ${person.last_name}`.trim()
+        : person.email,
+    )
+    .join(', ')
+}
+
 export {
   INTERVIEWER_ROLES,
   NEW_TEMPLATE_NAME,
+  formatInterviewers,
+  formatInterviewTerm,
   formatQuestionCount,
   getQuestionEntry,
 }
 export type {
+  EditionInterview,
   Interview,
   InterviewAnswer,
   Interviewer,

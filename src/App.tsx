@@ -3,6 +3,7 @@ import { AuthProvider } from '@/auth/AuthProvider'
 import { RequireAuth } from '@/auth/RequireAuth'
 import ApplicationDetailPage from '@/page/ApplicationDetailPage'
 import ApplicationsPage from '@/page/ApplicationsPage'
+import CalendarPage from '@/page/CalendarPage'
 import CandidateApplicationPage from '@/page/CandidateApplicationPage'
 import CandidateCodePage from '@/page/CandidateCodePage'
 import CandidateHomePage from '@/page/CandidateHomePage'
@@ -12,6 +13,7 @@ import CandidateOnboardingPage from '@/page/CandidateOnboardingPage'
 import CreateOrganizationPage from '@/page/CreateOrganizationPage'
 import FaqPage from '@/page/FaqPage'
 import FormsPage from '@/page/FormsPage'
+import InterviewsPage from '@/page/InterviewsPage'
 import KnowledgePage from '@/page/KnowledgePage'
 import MentorProfilePage from '@/page/MentorProfilePage'
 import MentorsPage from '@/page/MentorsPage'
@@ -75,6 +77,8 @@ function App() {
               />
               <Route path="more" element={<MorePage />} />
               <Route path="forms" element={<FormsPage />} />
+              <Route path="interviews" element={<InterviewsPage />} />
+              <Route path="calendar" element={<CalendarPage />} />
               <Route path="settings" element={<SettingsPage />} />
               <Route path="tasks" element={<TasksPage />} />
               <Route path="mentors" element={<MentorsPage />} />

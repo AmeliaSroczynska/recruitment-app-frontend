@@ -1,7 +1,10 @@
 import { ArrowLeft, EyeOff, Info } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
-import { AcceptApplicationDialog } from '@/components/applications/AcceptApplicationDialog'
+import {
+  AcceptApplicationDialog,
+  type ConfirmedStatus,
+} from '@/components/applications/AcceptApplicationDialog'
 import { ApplicationMentorCard } from '@/components/applications/ApplicationMentorCard'
 import { ApplicationTasksCard } from '@/components/applications/ApplicationTasksCard'
 import { AnswerList } from '@/components/applications/AnswerList'
@@ -9,6 +12,7 @@ import { NotesCard } from '@/components/applications/NotesCard'
 import { RatingCard } from '@/components/applications/RatingCard'
 import { StatusBadge } from '@/components/applications/StatusBadge'
 import { StatusPicker } from '@/components/applications/StatusPicker'
+import { ApplicationInterviews } from '@/components/interviews/ApplicationInterviews'
 import { ErrorAlert } from '@/components/panel/ErrorAlert'
 import { PanelPage } from '@/components/panel/PanelPage'
 import { PanelTabsList, PanelTabsTrigger } from '@/components/panel/PanelTabs'
@@ -96,14 +100,18 @@ function ApplicationDetailPage() {
     setIsSaving(false)
   }
 
-  const needsConfirmation =
+  const confirmedStatus: ConfirmedStatus | null =
     selectedStatus === 'accepted' && !application?.accepted_at
+      ? 'accepted'
+      : selectedStatus === 'interview' && application?.status !== 'interview'
+        ? 'interview'
+        : null
 
   const saveButton = canEdit && application && (
     <Button
       type="button"
       disabled={isSaving || selectedStatus === application.status}
-      onClick={() => (needsConfirmation ? setIsConfirming(true) : save())}
+      onClick={() => (confirmedStatus ? setIsConfirming(true) : save())}
       variant="accent"
       className="h-9 px-4 md:h-10"
     >
@@ -149,6 +157,7 @@ function ApplicationDetailPage() {
     >
       {application && (
         <AcceptApplicationDialog
+          status={confirmedStatus ?? 'accepted'}
           open={isConfirming}
           name={getDisplayName(application)}
           onOpenChange={setIsConfirming}
@@ -159,7 +168,10 @@ function ApplicationDetailPage() {
         />
       )}
       {application && selectedStatus ? (
-        <Tabs defaultValue="application" className="gap-5 md:gap-6">
+        <Tabs
+          defaultValue={location.state?.tab ?? 'application'}
+          className="gap-5 md:gap-6"
+        >
           <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:pt-1">
             <div className="flex min-w-0 items-center gap-4">
               <UserAvatar
@@ -217,7 +229,14 @@ function ApplicationDetailPage() {
           <TabsContent value="application">
             <AnswerList answers={application.answers} />
           </TabsContent>
-          <TabsContent value="interviews" />
+          <TabsContent value="interviews">
+            <ApplicationInterviews
+              editionId={membership.edition_id}
+              path={path}
+              canEdit={canEdit}
+              initialInterviewId={location.state?.interviewId}
+            />
+          </TabsContent>
           <TabsContent
             value="onboarding"
             className="flex flex-col gap-4 md:gap-5"

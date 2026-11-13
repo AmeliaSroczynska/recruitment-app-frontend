@@ -27,9 +27,15 @@ type EntryListProps = {
   editionId: number
   kind: EntryKind
   canEdit: boolean
+  onCountChange?: (count: number) => void
 }
 
-function EntryList({ editionId, kind, canEdit }: EntryListProps) {
+function EntryList({
+  editionId,
+  kind,
+  canEdit,
+  onCountChange,
+}: EntryListProps) {
   const path = `editions/${editionId}/${kind.path}/`
   const [entries, setEntries] = useState<Entry[] | null>(null)
   const [newEntryId, setNewEntryId] = useState<number | null>(null)
@@ -48,6 +54,12 @@ function EntryList({ editionId, kind, canEdit }: EntryListProps) {
       .then(setEntries)
       .catch(() => setError(kind.loadError))
   }, [path, kind.loadError])
+
+  useEffect(() => {
+    if (entries) {
+      onCountChange?.(entries.length)
+    }
+  }, [entries, onCountChange])
 
   function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0]

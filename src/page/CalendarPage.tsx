@@ -3,6 +3,7 @@ import {
   FORM_ID,
   InterviewDaysForm,
 } from '@/components/calendar/InterviewDaysForm'
+import { ScheduledTab } from '@/components/calendar/ScheduledTab'
 import { ToScheduleTab } from '@/components/calendar/ToScheduleTab'
 import { PanelPage } from '@/components/panel/PanelPage'
 import { PanelTabsList, PanelTabsTrigger } from '@/components/panel/PanelTabs'
@@ -56,9 +57,11 @@ function CalendarPage() {
           />
         </TabsContent>
         <TabsContent value="scheduled">
-          <p className="text-sm text-muted-foreground">
-            Ten widok jest jeszcze w budowie
-          </p>
+          <ScheduledTab
+            key={membership.edition_id}
+            editionId={membership.edition_id}
+            canFilterMine={canEdit}
+          />
         </TabsContent>
         <TabsContent value="config">
           <InterviewDaysForm

@@ -4,12 +4,6 @@ import { OrganizationLogoField } from '@/components/settings/OrganizationLogoFie
 import { SettingsCard } from '@/components/settings/SettingsCard'
 import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-  InputGroupText,
-} from '@/components/ui/input-group'
 import { Skeleton } from '@/components/ui/skeleton'
 import { api, ApiError } from '@/lib/api'
 import type { Organization } from '@/panel/settings'
@@ -60,7 +54,6 @@ function OrganizationForm({
           method: 'PATCH',
           body: {
             name: organization.name,
-            slug: organization.slug,
             contact_email: organization.contact_email,
           },
         }),
@@ -134,28 +127,6 @@ function OrganizationForm({
               onChange={(event) => update('contact_email', event.target.value)}
               className={inputClassName}
             />
-          </Field>
-          <Field className="gap-[7px] md:col-span-2">
-            <FieldLabel htmlFor="organization-slug" className="font-medium">
-              Podstrona organizacji
-            </FieldLabel>
-            <InputGroup className="h-10 rounded-[10px] border-border bg-card shadow-none">
-              <InputGroupAddon className="pr-0 pl-3">
-                <InputGroupText className="text-sm">
-                  rekrutownik.vercel.app/
-                </InputGroupText>
-              </InputGroupAddon>
-              <InputGroupInput
-                id="organization-slug"
-                required
-                maxLength={50}
-                pattern="[a-z0-9\-]+"
-                title="Tylko małe litery bez polskich znaków, cyfry i myślniki."
-                value={organization.slug}
-                onChange={(event) => update('slug', event.target.value)}
-                className="pl-0 text-sm"
-              />
-            </InputGroup>
           </Field>
         </fieldset>
         {error && <FieldError>{error}</FieldError>}

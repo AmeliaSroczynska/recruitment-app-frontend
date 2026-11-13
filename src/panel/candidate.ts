@@ -86,6 +86,25 @@ const STATUS_VIEWS: Record<ApplicationStatus, StatusView> = {
   },
 }
 
+const SCHEDULED_VIEW: StatusView = {
+  title: 'Do zobaczenia na rozmowie',
+  description: 'Termin wybrał rekruter.',
+  stage: 2,
+  history: [
+    SENT,
+    RATED,
+    { label: 'Zaproszenie na rozmowę', state: 'done' },
+    { label: 'Rozmowa', state: 'current' },
+    { label: 'Decyzja', state: 'next' },
+  ],
+}
+
+function getStatusView(status: ApplicationStatus, isScheduled = false) {
+  return status === 'interview' && isScheduled
+    ? SCHEDULED_VIEW
+    : STATUS_VIEWS[status]
+}
+
 const CandidateContext = createContext<CandidateApplication | null>(null)
 
 function useCandidateApplication() {
@@ -98,5 +117,11 @@ function useCandidateApplication() {
   return application
 }
 
-export { CandidateContext, STAGES, STATUS_VIEWS, useCandidateApplication }
+export {
+  CandidateContext,
+  STAGES,
+  STATUS_VIEWS,
+  getStatusView,
+  useCandidateApplication,
+}
 export type { CandidateApplication, HistoryItem, HistoryState }

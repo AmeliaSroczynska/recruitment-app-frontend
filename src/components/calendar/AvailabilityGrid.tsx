@@ -5,10 +5,16 @@ import { GRID_TIMES, fromIsoDate, getCellKey } from '@/panel/calendar'
 type AvailabilityGridProps = {
   days: string[]
   cells: Set<string>
+  highlighted?: Set<string>
   onChange?: (cells: Set<string>) => void
 }
 
-function AvailabilityGrid({ days, cells, onChange }: AvailabilityGridProps) {
+function AvailabilityGrid({
+  days,
+  cells,
+  highlighted,
+  onChange,
+}: AvailabilityGridProps) {
   const paintMode = useRef<boolean | null>(null)
   const pointerType = useRef('')
 
@@ -68,7 +74,10 @@ function AvailabilityGrid({ days, cells, onChange }: AvailabilityGridProps) {
                 {date.toLocaleDateString('pl-PL', { weekday: 'short' })}
               </p>
               <p className="text-sm font-semibold text-foreground">
-                {date.getDate()}
+                {date.toLocaleDateString('pl-PL', {
+                  day: 'numeric',
+                  month: 'short',
+                })}
               </p>
             </div>
           )
@@ -103,6 +112,9 @@ function AvailabilityGrid({ days, cells, onChange }: AvailabilityGridProps) {
                   className={cn(
                     'h-5 border-l border-border bg-card transition-colors hover:bg-paper disabled:cursor-default disabled:hover:bg-card',
                     isHour ? 'border-t' : 'border-t border-t-border/40',
+                    !isSelected &&
+                      highlighted?.has(key) &&
+                      'bg-sand/45 hover:bg-sand/70 disabled:hover:bg-sand/45',
                     isSelected &&
                       'bg-ochre hover:bg-ochre/90 disabled:hover:bg-ochre',
                   )}

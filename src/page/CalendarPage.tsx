@@ -3,6 +3,7 @@ import {
   FORM_ID,
   InterviewDaysForm,
 } from '@/components/calendar/InterviewDaysForm'
+import { ToScheduleTab } from '@/components/calendar/ToScheduleTab'
 import { PanelPage } from '@/components/panel/PanelPage'
 import { PanelTabsList, PanelTabsTrigger } from '@/components/panel/PanelTabs'
 import { Button } from '@/components/ui/button'
@@ -12,7 +13,7 @@ import { canEditInterviews } from '@/panel/roles'
 
 function CalendarPage() {
   const membership = useEdition()
-  const [tab, setTab] = useState('config')
+  const [tab, setTab] = useState('to-schedule')
   const [isSaving, setIsSaving] = useState(false)
   const canEdit = canEditInterviews(membership.role)
 
@@ -48,9 +49,11 @@ function CalendarPage() {
           <PanelTabsTrigger value="config">Konfiguracja</PanelTabsTrigger>
         </PanelTabsList>
         <TabsContent value="to-schedule">
-          <p className="text-sm text-muted-foreground">
-            Ten widok jest jeszcze w budowie
-          </p>
+          <ToScheduleTab
+            key={membership.edition_id}
+            editionId={membership.edition_id}
+            canEdit={canEdit}
+          />
         </TabsContent>
         <TabsContent value="scheduled">
           <p className="text-sm text-muted-foreground">

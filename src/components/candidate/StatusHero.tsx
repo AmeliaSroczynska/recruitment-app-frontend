@@ -4,10 +4,11 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import type { ApplicationStatus } from '@/panel/applications'
-import { STAGES, STATUS_VIEWS } from '@/panel/candidate'
+import { STAGES, getStatusView } from '@/panel/candidate'
 
 type StatusHeroProps = {
   status: ApplicationStatus
+  isScheduled?: boolean
   onboardingPath: string
 }
 
@@ -18,8 +19,8 @@ function getBarClassName(index: number, stage: number) {
   return index === stage ? 'bg-ochre' : 'bg-olive-dark'
 }
 
-function StatusHero({ status, onboardingPath }: StatusHeroProps) {
-  const view = STATUS_VIEWS[status]
+function StatusHero({ status, isScheduled, onboardingPath }: StatusHeroProps) {
+  const view = getStatusView(status, isScheduled)
   const isRejected = status === 'rejected'
 
   return (

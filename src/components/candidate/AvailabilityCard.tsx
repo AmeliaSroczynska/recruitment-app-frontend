@@ -1,10 +1,9 @@
 import { Info } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { AvailabilityGrid } from '@/components/calendar/AvailabilityGrid'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { FieldError } from '@/components/ui/field'
-import { Skeleton } from '@/components/ui/skeleton'
 import { api, ApiError } from '@/lib/api'
 import {
   cellsToSlots,
@@ -14,43 +13,32 @@ import {
 } from '@/panel/calendar'
 
 type AvailabilityCardProps = {
-  applicationId: number
+  path: string
+  availability: CandidateAvailability
+  onChange: (availability: CandidateAvailability) => void
 }
 
-function AvailabilityCard({ applicationId }: AvailabilityCardProps) {
-  const path = `me/applications/${applicationId}/availability/`
-  const [availability, setAvailability] =
-    useState<CandidateAvailability | null>(null)
-  const [cells, setCells] = useState<Set<string>>(new Set())
+function AvailabilityCard({
+  path,
+  availability,
+  onChange,
+}: AvailabilityCardProps) {
+  const [cells, setCells] = useState(() => slotsToCells(availability.slots))
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
   const [isSaving, setIsSaving] = useState(false)
 
-  function show(data: CandidateAvailability) {
-    setAvailability(data)
-    setCells(slotsToCells(data.slots))
-  }
-
-  useEffect(() => {
-    api<CandidateAvailability>(path)
-      .then(show)
-      .catch(() => setError('Nie udało się wczytać kalendarza.'))
-  }, [path])
-
   async function send() {
-    if (!availability) {
-      return
-    }
     setError('')
     setMessage('')
     setIsSaving(true)
     try {
-      show(
-        await api<CandidateAvailability>(path, {
-          method: 'PUT',
-          body: { slots: cellsToSlots(cells, availability.days) },
-        }),
-      )
+      const data = await api<CandidateAvailability>(path, {
+        method: 'PUT',
+        body: { slots: cellsToSlots(cells, availability.days) },
+      })
+      setCells(slotsToCells(data.slots))
+      onChange(data)
       setMessage(
         'Wysłano. Możesz zmienić dostępność, dopóki nie wybierzemy terminu.',
       )
@@ -69,17 +57,15 @@ function AvailabilityCard({ applicationId }: AvailabilityCardProps) {
       <h2 className="font-heading text-base font-semibold text-foreground">
         Twoja dostępność
       </h2>
-      {!availability && !error && <Skeleton className="mt-4 h-64 w-full" />}
-      {availability && availability.days.length === 0 && (
+      {availability.days.length === 0 && (
         <p className="mt-2 text-sm text-muted-foreground">
           Organizacja nie ustaliła jeszcze dni rozmów. Zajrzyj tu za jakiś czas.
         </p>
       )}
-      {availability && availability.days.length > 0 && (
+      {availability.days.length > 0 && (
         <>
           <p className="mt-1 text-sm text-muted-foreground">
-            Zaznacz w kalendarzu godziny, w których możesz przyjść. Kliknij albo
-            przeciągnij po polach.
+            Zaznacz w kalendarzu godziny, w których możesz przyjść.
           </p>
           {availability.info && (
             <p className="mt-4 flex gap-2 rounded-xl bg-paper px-3 py-2.5 text-sm whitespace-pre-line text-foreground">

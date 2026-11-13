@@ -9,10 +9,29 @@ type AvailabilitySlot = {
   end_time: string
 }
 
+type ScheduledInterview = {
+  id: number
+  template_name: string
+  date: string
+  start_time: string
+  end_time: string
+}
+
 type CandidateAvailability = {
   days: string[]
   info: string | null
   slots: AvailabilitySlot[]
+  interview: ScheduledInterview | null
+}
+
+type ApplicationToSchedule = {
+  id: number
+  first_name: string
+  last_name: string
+  email: string
+  photo_url: string | null
+  slots: AvailabilitySlot[]
+  pending_interview: { id: number; template_name: string } | null
 }
 
 const GRID_START_HOUR = 8
@@ -104,14 +123,52 @@ function formatMonths(days: string[]) {
   return [...months].join(' / ')
 }
 
+function formatShortDay(date: string) {
+  const value = fromIsoDate(date)
+  const weekday = value.toLocaleDateString('pl-PL', { weekday: 'short' })
+  const day = value.toLocaleDateString('pl-PL', {
+    day: 'numeric',
+    month: 'short',
+  })
+  return `${weekday} ${day}`
+}
+
+function formatLongDay(date: string) {
+  return capitalize(
+    fromIsoDate(date).toLocaleDateString('pl-PL', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+    }),
+  )
+}
+
+function formatDuration(slot: AvailabilitySlot) {
+  const minutes = toMinutes(slot.end_time) - toMinutes(slot.start_time)
+  const hours = Math.floor(minutes / 60)
+  const rest = minutes % 60
+  return [hours && `${hours} h`, rest && `${rest} min`]
+    .filter(Boolean)
+    .join(' ')
+}
+
 export {
   GRID_TIMES,
   capitalize,
   cellsToSlots,
+  formatDuration,
+  formatLongDay,
   formatMonths,
+  formatShortDay,
   fromIsoDate,
   getCellKey,
   slotsToCells,
   toIsoDate,
 }
-export type { AvailabilitySlot, CandidateAvailability, InterviewDays }
+export type {
+  ApplicationToSchedule,
+  AvailabilitySlot,
+  CandidateAvailability,
+  InterviewDays,
+  ScheduledInterview,
+}

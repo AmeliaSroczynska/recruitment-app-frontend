@@ -47,7 +47,7 @@ const STATUS_VIEWS: Record<ApplicationStatus, StatusView> = {
   },
   interview: {
     title: 'Zapraszamy Cię na rozmowę',
-    description: 'Wkrótce poprosimy Cię tutaj o podanie, kiedy możesz.',
+    description: 'Zaznacz w kalendarzu, kiedy możesz.',
     stage: 2,
     history: [
       SENT,

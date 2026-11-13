@@ -3,6 +3,7 @@ import { AuthProvider } from '@/auth/AuthProvider'
 import { RequireAuth } from '@/auth/RequireAuth'
 import ApplicationDetailPage from '@/page/ApplicationDetailPage'
 import ApplicationsPage from '@/page/ApplicationsPage'
+import CalendarPage from '@/page/CalendarPage'
 import CandidateApplicationPage from '@/page/CandidateApplicationPage'
 import CandidateCodePage from '@/page/CandidateCodePage'
 import CandidateHomePage from '@/page/CandidateHomePage'
@@ -77,6 +78,7 @@ function App() {
               <Route path="more" element={<MorePage />} />
               <Route path="forms" element={<FormsPage />} />
               <Route path="interviews" element={<InterviewsPage />} />
+              <Route path="calendar" element={<CalendarPage />} />
               <Route path="settings" element={<SettingsPage />} />
               <Route path="tasks" element={<TasksPage />} />
               <Route path="mentors" element={<MentorsPage />} />

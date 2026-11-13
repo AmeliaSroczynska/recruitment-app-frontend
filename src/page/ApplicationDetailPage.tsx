@@ -1,7 +1,10 @@
 import { ArrowLeft, EyeOff, Info } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
-import { AcceptApplicationDialog } from '@/components/applications/AcceptApplicationDialog'
+import {
+  AcceptApplicationDialog,
+  type ConfirmedStatus,
+} from '@/components/applications/AcceptApplicationDialog'
 import { ApplicationMentorCard } from '@/components/applications/ApplicationMentorCard'
 import { ApplicationTasksCard } from '@/components/applications/ApplicationTasksCard'
 import { AnswerList } from '@/components/applications/AnswerList'
@@ -97,14 +100,18 @@ function ApplicationDetailPage() {
     setIsSaving(false)
   }
 
-  const needsConfirmation =
+  const confirmedStatus: ConfirmedStatus | null =
     selectedStatus === 'accepted' && !application?.accepted_at
+      ? 'accepted'
+      : selectedStatus === 'interview' && application?.status !== 'interview'
+        ? 'interview'
+        : null
 
   const saveButton = canEdit && application && (
     <Button
       type="button"
       disabled={isSaving || selectedStatus === application.status}
-      onClick={() => (needsConfirmation ? setIsConfirming(true) : save())}
+      onClick={() => (confirmedStatus ? setIsConfirming(true) : save())}
       variant="accent"
       className="h-9 px-4 md:h-10"
     >
@@ -150,6 +157,7 @@ function ApplicationDetailPage() {
     >
       {application && (
         <AcceptApplicationDialog
+          status={confirmedStatus ?? 'accepted'}
           open={isConfirming}
           name={getDisplayName(application)}
           onOpenChange={setIsConfirming}

@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Info } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -9,6 +9,7 @@ import { STAGES, getStatusView } from '@/panel/candidate'
 type StatusHeroProps = {
   status: ApplicationStatus
   isScheduled?: boolean
+  info?: string | null
   onboardingPath: string
 }
 
@@ -19,7 +20,12 @@ function getBarClassName(index: number, stage: number) {
   return index === stage ? 'bg-ochre' : 'bg-olive-dark'
 }
 
-function StatusHero({ status, isScheduled, onboardingPath }: StatusHeroProps) {
+function StatusHero({
+  status,
+  isScheduled,
+  info,
+  onboardingPath,
+}: StatusHeroProps) {
   const view = getStatusView(status, isScheduled)
   const isRejected = status === 'rejected'
 
@@ -46,6 +52,12 @@ function StatusHero({ status, isScheduled, onboardingPath }: StatusHeroProps) {
           )}
         >
           {view.description}
+        </p>
+      )}
+      {status === 'interview' && info && (
+        <p className="mt-4 flex gap-2 rounded-xl bg-olive-dark px-3 py-2.5 text-sm whitespace-pre-line text-surface">
+          <Info className="mt-0.5 size-4 shrink-0 text-ochre" />
+          {info}
         </p>
       )}
       <ol className="mt-5 grid grid-cols-5 gap-1.5">

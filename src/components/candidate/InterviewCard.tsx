@@ -1,4 +1,4 @@
-import { Clock, Info } from 'lucide-react'
+import { Clock } from 'lucide-react'
 import { useState } from 'react'
 import {
   AlertDialog,
@@ -25,16 +25,10 @@ import {
 type InterviewCardProps = {
   path: string
   interview: ScheduledInterview
-  info: string | null
   onChange: (availability: CandidateAvailability) => void
 }
 
-function InterviewCard({
-  path,
-  interview,
-  info,
-  onChange,
-}: InterviewCardProps) {
+function InterviewCard({ path, interview, onChange }: InterviewCardProps) {
   const [error, setError] = useState('')
   const [isCancelling, setIsCancelling] = useState(false)
   const date = fromIsoDate(interview.date)
@@ -78,12 +72,6 @@ function InterviewCard({
           </p>
         </div>
       </div>
-      {info && (
-        <p className="mt-4 flex gap-2 rounded-xl bg-paper px-3 py-2.5 text-sm whitespace-pre-line text-foreground">
-          <Info className="mt-0.5 size-4 shrink-0 text-ochre-dark" />
-          {info}
-        </p>
-      )}
       <AlertDialog>
         <AlertDialogTrigger
           disabled={isCancelling}

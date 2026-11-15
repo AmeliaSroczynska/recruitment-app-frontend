@@ -1,4 +1,3 @@
-import { Info } from 'lucide-react'
 import { useState } from 'react'
 import { AvailabilityGrid } from '@/components/calendar/AvailabilityGrid'
 import { Button } from '@/components/ui/button'
@@ -67,12 +66,6 @@ function AvailabilityCard({
           <p className="mt-1 text-sm text-muted-foreground">
             Zaznacz w kalendarzu godziny, w których możesz przyjść.
           </p>
-          {availability.info && (
-            <p className="mt-4 flex gap-2 rounded-xl bg-paper px-3 py-2.5 text-sm whitespace-pre-line text-foreground">
-              <Info className="mt-0.5 size-4 shrink-0 text-ochre-dark" />
-              {availability.info}
-            </p>
-          )}
           <p className="mt-4 mb-2 text-xs text-muted-foreground">
             {formatMonths(availability.days)}
           </p>

@@ -50,6 +50,7 @@ function CandidateHomePage() {
           <StatusHero
             status={application.status}
             isScheduled={Boolean(interview)}
+            info={availability?.info}
             onboardingPath={`/candidate/${application.edition_id}/onboarding`}
           />
           {isInvited && !isLoaded && (
@@ -62,7 +63,6 @@ function CandidateHomePage() {
             <InterviewCard
               path={`${path}interview/cancel/`}
               interview={interview}
-              info={availability.info}
               onChange={update}
             />
           )}

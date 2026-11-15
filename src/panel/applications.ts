@@ -28,6 +28,7 @@ type ApplicationDetail = ApplicationListItem & {
   accepted_at: string | null
   answers: ApplicationAnswer[]
   mentor: MentorSummary | null
+  ai_analysis: string | null
 }
 
 type TeamEntry = {

@@ -5,6 +5,7 @@ import {
   AcceptApplicationDialog,
   type ConfirmedStatus,
 } from '@/components/applications/AcceptApplicationDialog'
+import { AiAnalysisCard } from '@/components/applications/AiAnalysisCard'
 import { ApplicationMentorCard } from '@/components/applications/ApplicationMentorCard'
 import { ApplicationTasksCard } from '@/components/applications/ApplicationTasksCard'
 import { AnswerList } from '@/components/applications/AnswerList'
@@ -226,7 +227,11 @@ function ApplicationDetailPage() {
             <PanelTabsTrigger value="onboarding">Wdrożenie</PanelTabsTrigger>
             <PanelTabsTrigger value="notes">Notatki</PanelTabsTrigger>
           </PanelTabsList>
-          <TabsContent value="application">
+          <TabsContent
+            value="application"
+            className="flex flex-col gap-4 md:gap-5"
+          >
+            <AiAnalysisCard analysis={application.ai_analysis} />
             <AnswerList answers={application.answers} />
           </TabsContent>
           <TabsContent value="interviews">

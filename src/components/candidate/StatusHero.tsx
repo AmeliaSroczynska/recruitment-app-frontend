@@ -32,7 +32,7 @@ function StatusHero({
   return (
     <Card
       className={cn(
-        'gap-0 self-start rounded-[18px] p-5 md:p-6',
+        'gap-0 rounded-[18px] p-5 md:p-6',
         isRejected ? 'shadow-card ring-border' : 'bg-olive shadow-none ring-0',
       )}
     >

@@ -231,7 +231,12 @@ function ApplicationDetailPage() {
             value="application"
             className="flex flex-col gap-4 md:gap-5"
           >
-            <AiAnalysisCard analysis={application.ai_analysis} />
+            <AiAnalysisCard
+              analysis={application.ai_analysis}
+              path={`${path}ai-analysis/`}
+              canGenerate={canEdit}
+              onGenerated={(data) => setLoaded({ key: path, data, error: '' })}
+            />
             <AnswerList answers={application.answers} />
           </TabsContent>
           <TabsContent value="interviews">

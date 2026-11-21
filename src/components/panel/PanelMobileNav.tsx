@@ -2,14 +2,23 @@ import { NavLink } from 'react-router-dom'
 import { MOBILE_NAV } from '@/components/panel/menu'
 import { cn } from '@/lib/utils'
 import { useEdition, useSection } from '@/panel/EditionContext'
+import { canSee } from '@/panel/roles'
 
 function PanelMobileNav() {
   const membership = useEdition()
   const section = useSection()
+  const items = MOBILE_NAV.filter((item) =>
+    canSee(membership.role, item.access),
+  )
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-20 grid grid-cols-4 border-t border-border bg-card pt-3.5 pb-[max(14px,env(safe-area-inset-bottom))] md:hidden">
-      {MOBILE_NAV.map((item) => {
+    <nav
+      className={cn(
+        'fixed inset-x-0 bottom-0 z-20 grid border-t border-border bg-card pt-3.5 pb-[max(14px,env(safe-area-inset-bottom))] md:hidden',
+        items.length === 4 ? 'grid-cols-4' : 'grid-cols-3',
+      )}
+    >
+      {items.map((item) => {
         const isActive = item.matches.includes(section)
         return (
           <NavLink

@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/item'
 import { cn } from '@/lib/utils'
 import { useEdition } from '@/panel/EditionContext'
-import { ROLE_LABELS, canSeeSettings } from '@/panel/roles'
+import { ROLE_LABELS, canSeeRecruitment, canSeeSettings } from '@/panel/roles'
 import { getDisplayName } from '@/panel/user'
 
 type MoreLinkProps = {
@@ -100,12 +100,16 @@ function MorePage() {
           </ItemContent>
         </Item>
         <ItemGroup className="gap-0 overflow-hidden rounded-2xl border bg-card">
-          <MoreLink
-            icon={TextAlignStart}
-            label="Formularze"
-            to={`${basePath}/forms`}
-          />
-          <ItemSeparator className="my-0" />
+          {canSeeRecruitment(membership.role) && (
+            <>
+              <MoreLink
+                icon={TextAlignStart}
+                label="Formularze"
+                to={`${basePath}/forms`}
+              />
+              <ItemSeparator className="my-0" />
+            </>
+          )}
           <MoreLink
             icon={ChartColumn}
             label="Statystyki"

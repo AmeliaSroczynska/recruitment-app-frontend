@@ -7,8 +7,31 @@ const ROLE_LABELS: Record<string, string> = {
   observer: 'Obserwator',
 }
 
+type Access = 'recruitment' | 'onboarding' | 'settings'
+
 function canSeeSettings(role: string) {
   return role === 'coordinator' || role === 'observer'
+}
+
+function canSeeRecruitment(role: string) {
+  return canSeeSettings(role) || role === 'recruiter'
+}
+
+function canSeeOnboarding(role: string) {
+  return canSeeSettings(role) || role === 'mentor'
+}
+
+function canSee(role: string, access?: Access) {
+  if (access === 'recruitment') {
+    return canSeeRecruitment(role)
+  }
+  if (access === 'onboarding') {
+    return canSeeOnboarding(role)
+  }
+  if (access === 'settings') {
+    return canSeeSettings(role)
+  }
+  return true
 }
 
 function canEditSettings(role: string) {
@@ -21,6 +44,10 @@ function canEditForm(role: string) {
 
 function canEditApplications(role: string) {
   return role === 'coordinator' || role === 'recruiter'
+}
+
+function canEditApplicationCard(role: string) {
+  return role !== 'observer'
 }
 
 function canEditInterviews(role: string) {
@@ -38,11 +65,16 @@ function canEditNotes(role: string) {
 export {
   ROLES,
   ROLE_LABELS,
+  canEditApplicationCard,
   canEditApplications,
   canEditForm,
   canEditInterviews,
   canEditNotes,
   canEditOnboarding,
   canEditSettings,
+  canSee,
+  canSeeOnboarding,
+  canSeeRecruitment,
   canSeeSettings,
 }
+export type { Access }

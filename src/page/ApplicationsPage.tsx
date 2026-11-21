@@ -8,8 +8,9 @@ import { ErrorAlert } from '@/components/panel/ErrorAlert'
 import { PanelPage } from '@/components/panel/PanelPage'
 import { Skeleton } from '@/components/ui/skeleton'
 import { api } from '@/lib/api'
-import type { ApplicationPage } from '@/panel/applications'
+import type { ApplicationListItem, ApplicationPage } from '@/panel/applications'
 import { useEdition } from '@/panel/EditionContext'
+import { canEditApplications } from '@/panel/roles'
 
 const DEFAULT_ORDERING = 'submitted_at'
 
@@ -27,6 +28,8 @@ function ApplicationsPage() {
   const page = Number(params.get('page') ?? '1') || 1
   const [query, setQuery] = useState(search)
   const [loaded, setLoaded] = useState<LoadedPage | null>(null)
+  const [version, setVersion] = useState(0)
+  const [deleteError, setDeleteError] = useState('')
 
   const path = `editions/${membership.edition_id}/applications/?${new URLSearchParams(
     {
@@ -46,7 +49,7 @@ function ApplicationsPage() {
           error: 'Nie udało się wczytać zgłoszeń.',
         }),
       )
-  }, [path])
+  }, [path, version])
 
   function update(changes: Record<string, string>, resetPage = true) {
     setParams(
@@ -76,6 +79,24 @@ function ApplicationsPage() {
     return () => clearTimeout(timer)
   })
 
+  async function deleteApplication(application: ApplicationListItem) {
+    setDeleteError('')
+    try {
+      await api(
+        `editions/${membership.edition_id}/applications/${application.id}/`,
+        { method: 'DELETE' },
+      )
+    } catch {
+      setDeleteError('Nie udało się usunąć zgłoszenia.')
+      return
+    }
+    if (loaded?.data?.results.length === 1 && page > 1) {
+      update({ page: page > 2 ? String(page - 1) : '' }, false)
+      return
+    }
+    setVersion((current) => current + 1)
+  }
+
   const data = loaded?.data
   const isLoading = loaded?.key !== path
   const hasFilters = Boolean(search)
@@ -92,6 +113,7 @@ function ApplicationsPage() {
       <div className="mb-4 md:hidden">{filters}</div>
       <div>
         {loaded?.error && <ErrorAlert>{loaded.error}</ErrorAlert>}
+        {deleteError && <ErrorAlert className="mb-4">{deleteError}</ErrorAlert>}
         {!data && !loaded?.error && <Skeleton className="h-64 w-full" />}
         {data && data.results.length === 0 && (
           <p className="rounded-2xl border border-border bg-card px-4 py-10 text-center text-sm text-muted-foreground">
@@ -110,6 +132,11 @@ function ApplicationsPage() {
                   update({
                     ordering: value === DEFAULT_ORDERING ? '' : value,
                   })
+                }
+                onDelete={
+                  canEditApplications(membership.role)
+                    ? deleteApplication
+                    : undefined
                 }
               />
             </div>

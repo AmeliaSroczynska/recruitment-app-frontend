@@ -1,5 +1,6 @@
 import { ArrowDown, ArrowUp } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
+import { DeleteApplicationDialog } from '@/components/applications/DeleteApplicationDialog'
 import { StatusBadge } from '@/components/applications/StatusBadge'
 import { UserAvatar } from '@/components/panel/UserAvatar'
 import { Button } from '@/components/ui/button'
@@ -72,12 +73,14 @@ type ApplicationTableProps = {
   applications: ApplicationListItem[]
   ordering: string
   onOrderingChange: (ordering: string) => void
+  onDelete?: (application: ApplicationListItem) => void
 }
 
 function ApplicationTable({
   applications,
   ordering,
   onOrderingChange,
+  onDelete,
 }: ApplicationTableProps) {
   const { search } = useLocation()
   const sortProps = { ordering, onOrderingChange }
@@ -111,6 +114,11 @@ function ApplicationTable({
               className="h-10 px-4 text-muted-foreground"
               {...sortProps}
             />
+            {onDelete && (
+              <TableHead className="h-10 w-14 px-4">
+                <span className="sr-only">Akcje</span>
+              </TableHead>
+            )}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -153,6 +161,14 @@ function ApplicationTable({
                 <TableCell className="px-4 text-muted-foreground">
                   {formatDateTime(application.submitted_at)}
                 </TableCell>
+                {onDelete && (
+                  <TableCell className="px-4 text-right">
+                    <DeleteApplicationDialog
+                      name={getDisplayName(application)}
+                      onConfirm={() => onDelete(application)}
+                    />
+                  </TableCell>
+                )}
               </TableRow>
             )
           })}

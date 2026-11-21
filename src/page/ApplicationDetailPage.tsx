@@ -34,7 +34,7 @@ import { Tabs, TabsContent } from '@/components/ui/tabs'
 import { api, ApiError } from '@/lib/api'
 import type { ApplicationDetail, ApplicationStatus } from '@/panel/applications'
 import { useEdition } from '@/panel/EditionContext'
-import { canEditApplications, canEditNotes } from '@/panel/roles'
+import { canEditApplicationCard, canEditNotes } from '@/panel/roles'
 import { getDisplayName } from '@/panel/user'
 
 type LoadedApplication = {
@@ -47,7 +47,7 @@ function ApplicationDetailPage() {
   const membership = useEdition()
   const { applicationId } = useParams()
   const location = useLocation()
-  const canEdit = canEditApplications(membership.role)
+  const canEdit = canEditApplicationCard(membership.role)
   const path = `editions/${membership.edition_id}/applications/${applicationId}/`
   const listPath = `/organization/${membership.edition_id}/applications${location.state?.search ?? ''}`
   const [loaded, setLoaded] = useState<LoadedApplication | null>(null)

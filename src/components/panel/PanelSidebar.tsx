@@ -24,7 +24,7 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar'
 import { useEdition, useSection } from '@/panel/EditionContext'
-import { canSeeSettings } from '@/panel/roles'
+import { canSee } from '@/panel/roles'
 import { getDisplayName } from '@/panel/user'
 
 function PanelSidebar() {
@@ -58,17 +58,20 @@ function PanelSidebar() {
         <SidebarTrigger className="text-moss hover:bg-sidebar-accent hover:text-sidebar-accent-foreground" />
       </SidebarHeader>
       <SidebarContent className="gap-0 px-1.5 group-data-[collapsible=icon]:px-1">
-        {MENU.map((group) => (
-          <SidebarGroup key={group.label} className="pt-1.5">
-            <SidebarGroupLabel className="text-xs font-medium tracking-[0.1px] text-moss group-data-[collapsible=icon]:mt-0">
-              {group.label}
-            </SidebarGroupLabel>
-            <SidebarMenu className="gap-0.5">
-              {group.items
-                .filter(
-                  (item) => !item.settings || canSeeSettings(membership.role),
-                )
-                .map((item) => (
+        {MENU.map((group) => ({
+          ...group,
+          items: group.items.filter((item) =>
+            canSee(membership.role, item.access),
+          ),
+        }))
+          .filter((group) => group.items.length > 0)
+          .map((group) => (
+            <SidebarGroup key={group.label} className="pt-1.5">
+              <SidebarGroupLabel className="text-xs font-medium tracking-[0.1px] text-moss group-data-[collapsible=icon]:mt-0">
+                {group.label}
+              </SidebarGroupLabel>
+              <SidebarMenu className="gap-0.5">
+                {group.items.map((item) => (
                   <SidebarMenuItem key={item.path}>
                     <SidebarMenuButton
                       render={<NavLink to={`${basePath}/${item.path}`} end />}
@@ -81,9 +84,9 @@ function PanelSidebar() {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
-            </SidebarMenu>
-          </SidebarGroup>
-        ))}
+              </SidebarMenu>
+            </SidebarGroup>
+          ))}
       </SidebarContent>
       <SidebarFooter className="px-3.5 pb-4 group-data-[collapsible=icon]:px-3">
         <SidebarMenu className="border-t border-sidebar-border pt-3 group-data-[collapsible=icon]:border-t-0">

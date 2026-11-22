@@ -5,9 +5,15 @@ import {
   type FormEvent,
   type ReactNode,
 } from 'react'
+import { ChevronDown } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible'
 import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
@@ -91,9 +97,36 @@ function QuestionLabel({
   )
 }
 
+function ConsentNotice({
+  organizationName,
+  organizationEmail,
+}: {
+  organizationName: string
+  organizationEmail?: string
+}) {
+  return (
+    <p className="text-[13px] leading-relaxed text-muted-foreground">
+      Administratorem Twoich danych jest {organizationName}. Dane są
+      przetwarzane tylko w celu rekrutacji i wdrożenia, na podstawie Twojej
+      zgody (art. 6 ust. 1 lit. a RODO). Zgodę możesz wycofać w każdej chwili,
+      pisząc do organizacji
+      {organizationEmail ? ` na adres ${organizationEmail}` : ''}. Wycofanie
+      zgody nie wpływa na zgodność z prawem przetwarzania, które odbyło się
+      wcześniej. Masz prawo dostępu do swoich danych, ich sprostowania,
+      usunięcia, ograniczenia przetwarzania i przeniesienia, a także prawo
+      wniesienia skargi do Prezesa UODO. Dane z nieaktywnych edycji naboru
+      starszych niż 2 lata są usuwane automatycznie. Przechowują je zewnętrzni
+      dostawcy: Neon (baza danych), Vercel (hosting), Supabase Storage (pliki) i
+      Gmail (wysyłka e-maili). Treść odpowiedzi, bez imienia, nazwiska i adresu
+      e-mail, może trafić do Gemini API od Google.
+    </p>
+  )
+}
+
 type ApplicationFormViewProps = FormHeaderProps & {
+  organizationEmail?: string
   questions: Question[]
-  onSubmit?: (answers: Answers) => void
+  onSubmit?: (answers: Answers, consent: boolean) => void
   errors?: FieldErrors
   formError?: string
   submitting?: boolean
@@ -103,6 +136,7 @@ function ApplicationFormView({
   title,
   description,
   organizationName,
+  organizationEmail,
   headerImageUrl,
   questions,
   onSubmit,
@@ -111,6 +145,7 @@ function ApplicationFormView({
   submitting = false,
 }: ApplicationFormViewProps) {
   const [answers, setAnswers] = useState<Answers>({})
+  const [consent, setConsent] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
@@ -125,7 +160,7 @@ function ApplicationFormView({
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    onSubmit?.(answers)
+    onSubmit?.(answers, consent)
   }
 
   const fields = (
@@ -256,6 +291,46 @@ function ApplicationFormView({
           </Field>
         )
       })}
+      <Field data-invalid={Boolean(errors.consent)} className="gap-3">
+        <Collapsible className="rounded-[10px] border border-border bg-card px-4 py-2.5 has-data-checked:border-ochre has-data-checked:bg-sand/30">
+          <div className="flex items-center gap-3">
+            <Checkbox
+              id="answer-consent"
+              checked={consent}
+              onCheckedChange={(checked) => setConsent(checked === true)}
+              aria-invalid={Boolean(errors.consent)}
+              className={choiceControlClassName}
+            />
+            <FieldLabel
+              htmlFor="answer-consent"
+              className="flex-1 text-[15px] font-normal"
+            >
+              Wyrażam zgodę na przetwarzanie moich danych osobowych przez{' '}
+              {organizationName} w celu rekrutacji i wdrożenia. *
+            </FieldLabel>
+            <CollapsibleTrigger
+              render={
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  aria-label="Pokaż lub ukryj informacje o danych osobowych"
+                  className="group shrink-0 text-muted-foreground hover:bg-muted aria-expanded:bg-transparent"
+                />
+              }
+            >
+              <ChevronDown className="transition-transform group-data-panel-open:rotate-180" />
+            </CollapsibleTrigger>
+          </div>
+          <CollapsibleContent className="pt-2 pl-7">
+            <ConsentNotice
+              organizationName={organizationName}
+              organizationEmail={organizationEmail}
+            />
+          </CollapsibleContent>
+        </Collapsible>
+        <FieldError>{errors.consent}</FieldError>
+      </Field>
       <div className="flex flex-col items-start gap-4">
         {formError && <FieldError>{formError}</FieldError>}
         <Button

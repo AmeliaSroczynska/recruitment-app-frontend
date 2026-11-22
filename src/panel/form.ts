@@ -31,6 +31,7 @@ type PublicForm = {
   title: string
   description: string | null
   organization_name: string
+  organization_email: string
   header_image_url: string | null
   is_accepting_responses: boolean
   questions: Question[]
@@ -47,6 +48,7 @@ type ApplicationInput = {
   last_name: string
   email: string
   answers: AnswerInput[]
+  consent: boolean
 }
 
 export type {

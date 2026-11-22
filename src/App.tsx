@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from '@/auth/AuthProvider'
 import { RequireAuth } from '@/auth/RequireAuth'
+import { ViewTransitionListener } from '@/components/login/TransitionLink'
 import ApplicationDetailPage from '@/page/ApplicationDetailPage'
 import ApplicationsPage from '@/page/ApplicationsPage'
 import CalendarPage from '@/page/CalendarPage'
@@ -14,6 +15,7 @@ import CandidateOnboardingPage from '@/page/CandidateOnboardingPage'
 import CreateOrganizationPage from '@/page/CreateOrganizationPage'
 import FaqPage from '@/page/FaqPage'
 import FormsPage from '@/page/FormsPage'
+import HomePage from '@/page/HomePage'
 import InterviewsPage from '@/page/InterviewsPage'
 import KnowledgePage from '@/page/KnowledgePage'
 import MentorProfilePage from '@/page/MentorProfilePage'
@@ -33,9 +35,10 @@ import TasksPage from '@/page/TasksPage'
 function App() {
   return (
     <BrowserRouter>
+      <ViewTransitionListener />
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<PanelChoicePage />} />
           <Route path="/form/:slug" element={<PublicFormPage />} />
           <Route path="/login/candidate" element={<CandidateLoginPage />} />

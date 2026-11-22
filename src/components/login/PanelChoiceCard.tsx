@@ -1,5 +1,4 @@
 import { ArrowRight, type LucideIcon } from 'lucide-react'
-import { Link } from 'react-router-dom'
 import {
   Item,
   ItemActions,
@@ -8,6 +7,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item'
+import { TransitionLink } from '@/components/login/TransitionLink'
 import { cn } from '@/lib/utils'
 
 type PanelChoiceCardProps = {
@@ -28,7 +28,7 @@ function PanelChoiceCard({
   return (
     <Item
       variant="outline"
-      render={<Link to={to} />}
+      render={<TransitionLink to={to} />}
       className="flex-nowrap rounded-[14px] bg-card py-[15px] shadow-tile [a]:hover:border-stone [a]:hover:bg-card"
     >
       <ItemMedia

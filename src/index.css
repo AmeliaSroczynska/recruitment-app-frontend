@@ -95,6 +95,18 @@
   --shadow-tile: 0 1px 1px rgb(34 32 27 / 0.05);
   --shadow-float: 0 2px 6px rgb(34 32 27 / 0.15);
 
+  --animate-float: float 7s ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -131,6 +143,55 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+}
+
+::view-transition-group(*),
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+::view-transition-new(login-panel):only-child {
+  animation-name: panel-enter;
+}
+
+::view-transition-old(login-panel):only-child {
+  animation-name: panel-leave;
+}
+
+@keyframes panel-enter {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes panel-leave {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@media (min-width: 64rem) {
+  @keyframes panel-enter {
+    from {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes panel-leave {
+    to {
+      transform: translateX(100%);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }
 
 @layer base {

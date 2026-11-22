@@ -11,19 +11,19 @@ function LoginArt({ title, description, mirrored = false }: LoginArtProps) {
     <aside className="relative hidden w-[51.2%] shrink-0 overflow-hidden bg-olive lg:block">
       <div
         className={cn(
-          'absolute -bottom-[170px] size-[760px] rounded-full bg-olive-dark',
+          'absolute -bottom-[170px] size-[760px] rounded-full bg-olive-dark [view-transition-name:circle-large]',
           mirrored ? '-right-[410px]' : '-left-[170px]',
         )}
       />
       <div
         className={cn(
-          'absolute -bottom-[70px] size-80 rounded-full bg-sage opacity-55',
+          'absolute -bottom-[70px] size-80 rounded-full bg-sage opacity-55 [view-transition-name:circle-sage]',
           mirrored ? '-right-[70px]' : '-left-[70px]',
         )}
       />
       <div
         className={cn(
-          'absolute bottom-[150px] size-24 rounded-full bg-ochre opacity-90',
+          'absolute bottom-[150px] size-24 rounded-full bg-ochre opacity-90 [view-transition-name:circle-ochre]',
           mirrored ? 'left-[60px]' : 'right-[60px]',
         )}
       />
@@ -54,19 +54,19 @@ function MobileLoginHeader({
     <header className="relative h-[220px] shrink-0 overflow-hidden lg:hidden">
       <div
         className={cn(
-          'absolute -top-[30px] size-[220px] rounded-full bg-olive-dark',
+          'absolute -top-[30px] size-[220px] rounded-full bg-olive-dark [view-transition-name:circle-large]',
           mirrored ? '-right-[70px]' : '-left-[70px]',
         )}
       />
       <div
         className={cn(
-          'absolute top-[60px] size-[120px] rounded-full bg-sage opacity-55',
+          'absolute top-[60px] size-[120px] rounded-full bg-sage opacity-55 [view-transition-name:circle-sage]',
           mirrored ? '-right-[10px]' : '-left-[10px]',
         )}
       />
       <div
         className={cn(
-          'absolute top-10 size-[46px] rounded-full bg-ochre',
+          'absolute top-10 size-[46px] rounded-full bg-ochre [view-transition-name:circle-ochre]',
           mirrored ? 'left-[120px]' : 'right-[120px]',
         )}
       />

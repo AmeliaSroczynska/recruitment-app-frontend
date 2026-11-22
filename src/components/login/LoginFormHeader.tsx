@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { ArrowLeft } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { TransitionLink } from '@/components/login/TransitionLink'
 import { Button } from '@/components/ui/button'
 
 type LoginFormHeaderProps = {
@@ -21,7 +21,7 @@ function LoginFormHeader({
       <Button
         variant="link"
         nativeButton={false}
-        render={<Link to={backTo} />}
+        render={<TransitionLink to={backTo} />}
         className="h-auto gap-[5px] p-0 text-[13px] leading-[18.9px] font-semibold text-ochre-dark"
       >
         <ArrowLeft className="size-3.5" />

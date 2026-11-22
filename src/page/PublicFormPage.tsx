@@ -42,7 +42,11 @@ function getFieldErrors(data: unknown) {
   return errors
 }
 
-function buildApplication(form: PublicForm, answers: Answers) {
+function buildApplication(
+  form: PublicForm,
+  answers: Answers,
+  consent: boolean,
+) {
   const text = (key: string) => {
     const value = answers[key]
     return typeof value === 'string' ? value : ''
@@ -61,6 +65,7 @@ function buildApplication(form: PublicForm, answers: Answers) {
       }
       return { question: question.id, text: text(String(question.id)) }
     }),
+    consent,
   }
   return application
 }
@@ -86,11 +91,11 @@ function PublicFormPage() {
       )
   }, [slug])
 
-  async function handleSubmit(answers: Answers) {
+  async function handleSubmit(answers: Answers, consent: boolean) {
     if (!form) {
       return
     }
-    const application = buildApplication(form, answers)
+    const application = buildApplication(form, answers, consent)
     setSubmitting(true)
     setFormError('')
     try {
@@ -162,6 +167,7 @@ function PublicFormPage() {
             title={form.title}
             description={form.description}
             organizationName={form.organization_name}
+            organizationEmail={form.organization_email}
             headerImageUrl={form.header_image_url}
             questions={form.questions}
             onSubmit={handleSubmit}

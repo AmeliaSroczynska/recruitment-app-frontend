@@ -8,10 +8,7 @@ function HomePage() {
     <div className="relative flex h-svh flex-col overflow-hidden bg-olive text-surface">
       <HomeArt />
       <header className="relative flex items-center gap-2.5 px-6 pt-7 lg:px-[86px] lg:pt-10">
-        <span className="flex">
-          <span className="size-4 rounded-full bg-ochre" />
-          <span className="-ml-1.5 size-4 rounded-full bg-sage-light/80" />
-        </span>
+        <img src="/favicon.svg" alt="" className="size-8" />
         <span className="font-heading text-lg font-extrabold tracking-[-0.3px]">
           Rekrutownik
         </span>

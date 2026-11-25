@@ -165,7 +165,13 @@ function ToScheduleTab({ editionId, canEdit }: ToScheduleTabProps) {
               </button>
             ))}
           </div>
-          {selected && (
+          {selected && columns.length === 0 && (
+            <p className="text-sm text-muted-foreground">
+              Ten kandydat nie ma dostępności od dziś. Ustaw nowe dni rozmów w
+              Konfiguracji i poproś go o podanie dostępności.
+            </p>
+          )}
+          {selected && columns.length > 0 && (
             <>
               {canEdit && (
                 <p className="text-sm text-muted-foreground">

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { PanelPage } from '@/components/panel/PanelPage'
 import { PanelTabsList, PanelTabsTrigger } from '@/components/panel/PanelTabs'
+import { DeleteOrganizationCard } from '@/components/settings/DeleteOrganizationCard'
 import { EditionsCard } from '@/components/settings/EditionsCard'
 import { MembersCard } from '@/components/settings/MembersCard'
 import {
@@ -60,6 +61,7 @@ function SettingsPage() {
             editionId={membership.edition_id}
             canEdit={canEdit}
           />
+          {canEdit && <DeleteOrganizationCard />}
         </TabsContent>
         <TabsContent value="permissions" className="flex flex-col gap-4">
           <RolesCard />

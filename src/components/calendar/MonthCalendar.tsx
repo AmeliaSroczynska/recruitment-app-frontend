@@ -96,7 +96,7 @@ function MonthCalendar({ selected, onToggle }: MonthCalendarProps) {
                 'h-10 rounded-[10px] border border-border bg-card text-sm text-foreground transition-colors hover:border-sand disabled:cursor-default disabled:hover:border-border',
                 isOtherMonth && 'text-stone',
                 isSelected &&
-                  'border-ochre bg-ochre font-medium text-on-ochre hover:border-ochre disabled:hover:border-ochre',
+                  'border-ochre bg-ochre font-medium text-foreground hover:border-ochre disabled:hover:border-ochre',
               )}
             >
               {day.getDate()}

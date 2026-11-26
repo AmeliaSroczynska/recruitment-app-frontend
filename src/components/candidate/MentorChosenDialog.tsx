@@ -24,7 +24,7 @@ function MentorChosenDialog({ mentor, onClose }: MentorChosenDialogProps) {
     >
       <AlertDialogContent size="sm" className="bg-card data-[size=sm]:max-w-sm">
         <AlertDialogHeader>
-          <AlertDialogMedia className="size-12 rounded-full bg-sage-light/60 text-olive-dark">
+          <AlertDialogMedia className="size-12 rounded-full bg-sage-light/40 text-olive-dark">
             <Check className="size-5" />
           </AlertDialogMedia>
           <AlertDialogTitle className="font-heading text-lg font-semibold">

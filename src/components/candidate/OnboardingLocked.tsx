@@ -3,7 +3,7 @@ import { Lock } from 'lucide-react'
 function OnboardingLocked() {
   return (
     <div className="mx-auto flex max-w-[340px] flex-col items-center pt-10 text-center md:pt-16">
-      <div className="flex size-14 items-center justify-center rounded-2xl bg-paper text-olive-dark">
+      <div className="flex size-14 items-center justify-center rounded-2xl bg-background text-olive-dark">
         <Lock className="size-6" />
       </div>
       <h2 className="mt-4 text-base font-semibold text-foreground">

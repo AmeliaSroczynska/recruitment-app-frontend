@@ -19,7 +19,7 @@ function LoginLayout({
   children,
 }: LoginLayoutProps) {
   return (
-    <div className="flex min-h-svh flex-col bg-olive lg:flex-row">
+    <div className="flex min-h-svh flex-col bg-primary lg:flex-row">
       <LoginArt
         title={artTitle}
         description={artDescription}

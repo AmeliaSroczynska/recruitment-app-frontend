@@ -32,7 +32,7 @@ function TemplateTiles({
             className={cn(
               'flex min-w-44 shrink-0 flex-col items-start rounded-xl border border-border bg-card px-4 py-3 text-left shadow-card transition-colors hover:border-sand md:min-w-0',
               template.id === selectedId &&
-                'border-ochre bg-paper hover:border-ochre',
+                'border-ochre bg-background hover:border-ochre',
             )}
           >
             <span className="w-full truncate text-sm font-semibold text-foreground">

@@ -27,13 +27,13 @@ function PanelMobileNav() {
             end
             className={cn(
               'flex flex-col items-center gap-[3px] text-[10.5px] leading-[15.2px] font-medium',
-              isActive ? 'text-olive' : 'text-stone',
+              isActive ? 'text-primary' : 'text-stone',
             )}
           >
             <span
               className={cn(
                 'flex h-7 w-11 items-center justify-center rounded-full',
-                isActive && 'bg-moss-light',
+                isActive && 'bg-sage-light/40',
               )}
             >
               <item.icon className="size-5" strokeWidth={1.75} />

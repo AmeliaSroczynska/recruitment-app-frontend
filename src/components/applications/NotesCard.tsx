@@ -61,7 +61,7 @@ function NoteItem({ path, note, canEdit, onChange, onDelete }: NoteItemProps) {
       <UserAvatar
         user={getAuthor(note)}
         className="size-8"
-        fallbackClassName="bg-moss-light text-[11px]"
+        fallbackClassName="bg-sage-light/40 text-[11px]"
       />
       <div className="min-w-0 flex-1">
         <div className="flex items-center justify-between gap-2">

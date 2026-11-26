@@ -104,7 +104,7 @@ function formatDateTime(value: string) {
   return `${date.toLocaleDateString('pl-PL')} ${time}`
 }
 
-const AVATAR_COLORS = ['bg-muted', 'bg-sage-light', 'bg-sand/60']
+const AVATAR_COLORS = ['bg-muted', 'bg-sage-light', 'bg-sand/50']
 
 export {
   APPLICATION_PAGE_SIZE,

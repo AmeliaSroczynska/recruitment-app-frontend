@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 
 function HomePage() {
   return (
-    <div className="relative flex h-svh flex-col overflow-hidden bg-olive text-surface">
+    <div className="relative flex h-svh flex-col overflow-hidden bg-primary text-card">
       <HomeArt />
       <header className="relative flex items-center gap-2.5 px-6 pt-7 lg:px-[86px] lg:pt-10">
         <img src="/favicon.svg" alt="" className="size-8" />
@@ -22,7 +22,7 @@ function HomePage() {
           nativeButton={false}
           render={<TransitionLink to="/login" />}
           variant="accent"
-          className="mt-8 h-12 w-full gap-2 px-6 text-[15px] text-on-ochre hover:bg-sand motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:fill-mode-both motion-safe:delay-200 motion-safe:duration-700 sm:w-fit lg:mt-10"
+          className="mt-8 h-12 w-full gap-2 px-6 text-[15px] text-foreground hover:bg-sand motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:fill-mode-both motion-safe:delay-200 motion-safe:duration-700 sm:w-fit lg:mt-10"
         >
           Zaloguj się
           <ArrowRight

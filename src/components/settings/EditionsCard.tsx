@@ -48,7 +48,7 @@ function EditionsCard({ editionId, canEdit }: EditionsCardProps) {
                 className={cn(
                   'h-8 rounded-lg border-border bg-card px-3 text-sm font-normal shadow-none',
                   edition.id === editionId &&
-                    'border-ochre bg-paper text-ochre-dark hover:bg-paper hover:text-ochre-dark',
+                    'border-ochre bg-background text-ochre-dark hover:bg-background hover:text-ochre-dark',
                 )}
               >
                 {edition.name}

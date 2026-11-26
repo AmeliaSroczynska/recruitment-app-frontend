@@ -25,14 +25,14 @@ function PanelChoicePage() {
           title="Jestem kandydatem"
           description="Sprawdź status zgłoszenia, zapisz się na rozmowę i zacznij wdrożenie."
           icon={User}
-          iconClassName="bg-olive text-surface"
+          iconClassName="bg-primary text-card"
         />
         <PanelChoiceCard
           to="/login/organization"
           title="Jestem z organizacji"
           description="Panel rekrutera: zgłoszenia, rozmowy, wdrożenia i statystyki."
           icon={Users}
-          iconClassName="bg-ochre text-on-ochre"
+          iconClassName="bg-ochre text-foreground"
         />
       </div>
     </LoginLayout>

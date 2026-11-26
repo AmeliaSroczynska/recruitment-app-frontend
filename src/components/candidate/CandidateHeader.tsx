@@ -29,7 +29,7 @@ function CandidateHeader() {
               cn(
                 'flex h-9 items-center gap-2 rounded-[9px] px-3.5 text-sm font-medium whitespace-nowrap transition-colors',
                 isActive
-                  ? 'bg-olive text-surface'
+                  ? 'bg-primary text-card'
                   : 'text-muted-foreground hover:text-foreground',
               )
             }

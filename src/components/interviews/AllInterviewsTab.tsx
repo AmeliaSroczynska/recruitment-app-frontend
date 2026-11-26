@@ -41,7 +41,7 @@ function InterviewTable({ interviews, editionId }: InterviewListProps) {
   return (
     <Card className="hidden gap-0 rounded-2xl py-0 shadow-card ring-border md:flex">
       <Table className="text-sm">
-        <TableHeader className="bg-paper">
+        <TableHeader className="bg-background">
           <TableRow className="hover:bg-transparent">
             <TableHead className="h-10 w-[34%] border-r border-border px-4 font-medium text-muted-foreground">
               Kandydat
@@ -61,7 +61,7 @@ function InterviewTable({ interviews, editionId }: InterviewListProps) {
           {interviews.map((interview, index) => (
             <TableRow
               key={interview.id}
-              className="relative h-14 cursor-pointer hover:bg-paper/60"
+              className="relative h-14 cursor-pointer hover:bg-background/60"
             >
               <TableCell className="border-r border-border px-4">
                 <div className="flex items-center gap-3">
@@ -108,7 +108,7 @@ function InterviewCards({ interviews, editionId }: InterviewListProps) {
             state={{ tab: 'interviews', interviewId: interview.id }}
             className="group/link block rounded-2xl"
           >
-            <Card className="gap-0 rounded-2xl p-4 shadow-card ring-border transition-colors group-hover/link:bg-paper/60">
+            <Card className="gap-0 rounded-2xl p-4 shadow-card ring-border transition-colors group-hover/link:bg-background/60">
               <div className="flex items-center gap-3">
                 <UserAvatar
                   user={interview}

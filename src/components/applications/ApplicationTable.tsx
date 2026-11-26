@@ -88,7 +88,7 @@ function ApplicationTable({
   return (
     <Card className="gap-0 rounded-2xl py-0 shadow-card ring-border">
       <Table className="text-sm">
-        <TableHeader className="bg-paper">
+        <TableHeader className="bg-background">
           <TableRow className="hover:bg-transparent">
             <SortableHead
               label="Kandydat"
@@ -127,7 +127,7 @@ function ApplicationTable({
             return (
               <TableRow
                 key={application.id}
-                className="relative h-14 cursor-pointer hover:bg-paper/60"
+                className="relative h-14 cursor-pointer hover:bg-background/60"
               >
                 <TableCell className="border-r border-border px-4">
                   <div className="flex items-center gap-3">

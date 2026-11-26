@@ -8,7 +8,7 @@ type LoginArtProps = {
 
 function LoginArt({ title, description, mirrored = false }: LoginArtProps) {
   return (
-    <aside className="relative hidden w-[51.2%] shrink-0 overflow-hidden bg-olive lg:block">
+    <aside className="relative hidden w-[51.2%] shrink-0 overflow-hidden bg-primary lg:block">
       <div
         className={cn(
           'absolute -bottom-[170px] size-[760px] rounded-full bg-olive-dark [view-transition-name:circle-large]',
@@ -28,7 +28,7 @@ function LoginArt({ title, description, mirrored = false }: LoginArtProps) {
         )}
       />
       <div className="relative px-[86px] pt-[92px]">
-        <h1 className="max-w-[561px] font-heading text-[63px] leading-[66.5px] font-extrabold tracking-[-1.3px] text-surface">
+        <h1 className="max-w-[561px] font-heading text-[63px] leading-[66.5px] font-extrabold tracking-[-1.3px] text-card">
           {title}
         </h1>
         <p className="mt-[12px] max-w-[441px] text-[17px] leading-[24.7px] text-sage-light">
@@ -76,7 +76,7 @@ function MobileLoginHeader({
           mirrored ? 'items-start text-left' : 'items-end text-right',
         )}
       >
-        <p className="font-heading text-[38px] leading-[55px] font-extrabold tracking-[-0.8px] text-surface">
+        <p className="font-heading text-[38px] leading-[55px] font-extrabold tracking-[-0.8px] text-card">
           {title}
         </p>
         <p className="mt-1 text-sm leading-[20.3px] text-sage-light">

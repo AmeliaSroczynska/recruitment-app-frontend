@@ -92,7 +92,7 @@ function CandidateMentors({ applicationId }: CandidateMentorsProps) {
               )}
             >
               {mentor.is_selected && (
-                <span className="absolute top-3 right-3 flex size-6 items-center justify-center rounded-full bg-olive-dark text-surface">
+                <span className="absolute top-3 right-3 flex size-6 items-center justify-center rounded-full bg-olive-dark text-card">
                   <Check className="size-3.5" />
                 </span>
               )}
@@ -102,7 +102,7 @@ function CandidateMentors({ applicationId }: CandidateMentorsProps) {
                   {mentor.first_name} {mentor.last_name}
                 </p>
                 {mentor.section && (
-                  <p className="mt-1 text-[13px] font-medium text-olive">
+                  <p className="mt-1 text-[13px] font-medium text-primary">
                     {mentor.section}
                   </p>
                 )}

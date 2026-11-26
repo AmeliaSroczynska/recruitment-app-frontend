@@ -55,7 +55,7 @@ function PanelSidebar() {
         <span className="min-w-0 flex-1 truncate font-heading text-lg font-extrabold tracking-[-0.3px] text-sidebar-accent-foreground group-data-[collapsible=icon]:hidden">
           {membership.organization_name}
         </span>
-        <SidebarTrigger className="text-moss hover:bg-sidebar-accent hover:text-sidebar-accent-foreground" />
+        <SidebarTrigger className="text-sage hover:bg-sidebar-accent hover:text-sidebar-accent-foreground" />
       </SidebarHeader>
       <SidebarContent className="gap-0 px-1.5 group-data-[collapsible=icon]:px-1">
         {MENU.map((group) => ({
@@ -67,7 +67,7 @@ function PanelSidebar() {
           .filter((group) => group.items.length > 0)
           .map((group) => (
             <SidebarGroup key={group.label} className="pt-1.5">
-              <SidebarGroupLabel className="text-xs font-medium tracking-[0.1px] text-moss group-data-[collapsible=icon]:mt-0">
+              <SidebarGroupLabel className="text-xs font-medium tracking-[0.1px] text-sage group-data-[collapsible=icon]:mt-0">
                 {group.label}
               </SidebarGroupLabel>
               <SidebarMenu className="gap-0.5">
@@ -105,11 +105,11 @@ function PanelSidebar() {
                   <span className="truncate text-sm font-medium">
                     {getDisplayName(user)}
                   </span>
-                  <span className="truncate text-xs text-moss">
+                  <span className="truncate text-xs text-sage">
                     {user.email}
                   </span>
                 </span>
-                <ChevronsUpDown className="ml-auto text-moss" />
+                <ChevronsUpDown className="ml-auto text-sage" />
               </DropdownMenuTrigger>
               <DropdownMenuContent side="top" className="min-w-56">
                 <DropdownMenuItem

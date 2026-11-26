@@ -33,13 +33,15 @@ function StatusHero({
     <Card
       className={cn(
         'gap-0 rounded-[18px] p-5 md:p-6',
-        isRejected ? 'shadow-card ring-border' : 'bg-olive shadow-none ring-0',
+        isRejected
+          ? 'shadow-card ring-border'
+          : 'bg-primary shadow-none ring-0',
       )}
     >
       <h2
         className={cn(
           'font-heading text-2xl leading-tight font-extrabold tracking-[-0.4px] md:text-[28px]',
-          isRejected ? 'text-foreground' : 'text-surface',
+          isRejected ? 'text-foreground' : 'text-card',
         )}
       >
         {view.title}
@@ -55,7 +57,7 @@ function StatusHero({
         </p>
       )}
       {status === 'interview' && info && (
-        <p className="mt-4 flex gap-2 rounded-xl bg-olive-dark px-3 py-2.5 text-sm whitespace-pre-line text-surface">
+        <p className="mt-4 flex gap-2 rounded-xl bg-olive-dark px-3 py-2.5 text-sm whitespace-pre-line text-card">
           <Info className="mt-0.5 size-4 shrink-0 text-ochre" />
           {info}
         </p>
@@ -75,11 +77,9 @@ function StatusHero({
               aria-current={index === view.stage ? 'step' : undefined}
               className={cn(
                 'truncate text-[11px] md:text-xs',
-                isRejected ? 'text-muted-foreground' : 'text-moss',
+                isRejected ? 'text-muted-foreground' : 'text-sage',
                 index === view.stage &&
-                  (isRejected
-                    ? 'text-destructive'
-                    : 'font-semibold text-surface'),
+                  (isRejected ? 'text-destructive' : 'font-semibold text-card'),
               )}
             >
               {stage}

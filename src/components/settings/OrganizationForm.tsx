@@ -130,7 +130,7 @@ function OrganizationForm({
           </Field>
         </fieldset>
         {error && <FieldError>{error}</FieldError>}
-        {message && <p className="text-sm text-olive">{message}</p>}
+        {message && <p className="text-sm text-primary">{message}</p>}
       </form>
     </SettingsCard>
   )

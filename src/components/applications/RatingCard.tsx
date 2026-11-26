@@ -126,7 +126,7 @@ function RatingCard({ path, membershipId, canEdit }: RatingCardProps) {
                     <UserAvatar
                       user={getAuthor(rating)}
                       className="size-7"
-                      fallbackClassName="bg-moss-light text-[11px]"
+                      fallbackClassName="bg-sage-light/40 text-[11px]"
                     />
                     <span className="min-w-0 flex-1 truncate text-foreground">
                       {getDisplayName(getAuthor(rating))}

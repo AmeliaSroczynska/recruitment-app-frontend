@@ -40,7 +40,7 @@ function FormPreview({ form }: FormPreviewProps) {
           <ToggleGroupItem
             key={value}
             value={value}
-            className="h-9 gap-2 rounded-[10px] border border-border bg-card px-3 font-normal hover:bg-paper data-pressed:border-ochre data-pressed:bg-sand/30 data-pressed:text-ochre-dark"
+            className="h-9 gap-2 rounded-[10px] border border-border bg-card px-3 font-normal hover:bg-background data-pressed:border-ochre data-pressed:bg-sand/30 data-pressed:text-ochre-dark"
           >
             <Icon className="size-4" />
             {label}

@@ -174,7 +174,7 @@ function ApplicationInterviews({
                 className={cn(
                   'rounded-[10px] border border-border bg-card px-3 py-1.5 text-sm text-foreground transition-colors hover:border-sand',
                   interview.id === selectedId &&
-                    'border-ochre bg-paper font-medium hover:border-ochre',
+                    'border-ochre bg-background font-medium hover:border-ochre',
                 )}
               >
                 {interview.template_name}

@@ -5,8 +5,8 @@ import { STATUS_LABELS, type ApplicationStatus } from '@/panel/applications'
 const STATUS_STYLES: Record<ApplicationStatus, string> = {
   new: 'bg-muted text-muted-foreground',
   interview: 'bg-muted text-ochre-dark',
-  to_decide: 'bg-sand/40 text-on-ochre',
-  accepted: 'bg-moss-light text-olive-dark',
+  to_decide: 'bg-sand/50 text-foreground',
+  accepted: 'bg-sage-light/40 text-olive-dark',
   rejected: 'bg-destructive/15 text-destructive',
 }
 

@@ -122,7 +122,7 @@ function PublicFormPage() {
   }
 
   return (
-    <main className="min-h-svh bg-paper md:px-[50px] md:py-6">
+    <main className="min-h-svh bg-background md:px-[50px] md:py-6">
       <Card className="mx-auto max-w-[1340px] gap-0 overflow-visible rounded-none px-5 py-8 text-base shadow-none ring-0 md:rounded-2xl md:px-[50px] md:py-14 md:ring-1 md:ring-border">
         {error && <ErrorAlert>{error}</ErrorAlert>}
         {!error && !form && <Skeleton className="h-64 w-full" />}

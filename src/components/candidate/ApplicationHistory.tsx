@@ -26,7 +26,7 @@ function ApplicationHistory({ items }: ApplicationHistoryProps) {
               className={cn(
                 'relative size-[18px] shrink-0 rounded-full border-2',
                 item.state === 'done' && 'border-sage bg-sage',
-                item.state === 'current' && 'border-olive bg-olive',
+                item.state === 'current' && 'border-primary bg-primary',
                 item.state === 'next' &&
                   'border-dashed border-stone bg-background',
               )}
@@ -36,7 +36,7 @@ function ApplicationHistory({ items }: ApplicationHistoryProps) {
                 'text-sm',
                 item.state === 'done' && 'font-semibold text-foreground',
                 item.state === 'current' &&
-                  'my-1 flex-1 rounded-[10px] bg-olive px-3 py-1.5 font-semibold text-surface',
+                  'my-1 flex-1 rounded-[10px] bg-primary px-3 py-1.5 font-semibold text-card',
                 item.state === 'next' && 'font-medium text-muted-foreground',
               )}
             >

@@ -14,7 +14,7 @@ const PODIUM_ORDER = [1, 0, 2]
 
 const PODIUM_STYLES = [
   'h-[108px] bg-secondary text-ochre-dark',
-  'h-20 bg-moss-light text-olive-dark',
+  'h-20 bg-sage-light/40 text-olive-dark',
   'h-16 bg-secondary text-muted-foreground',
 ]
 
@@ -139,7 +139,7 @@ function PodiumCard({ editionId, ranking }: PodiumCardProps) {
                       className={cn(
                         'flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-medium',
                         index < 3
-                          ? 'bg-ochre text-on-ochre'
+                          ? 'bg-ochre text-foreground'
                           : 'bg-secondary text-muted-foreground',
                       )}
                     >

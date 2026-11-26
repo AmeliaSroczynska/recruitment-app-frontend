@@ -21,7 +21,7 @@ function RequiredBadge({ required = true }: { required?: boolean }) {
 
 function FixedFields() {
   return (
-    <Card className="gap-0 bg-paper p-4 shadow-none ring-border md:p-6">
+    <Card className="gap-0 bg-background p-4 shadow-none ring-border md:p-6">
       <div className="flex items-center justify-between gap-3">
         <h2 className="flex items-center gap-2 text-base font-semibold text-foreground">
           <Lock className="size-4 text-muted-foreground" />

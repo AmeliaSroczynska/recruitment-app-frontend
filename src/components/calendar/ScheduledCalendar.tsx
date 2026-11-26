@@ -146,7 +146,7 @@ function ScheduledCalendar({
                   to={`/organization/${editionId}/applications/${interview.application_id}`}
                   state={{ tab: 'interviews', interviewId: interview.id }}
                   className={cn(
-                    'absolute overflow-hidden rounded-md border-l-[3px] border-ochre bg-paper px-2 py-1 text-left transition-colors hover:bg-sand/40',
+                    'absolute overflow-hidden rounded-md border-l-[3px] border-ochre bg-background px-2 py-1 text-left transition-colors hover:bg-sand/50',
                   )}
                   style={getPosition(item)}
                 >

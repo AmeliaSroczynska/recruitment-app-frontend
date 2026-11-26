@@ -45,7 +45,9 @@ function MoreLink({ icon: Icon, label, to, onClick, danger }: MoreLinkProps) {
       <ItemMedia
         className={cn(
           'size-9 rounded-[10px]',
-          danger ? 'bg-destructive/10 text-destructive' : 'bg-muted text-olive',
+          danger
+            ? 'bg-destructive/10 text-destructive'
+            : 'bg-muted text-primary',
         )}
       >
         <Icon className="size-4" />

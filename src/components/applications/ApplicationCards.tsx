@@ -28,7 +28,7 @@ function ApplicationCards({ applications }: ApplicationCardsProps) {
               state={{ search }}
               className="group/link block rounded-2xl"
             >
-              <Card className="gap-0 rounded-2xl p-4 shadow-card ring-border transition-colors group-hover/link:bg-paper/60">
+              <Card className="gap-0 rounded-2xl p-4 shadow-card ring-border transition-colors group-hover/link:bg-background/60">
                 <div className="flex items-center gap-3">
                   <UserAvatar
                     user={application}

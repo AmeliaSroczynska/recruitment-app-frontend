@@ -52,7 +52,7 @@ function InterviewersBox({
           </ul>
         ) : (
           <p className="flex min-w-0 flex-1 items-center gap-3 text-sm text-muted-foreground">
-            <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-sand/60 text-xs text-foreground">
+            <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-sand/50 text-xs text-foreground">
               ?
             </span>
             Nikt jeszcze nie przypisany

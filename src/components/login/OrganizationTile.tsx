@@ -11,8 +11,8 @@ import { OrganizationAvatar } from '@/components/panel/OrganizationAvatar'
 import { cn } from '@/lib/utils'
 
 const LOGO_COLORS = [
-  'bg-ochre text-on-ochre',
-  'bg-olive text-surface',
+  'bg-ochre text-foreground',
+  'bg-primary text-card',
   'bg-sage text-foreground',
 ]
 

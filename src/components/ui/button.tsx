@@ -18,9 +18,9 @@ const buttonVariants = cva(
           'bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40',
         link: 'text-primary underline-offset-4 hover:underline',
         accent:
-          'rounded-[10px] bg-ochre font-semibold text-surface hover:bg-ochre-dark',
+          'rounded-[10px] bg-ochre font-semibold text-card hover:bg-ochre-dark',
         dashed:
-          'rounded-[10px] border-dashed border-sand bg-transparent font-semibold text-ochre-dark hover:bg-paper hover:text-ochre-dark',
+          'rounded-[10px] border-dashed border-sand bg-transparent font-semibold text-ochre-dark hover:bg-background hover:text-ochre-dark',
       },
       size: {
         default:

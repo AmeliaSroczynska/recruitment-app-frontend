@@ -18,12 +18,12 @@ function CandidateMobileNav() {
           className={({ isActive }) =>
             cn(
               'flex flex-col items-center gap-1 text-xs font-medium',
-              isActive ? 'text-olive' : 'text-stone',
+              isActive ? 'text-primary' : 'text-stone',
             )
           }
         >
           {item === home ? (
-            <span className="-mt-12 flex size-14 items-center justify-center rounded-full bg-olive text-surface shadow-float ring-4 ring-background">
+            <span className="-mt-12 flex size-14 items-center justify-center rounded-full bg-primary text-card shadow-float ring-4 ring-background">
               <item.icon className="size-6" strokeWidth={1.75} />
             </span>
           ) : (

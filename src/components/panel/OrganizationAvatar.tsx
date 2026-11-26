@@ -25,7 +25,7 @@ function OrganizationAvatar({
       )}
       <AvatarFallback
         className={cn(
-          'rounded-[inherit] bg-ochre font-heading text-sm font-extrabold text-on-ochre',
+          'rounded-[inherit] bg-ochre font-heading text-sm font-extrabold text-foreground',
           fallbackClassName,
         )}
       >

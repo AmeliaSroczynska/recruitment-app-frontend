@@ -218,7 +218,7 @@ function ApplicationDetailPage() {
           {(error || message) && (
             <div className="-mt-2">
               {error && <FieldError>{error}</FieldError>}
-              {message && <p className="text-sm text-olive">{message}</p>}
+              {message && <p className="text-sm text-primary">{message}</p>}
             </div>
           )}
           <PanelTabsList>

@@ -57,13 +57,13 @@ function ScheduledTab({ editionId, canFilterMine }: ScheduledTabProps) {
         >
           <ToggleGroupItem
             value="mine"
-            className="h-9 rounded-[10px]! border-border bg-card px-4 data-pressed:border-ochre data-pressed:bg-ochre data-pressed:text-on-ochre"
+            className="h-9 rounded-[10px]! border-border bg-card px-4 data-pressed:border-ochre data-pressed:bg-ochre data-pressed:text-foreground"
           >
             Moje rozmowy
           </ToggleGroupItem>
           <ToggleGroupItem
             value="all"
-            className="h-9 rounded-[10px]! border-border bg-card px-4 data-pressed:border-ochre data-pressed:bg-ochre data-pressed:text-on-ochre"
+            className="h-9 rounded-[10px]! border-border bg-card px-4 data-pressed:border-ochre data-pressed:bg-ochre data-pressed:text-foreground"
           >
             Wszystkie rozmowy
           </ToggleGroupItem>

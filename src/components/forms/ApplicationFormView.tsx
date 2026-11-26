@@ -34,7 +34,7 @@ const choiceClassName =
   'rounded-[10px] border-border bg-card text-[15px] font-normal has-data-checked:border-ochre has-data-checked:bg-sand/30 *:data-[slot=field]:px-4 *:data-[slot=field]:py-2.5'
 
 const choiceControlClassName =
-  'data-checked:border-ochre data-checked:bg-ochre data-checked:text-surface'
+  'data-checked:border-ochre data-checked:bg-ochre data-checked:text-card'
 
 type Answers = Record<string, string | string[]>
 

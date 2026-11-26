@@ -158,7 +158,7 @@ function ToScheduleTab({ editionId, canEdit }: ToScheduleTabProps) {
                 className={cn(
                   'rounded-[10px] border border-border bg-card px-3 py-1.5 text-sm text-foreground transition-colors hover:border-sand',
                   application.id === selectedId &&
-                    'border-ochre bg-paper font-medium text-ochre-dark hover:border-ochre',
+                    'border-ochre bg-background font-medium text-ochre-dark hover:border-ochre',
                 )}
               >
                 {getDisplayName(application)}

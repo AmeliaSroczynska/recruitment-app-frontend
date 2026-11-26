@@ -45,7 +45,7 @@ function AccessIcon({ access }: { access: Access }) {
   return (
     <span
       aria-label={ACCESS_LABELS[access]}
-      className="inline-flex size-6 items-center justify-center rounded-md bg-paper"
+      className="inline-flex size-6 items-center justify-center rounded-md bg-background"
     >
       <Icon
         className={
@@ -62,7 +62,7 @@ function PermissionsTable() {
   return (
     <Card className="gap-0 overflow-hidden rounded-2xl bg-card py-0 shadow-card ring-border">
       <Table className="min-w-[560px]">
-        <TableHeader className="bg-paper">
+        <TableHeader className="bg-background">
           <TableRow className="border-border hover:bg-transparent">
             <TableHead className="h-11 px-5 font-heading text-sm font-semibold text-foreground">
               Uprawnienie

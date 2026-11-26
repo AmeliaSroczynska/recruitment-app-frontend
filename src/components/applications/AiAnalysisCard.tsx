@@ -38,7 +38,7 @@ function AiAnalysisCard({
   }
 
   return (
-    <Card className="gap-0 rounded-2xl bg-paper py-5 shadow-card ring-sand/70 md:py-6">
+    <Card className="gap-0 rounded-2xl bg-background py-5 shadow-card ring-sand/70 md:py-6">
       <CardContent className="flex flex-col gap-3 px-5 md:px-6">
         <div className="flex items-center justify-between gap-3">
           <h2 className="flex items-center gap-2 font-heading text-base font-semibold text-ochre-dark">

@@ -110,11 +110,11 @@ function AvailabilityGrid({
                   }
                   onClick={(event) => handleClick(event, key)}
                   className={cn(
-                    'h-5 border-l border-border bg-card transition-colors hover:bg-paper disabled:cursor-default disabled:hover:bg-card',
+                    'h-5 border-l border-border bg-card transition-colors hover:bg-background disabled:cursor-default disabled:hover:bg-card',
                     isHour ? 'border-t' : 'border-t border-t-border/40',
                     !isSelected &&
                       highlighted?.has(key) &&
-                      'bg-sand/45 hover:bg-sand/70 disabled:hover:bg-sand/45',
+                      'bg-sand/50 hover:bg-sand/70 disabled:hover:bg-sand/50',
                     isSelected &&
                       'bg-ochre hover:bg-ochre/90 disabled:hover:bg-ochre',
                   )}

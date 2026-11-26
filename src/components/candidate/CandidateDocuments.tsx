@@ -49,7 +49,7 @@ function CandidateDocuments({ applicationId }: CandidateDocumentsProps) {
         <ul className="divide-y divide-border">
           {documents.map((document) => (
             <li key={document.id} className="flex items-center gap-3 px-5 py-4">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-paper text-muted-foreground">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-background text-muted-foreground">
                 <FileText className="size-5" />
               </span>
               <span className="min-w-0 flex-1">

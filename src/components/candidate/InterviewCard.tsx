@@ -54,11 +54,11 @@ function InterviewCard({ path, interview, onChange }: InterviewCardProps) {
         Twoja rozmowa
       </h2>
       <div className="mt-4 flex items-center gap-4">
-        <div className="flex w-14 shrink-0 flex-col overflow-hidden rounded-xl border-2 border-olive text-center">
-          <span className="bg-olive py-0.5 text-[11px] font-semibold text-surface">
+        <div className="flex w-14 shrink-0 flex-col overflow-hidden rounded-xl border-2 border-primary text-center">
+          <span className="bg-primary py-0.5 text-[11px] font-semibold text-card">
             {date.toLocaleDateString('pl-PL', { month: 'short' })}
           </span>
-          <span className="py-1 font-heading text-2xl font-extrabold text-olive">
+          <span className="py-1 font-heading text-2xl font-extrabold text-primary">
             {date.getDate()}
           </span>
         </div>
